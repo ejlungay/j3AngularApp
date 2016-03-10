@@ -1,0 +1,61 @@
+  
+	<div ng-controller="todaysTrainingController"> 
+		<div class="pull-right">
+			<div class="btn-group" dropdown is-open="status.isopen">
+            <button type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+              <i class="fa fa-plus"></i> Participant <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-click="add()"><a href>Add new</a></li>
+              <li ng-click="existing()"><a href>Select existing</a></li>
+            </ul>
+          </div>
+		</div>
+		<div class="input-group pull-right" style="width: 200px; margin-right: 3px;">
+			<input class="form-control" ng-model="searchKeyword" placeholder="Search" type="search" ng-change="search()" /> 
+			<span class="input-group-addon">
+				<span class="glyphicon glyphicon-search"></span>
+			</span>
+		</div>
+		<div class="pull-right" style="margin-right: -1px;">
+			<select class="form-control">
+				<option>Search</option>
+				<option>Search All</option>
+			</select>
+		</div>
+		<div class="pull-right" style="margin-right: 3px;">
+			<button md-ink-ripple class="btn btn-default" ng-click="loadTrainingDelegates()"><i class="fa fa-refresh"></i></button>
+		</div>
+		<div id="printMe">
+			<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th  style="width:1%">#</th>
+						<th  style="width:3%">Image</th>
+						<th  style="width:25%">Full name</th>
+						<th>Status</th>
+						<th>Amount paid</th>
+						<th>Date paid</th>
+						<th style="width:3%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="delegate in delegateList | filter: searchKeyword">
+						<td>{{$index + 1}}</td>
+						<td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
+						<td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<p>
+								<a href><i class="fa fa-info-circle" popover="About '{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}'" popover-trigger="mouseenter"></i></a>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	  

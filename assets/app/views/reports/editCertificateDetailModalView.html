@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="modal-title">Edit Certificate Detail</h3>
+</div>
+<div class="modal-body">
+	<center> ------  TRAINING INFO ------ </center>
+	<legend/>
+	<div class="row">
+        <div class="col-md-6">
+           <div class="form-group">
+				<label>Training Date: </label>
+			</div>
+			<div class="form-group">
+				<label>Training location:</label> 
+			</div>
+        </div>
+          <div class="col-md-6">
+            <div class="form-group">
+				<label>Start time:</label>
+			</div>
+			<div class="form-group">
+				<label>End time:</label> 
+			</div>
+        </div>
+    </div>
+	<center> ------ TRAINING SPEAKERS ------ </center>
+	<legend/>
+	<div class="row">
+        <div class="col-md-6">
+           <div class="form-group">
+				<label>Current speakers</label>
+				<table class="table table-bordered table-hover bg-white">
+					<thead>
+						<tr>
+							<th><center>#</center></th>
+							<th><center>Speaker name</center></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="delegate in delegateList track by $index">
+							<td>{{$index + 1}}</td>
+							<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}} - {{delegate.delegate_id}}</td>
+						</tr>
+					</tbody>
+		 	 </table>
+			</div>	
+        </div>
+          <div class="col-md-6">
+            <div class="form-group">
+				<label>Start time:</label>
+			</div>
+			<div class="form-group">
+				<label>End time:</label> 
+			</div>
+        </div>
+    </div>
+    <div class="form-group">
+		<label for="firstname">First name</label>
+		<input type="text" id="firstname" ng-model="firstname" class="form-control"/> 
+	</div>
+	<center> ------  TRAINING SIGNATORIES ------ </center>
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="ok()">OK</button>
+</div>

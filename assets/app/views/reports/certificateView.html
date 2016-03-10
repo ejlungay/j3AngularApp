@@ -1,0 +1,39 @@
+	 
+	<div ng-controller="certificateController"> 
+		<div class="pull-right">
+			<button class="btn btn-success pull-right"><i class="fa fa-print"></i></button>
+			<button class="btn btn-warning pull-right" ng-click="editTrainingDetail()" ng-disabled="!editMode"><i class="fa fa-edit"></i></button>
+		</div>
+		<div class="pull-right" style="margin-right: 3px;">
+			<select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
+				<option ng-repeat="training in trainingList track by $index" value="{{training.training_id}}">{{training.course_name}}</option>
+			</select>
+		</div>
+		<div id="printMe">
+			<h5>Training title: <b>{{training_name}}</b></h5>
+			<h5>Date: {{training_date}}</h5>
+			<h5>Location: {{training_location}}</h5>
+			<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th width="5%"><center>#</center></th>
+						<th><center>Participant name</center></th>
+						<th><center>Email</center></th>
+						<th width="25%"><center>Address</center></th>
+						<th width="5%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="delegate in delegateList track by $index">
+						<td>{{$index + 1}}</td>
+						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}} - {{delegate.delegate_id}}</td>
+						<td>{{delegate.email}}</td>
+						<td>{{delegate.phone}}</td>
+						<td><a target="_blank" ng-href='#/app/certificates/delegate-certificates/{{delegate.delegate_id}}'><i class="fa fa-print"></i></a></td>
+					</tr>
+				</tbody>
+		  </table>
+		</div>
+	</div>
+
+	  

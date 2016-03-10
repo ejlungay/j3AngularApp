@@ -1,0 +1,78 @@
+<nav ui-nav>
+  <ul class="nav">
+    <li class="nav-header m-v-sm hidden-folded">
+      MAIN MENU
+    </li>
+    
+    <li ui-sref-active="active">
+      <a md-ink-ripple>
+        <span class="pull-right text-muted">
+          <i class="fa fa-caret-down"></i>
+        </span>
+        <i class="pull-right up"><b class="badge bg-info">2</b></i>
+        <i class="icon mdi-action-settings-input-svideo i-20"></i>
+        <span class="font-normal">Dashboard</span>
+      </a>
+      <ul class="nav nav-sub">
+        <li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.timeline"><i class="glyphicon glyphicon-time"></i> Timeline</a>
+        </li>
+      </ul>
+    </li>
+	<li ui-sref-active="active">
+      <a md-ink-ripple ui-sref="app.courselist">
+        <i class="icon fa fa-calendar-o"></i>
+        <span class="font-normal">Categories</span>
+      </a>
+    </li>
+	 <li ui-sref-active="active">
+      <a md-ink-ripple ui-sref="app.trainings">
+        <i class="pull-right up"><b class="label bg-info">new</b></i> 
+        <i class="icon mdi-action-settings i-20"></i></i>
+        <span class="font-normal">Trainings</span>
+      </a>
+    </li>
+	<li ui-sref-active="active">
+      <a md-ink-ripple ui-sref="app.participants">
+        <i class="pull-right up"><b class="label bg-info">new</b></i> 
+        <i class="icon mdi-social-people-outline i-20"></i></i>
+        <span class="font-normal">Participants</span>
+      </a>
+    </li>
+    <li>
+      <a md-ink-ripple>
+        <span class="pull-right text-muted">
+          <i class="fa fa-caret-down"></i>
+        </span>
+        <i class="pull-right up"><b class="badge bg-info">4</b></i>
+        <i class="icon mdi-navigation-apps i-20"></i>
+        <span class="font-normal">Report</span>
+      </a>
+      <ul class="nav nav-sub">
+        <li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.attendance"><i class="fa fa-check-circle"></i> Attendance</a>
+        </li>
+        <li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.certificates"><i class="glyphicon glyphicon-certificate"></i> Certificate</a>
+        </li>
+        <li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.directory"><i class="glyphicon glyphicon-floppy-saved"></i> Directory</a>
+        </li>
+		<li ui-sref-active="active">
+          <a md-ink-ripple ui-sref="app.financial"><i class="fa fa-dollar"></i> Financial</a>
+        </li>
+      </ul>
+    </li>
+    <li ui-sref-active="active">
+      <a md-ink-ripple ui-sref="app.users">
+        <i class="pull-right up"><b class="label bg-info">new</b></i> 
+        <i class="icon mdi-action-account-circle i-20"></i>
+        <span class="font-normal">Manage users</span>
+      </a>
+    </li>
+    <li class="b-b b m-v-sm"></li>
+  </ul>
+</nav>

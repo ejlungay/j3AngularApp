@@ -1,0 +1,218 @@
+
+ <div class="panel panel-card" ng-controller="mainController">
+      <md-tabs md-selected="selectedIndex" flex id="mainTab" ng-click="switch_tabs()">
+        <md-tab id="tab1" aria-controls="tab1-content"><b>Step 1</b></md-tab>
+        <md-tab id="tab2" aria-controls="tab2-content"><b>Step 2</b></md-tab>
+        <md-tab id="tab3" aria-controls="tab3-content"><b>Step 3</b></md-tab>
+      </md-tabs>
+	  <md-progress-linear class="md-warn m-b" md-mode="buffer" value="{{currentProgress}}" md-buffer-value="{{progressBuffer}}"></md-progress-linear>
+	   <ng-switch on="selectedIndex">
+	   <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()">
+		 <div class="row">
+			<center><h4><b>Training detail</b></h4></center>
+			<div class="col-xs-6">
+				<div class="panel-body">
+					<div class="form-group" ng-controller="courseController2">
+					  <label for="course_name">Course</label>
+					  <select class="form-control" id="course_name" ng-model="course_name"ng-change="onchange(courses[course_name-1])" ng-options="course.course_id as course.course_name for course in courses">
+						<!--<option ng-repeat="course in courses" value="{{course.course_id}}">{{course.course_name}}</option>-->
+					  </select>
+					</div>
+						<div class="form-group">
+						  <label for="training_name">Training name</label>
+						  <input type="text" class="form-control" id="training_name" ng-model="t_name" placeholder="Enter training name">
+						</div>
+						<div class="form-group">
+						  <label for="loc">Location/Venue</label>
+						  <input type="text" class="form-control" id="loc" ng-model="location" placeholder="Enter location/venue">
+						</div>
+				</div>
+			</div>
+			<!---------------------------------------------->
+			<div class="col-xs-6">
+				<div class="panel-body">
+				  <div  ng-controller="DatepickerCtrl">
+					<div class="form-group">
+					  <label for="training_name">Start date</label>
+					   <div>
+							<p class="input-group">
+							  <input type="text" id="start_date" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="startOpened" min-date="minDate" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+							  <span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="openStartDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							  </span>
+							</p>
+							<button type="button" class="btn btn-sm btn-success" ng-click="day('start')">Today</button>
+						    <button type="button" class="btn btn-sm btn-default" ng-click="clear()">Clear</button>
+					   </div>
+					</div>
+					<div class="form-group">
+					  <label for="training_name">End date</label>
+					  <div>
+							<p class="input-group">
+							  <input type="text" id="end_date" class="form-control" datepicker-popup="{{format}}" ng-model="endDate"  is-open="endOpened" min-date="minDate" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+							  <span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							  </span>
+							</p>
+							<button type="button" class="btn btn-sm btn-info" ng-click="day('end')">Today</button>
+						    <button type="button" class="btn btn-sm btn-default" ng-click="clear()">Clear</button>
+					   </div>
+					</div>
+				  </div>
+					<div ng-controller="mainController">
+						<button ng-click="saveTraining()" aria-controls="tab3-content" class="btn btn-success m-b pull-right">Save <i class="mdi-image-navigate-next"></i></button>
+					</div>
+				</div>
+			</div>
+		 </div><!-- row -->
+        </div> <!--div-->
+        <div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
+         <!--tab content 2 -->
+		 <div class="row">
+			<center><h4><b>Signatories</b></h4></center>
+			<div class="col-xs-6">
+				<pre class="alert alert-success"><center><b>All Signatories for this training:</b></center></pre> 
+				<div class="panel-body">
+					
+					<div class="md-list-item">
+					  <div class="md-list-item-left circle pink">
+						<span class="font-thin text-lg"></span>
+					  </div>
+					  <div class="md-list-item-content">
+						<h3 class="text-md">Brunch this weekend?</h3>
+						<small class="font-thin">Lin Li Chan</small>
+					  </div>
+					</div>
+					<div class="md-list-item">
+					  <div class="md-list-item-left circle teal">
+						<span class="font-thin text-lg">A</span>
+					  </div>
+					  <div class="md-list-item-content">
+						<h3 class="text-md">Brunch this weekend?</h3>
+						<small class="font-thin">Min Li Chan</small>
+					  </div>
+					</div>
+				 
+				</div>
+			</div>
+			<!---------------------------------------------->
+			<div class="col-xs-6">
+			    <accordion close-others="oneAtATime">
+				  <accordion-group is-open="status.open" class="b-success">
+					  <accordion-heading>
+						Add signature<i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+					  </accordion-heading>
+					<div class="form-group">
+					  <label for="title">Title <small>(Engr., etc)</small></label>
+					  <input type="text" class="form-control" id="title" ng-model="title" placeholder="Enter title">
+					</div>
+					<div class="form-group">
+					  <label for="fname">First name</label>
+					  <input type="text" class="form-control" id="fname" ng-model="fname" placeholder="Enter first name">
+					</div>
+					<div class="form-group">
+					  <label for="mname">Middle name</label>
+					  <input type="text" class="form-control" id="mname" ng-model="mname" placeholder="Enter middle name">
+					</div>
+					<div class="form-group">
+					  <label for="lname">Last name</label>
+					  <input type="text" class="form-control" id="lname" ng-model="lname" placeholder="Enter last name">
+					</div>
+					<div class="form-group">
+					  <label for="position">Position</label>
+					  <input type="text" class="form-control" id="position" ng-model="position" placeholder="Enter position">
+					</div>
+					<div class="form-group">
+					  <label for="position">Accredition #</label>
+					  <input type="text" class="form-control" id="accredition" ng-model="accredition" placeholder="Enter accredition">
+					</div>
+					<button class="btn btn-danger m-b" ng-click="testFunc()">Add </button>
+					<button class="btn btn-success m-b">Cancel </button>
+				  </accordion-group>
+				</accordion>
+			</div>
+		   </div><!-- row -->
+		</div>
+        <div role="tabpanel" id="tab3-content" aria-labelledby="tab3" ng-switch-when="2" md-swipe-left="next()" md-swipe-right="previous()">
+           <div class="row">
+			<center><h4><b>Training Speakers</b></h4></center>
+			<div class="col-xs-6">
+				<div class="panel-body">
+					<h5>List of speaker(s) for this training</h5>
+					  <div class="table-responsive">
+						<table class="table table-bordered bg-white">
+						  <thead>
+							<tr>
+							  <th>#</th>
+							  <th>Name</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <td>1</td>
+							  <td>Table cell</td>
+							</tr>
+							<tr>
+							  <td>2</td>
+							  <td>Table cell</td>
+							</tr>
+							<tr>
+							  <td>3</td>
+							  <td>Table cell</td>
+							</tr>
+						  </tbody>
+						</table>
+					  </div>
+				</div>
+			</div>
+			<!---------------------------------------------->
+			<div class="col-xs-6">
+				<br><br>
+				<accordion close-others="oneAtATime">
+				  <accordion-group is-open="status.open" class="b-default">
+					<accordion-heading>
+					   Add speaker<i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+					</accordion-heading>
+					<div class="form-group">
+					  <label for="fname">First name</label>
+					  <input type="text" class="form-control" id="fname" ng-model="fname2" placeholder="Enter first name">
+					</div>
+					<div class="form-group">
+					  <label for="mname">Middle name</label>
+					  <input type="text" class="form-control" id="mname" ng-model="mname2" placeholder="Enter middle name">
+					</div>
+					<div class="form-group">
+					  <label for="lname">Last name</label>
+					  <input type="text" class="form-control" id="lname" ng-model="lname2" placeholder="Enter last name">
+					</div>
+					<div class="form-group">
+					  <label for="email">Email</label>
+					  <input type="email" class="form-control" id="email" ng-model="email" placeholder="Enter speaker email">
+					</div>
+					<div class="form-group">
+					  <label for="phone">Phone</label>
+					  <input type="text" class="form-control" id="phone" ng-model="phone" placeholder="Enter phone number">
+					</div>
+					<div class="form-group">
+					  <label for="company">Company</label>
+					  <input type="text" class="form-control" id="company" ng-model="company" placeholder="Enter company">
+					</div>
+					<div class="form-group">
+					  <label for="position">Position</label>
+					  <input type="text" class="form-control" id="position" ng-model="position" placeholder="Enter position">
+					</div>
+					<button class="btn btn-danger m-b">Add </button>
+					<button class="btn btn-success m-b">Cancel</button>
+				  </accordion-group>
+				</accordion>
+			</div>
+		   </div><!-- row -->
+		   <button class="btn btn-success m-b pull-right" style="margin-right: 2%;">Finish</button>
+	    </div>
+	</ng-switch>
+</div>
+
+ <div class="row">
+    <div class="col-md-6 col-md-offset-3"><div class="panel p">.col-md-6 .col-md-offset-3</div></div>
+  </div>
+ 
