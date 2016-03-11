@@ -45,7 +45,7 @@
 			}
 		}
 
-		 public function get_category_by_id() {
+		public function get_category_by_id() {
 			$id = $this->input->get('category_id');
 			if ($id != null) {
 				$result = $this->category_model->get_category_by_id($id);

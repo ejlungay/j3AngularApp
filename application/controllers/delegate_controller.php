@@ -42,7 +42,7 @@ class Delegate_controller extends CI_Controller {
 		
 		if ($pictureMode == 'upload') {
 			$config['upload_path']  = './uploads/delegates/';
-			$config['allowed_types'] = 'gif|jpg|png';
+			$config['allowed_types'] = '*';
 	 
 			$this->load->library('upload', $config);
 		

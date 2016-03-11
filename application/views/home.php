@@ -123,6 +123,8 @@
   <script src="assets/app/scripts/services/delegate.js"></script>
   <script src="assets/app/scripts/services/user.js"></script>
   <script src="assets/app/scripts/services/category.js"></script>
+  <script src="assets/app/scripts/services/speaker.js"></script>
+  <script src="assets/app/scripts/services/signatory.js"></script>
 </body>
 </html>
 

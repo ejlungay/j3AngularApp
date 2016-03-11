@@ -1,4 +1,8 @@
 
-	angular.module('app').controller('delegateProfileModalController', function($scope, $modalInstance, id) {
+	angular.module('app').controller('delegateProfileModalController', function($scope, $modalInstance) {
 		
+
+		$scope.ok = function() {
+			$modalInstance.close();
+		}
 	});

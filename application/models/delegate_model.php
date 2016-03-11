@@ -54,7 +54,7 @@
 							   	'gender' => $gender);
 
 				//insert into delegate account table
-				if ($this->db->insert('delegates', $data2)) {
+				if ($this->db->insert('delegates', $data2) && $amount_paid != null) {
 
 					$delegate_id = $this->getMaxDelegateId();
 

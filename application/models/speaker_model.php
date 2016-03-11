@@ -63,5 +63,36 @@
 			$this->db->where("speaker_id = $speaker_id");
 			return $this->db->update('speakers', $data);
 		}
+
+		public function get_speakers_by_training_id($training_id) {
+			$this->db->select('*');
+			$this->db->from('speakers as a');
+			$this->db->where("a.training_id = $training_id");
+			$this -> db -> limit(0);
+
+			$query = $this -> db -> get();
+          
+			if($query -> num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function speakerList() {
+			$this->db->select('*');
+			$this->db->from('speakers');
+			$this -> db -> limit(0);
+
+			$query = $this -> db -> get();
+          
+			if($query -> num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
 	}
 ?>

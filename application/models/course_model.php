@@ -100,5 +100,20 @@
 				return false;
 			}
 		}
+
+		public function get_course_by_training_id($id) {
+			$this -> db -> select('a.*, b.*');
+			$this -> db -> from('course as a, trainings as b');
+			$this -> db -> where("a.course_id = b.course_id and b.training_id = $id");
+			$this -> db -> limit(0);
+			$query = $this -> db -> get();
+          
+			if($query -> num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
 	}
 ?>

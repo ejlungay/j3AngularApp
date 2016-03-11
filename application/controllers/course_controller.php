@@ -176,5 +176,27 @@
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 			}
 		}
+		
+		public function get_course_by_training_id() {
+			$id = $this->input->get('training_id');
+			if ($id != null) {
+				$result = $this->course_model->get_course_by_training_id($id);
+				if ($result) {
+					$this->output->set_content_type('application/json')->set_output(json_encode($result));
+				}
+				else {
+					$json_response = array('returnMessage'=>'No available course.',
+											'returnValue'=>'FAILURE');    
+
+					$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+				}
+			}
+			else {
+				$json_response = array('returnMessage'=>'Invalid request parameters.',
+											'returnValue'=>'FAILURE');    
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
 	}
 ?>

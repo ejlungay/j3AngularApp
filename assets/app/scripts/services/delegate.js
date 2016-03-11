@@ -4,56 +4,56 @@ angular.module('app')
     .factory('delegateFactory', function($http, toastr, Upload, $timeout) {
         return {
 			//add delegate, picture is uploaded
-            addDelegate: function(trainingId, fname, mname, lname, user_email, user_company, company_industry, companyPosition, user_phone, file, user_gender, user_address, pictureMode, userId, amountPaid, orNo) {
+            addDelegate: function(data, file) {
                 return file.upload = Upload.upload({
 				url: 'add_delegate',
 				data: {
 					file: file, 
-					training_id: trainingId, 
-					firstname: fname, 
-					middlename: mname, 
-					lastname: lname, 
-					email: user_email,
-					company: user_company,
-					company_position: companyPosition,
-					phone: user_phone,
-					industry: company_industry,
-					address: user_address,
-					gender: user_gender,
-					picture_mode: pictureMode,
-					user_id: userId,
-					amount_paid: amountPaid,
-					or_no: orNo
+					training_id: data.training_id, 
+					firstname: data.firstname, 
+					middlename: data.middlename, 
+					lastname: data.lastname, 
+					email: data.email,
+					company: data.company,
+					company_position: data.position,
+					phone: data.phone,
+					industry: data.industry,
+					address: data.address,
+					gender: data.gender,
+					picture_mode: data.picture_mode,
+					user_id: data.user_id,
+					amount_paid: data.amount_paid,
+					or_no: data.or_no
 				},
-				}).success( function(data) {
-					return data;
-				}).error(function(data) {
+				}).success( function(response) {
+					return response;
+				}).error(function(response) {
 					toastr.error('An error occured while adding the delegate detail. Please contact system administrator', 'ERROR');
-					console.log(data);
+					console.log(response);
 				});
             },
 			//add delegate but picture is taken from the camera
-			addDelegate_take: function(trainingId, fname, mname, lname, user_email, user_company, company_industry, companyPosition, user_phone, user_gender, user_address, pictureMode, imageData, userId, amountPaid, orNo) {
+			addDelegate_take: function(data, imageData) {
 				return $http({
                     url: 'add_delegate',
                     method: 'POST',
 					data: $.param ({
-						training_id: trainingId, 
-						firstname: fname, 
-						middlename: mname, 
-						lastname: lname, 
-						email: user_email,
-						company: user_company,
-						company_position: companyPosition,
-						phone: user_phone,
-						industry: company_industry,
-						address: user_address,
-						gender: user_gender,
-						picture_mode: pictureMode,
+						training_id: data.training_id, 
+						firstname: data.firstname, 
+						middlename: data.middlename, 
+						lastname: data.lastname, 
+						email: data.email,
+						company: data.company,
+						company_position: data.position,
+						phone: data.phone,
+						industry: data.industry,
+						address: data.address,
+						gender: data.gender,
+						picture_mode: data.picture_mode,
 						image_data: imageData,
-						user_id: userId,
-						amount_paid: amountPaid,
-						or_no: orNo
+						user_id: data.user_id,
+						amount_paid: data.amount_paid,
+						or_no: data.or_no
 						}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(response) {

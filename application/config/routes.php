@@ -74,6 +74,7 @@
 	$route['update_course']['post']= 'course_controller/updateCourse';
 	$route['get_course_by_category_id']['get']= 'course_controller/get_course_by_category_id'; //gettting courses using category id
 	$route['available_course']= 'course_controller/get_courses_that_has_trainings'; /// getting course that has trainings
+	$route['get_course_by_training_id']['get']= 'course_controller/get_course_by_training_id'; /// getting course that has trainings
 
 	//training routes
 	$route['add_training']['post'] = 'trainings_controller/add_training'; //route for adding new training 
@@ -89,6 +90,8 @@
 	//routing training speaker APIs
 	$route['add_speaker']['post'] = 'speaker_controller/add_training_speaker';
 	$route['speaker_detail']['get'] = 'speaker_controller/get_speakers_by_speaker_id';
+	$route['get_speaker_by_training_id']['get'] = 'speaker_controller/get_speaker_by_training_id';
+	$route['speakers']['get'] = 'speaker_controller/speakerList';
 
 	//routing delegates functions
 	$route['add_delegate']['post'] = 'delegate_controller/add_delegate';
@@ -101,6 +104,11 @@
 	$route['get_category']['get'] = 'category_controller/get_category_by_id';
 	$route['categories']['get'] = 'category_controller/category_list';
 	$route['update_category']['post'] = 'category_controller/update_category';
+
+	//routing signatories controller
+	$route['add_signatory']['post'] = 'signatories_controller/add_signatory';
+	$route['get_signatories_using_training_id']['get'] = 'signatories_controller/get_signatories_by_training_id';
+	$route['signatories']['get'] = 'signatories_controller/signatories';
 	
 	$route['translate_uri_dashes'] = FALSE;
 	

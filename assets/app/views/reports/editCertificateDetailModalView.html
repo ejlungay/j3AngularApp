@@ -1,65 +1,152 @@
 <div class="modal-header">
-    <h3 class="modal-title">Edit Certificate Detail</h3>
+    <h3 class="modal-title">Training Detail</h3>
 </div>
 <div class="modal-body">
-	<center> ------  TRAINING INFO ------ </center>
-	<legend/>
+	<legend style="font-size: 14px;">Training Information</legend>
 	<div class="row">
         <div class="col-md-6">
            <div class="form-group">
-				<label>Training Date: </label>
+				<label>Training Date: <b>{{from_date}} - {{to_date}}</b></label>
 			</div>
 			<div class="form-group">
-				<label>Training location:</label> 
+				<label>Training location: <b>{{training_location}}</b></label> 
 			</div>
         </div>
           <div class="col-md-6">
             <div class="form-group">
-				<label>Start time:</label>
+				<label>Start time: <b>{{start_time}}</b></label>
 			</div>
 			<div class="form-group">
-				<label>End time:</label> 
+				<label>End time: <b>{{end_time}}</b></label> 
 			</div>
         </div>
     </div>
-	<center> ------ TRAINING SPEAKERS ------ </center>
-	<legend/>
+   <legend style="font-size: 14px;">Training Speakers</legend>
 	<div class="row">
         <div class="col-md-6">
            <div class="form-group">
-				<label>Current speakers</label>
+				<label>{{speakerLabel}}</label>
 				<table class="table table-bordered table-hover bg-white">
 					<thead>
 						<tr>
 							<th><center>#</center></th>
-							<th><center>Speaker name</center></th>
+							<th><center>Name</center></th>
+							<th width="5px"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="delegate in delegateList track by $index">
+						<tr ng-repeat="item in speakers track by $index">
 							<td>{{$index + 1}}</td>
-							<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}} - {{delegate.delegate_id}}</td>
+							<td>{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
+							<td><a href><i class="mdi-navigation-more-vert"></i></a></td>
 						</tr>
 					</tbody>
-		 	 </table>
+		 	 	</table>
 			</div>	
         </div>
           <div class="col-md-6">
-            <div class="form-group">
-				<label>Start time:</label>
-			</div>
-			<div class="form-group">
-				<label>End time:</label> 
-			</div>
+          	<accordion close-others="oneAtATime">
+	          	<accordion-group is-open="status.open" class="b-default">
+		              <accordion-heading>
+		                  Add Speaker <i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+	              	</accordion-heading>
+	              	<div class="form-group">
+						<label>First name</label>
+						<input type="text" ng-model="data.firstname" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Middle name</label>
+						<input type="text"  ng-model="data.middlename" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Last name</label>
+						<input type="text"  ng-model="data.lastname" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="text"  ng-model="data.email" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Phone number</label>
+						<input type="number"  ng-model="data.phone" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Company</label>
+						<input type="text"  ng-model="data.company" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Posiiton</label>
+						<input type="text"  ng-model="data.position" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Image</label>
+						<center>
+							<img ng-model="picView" ngf-thumbnail="picFile"  width="200" height="150"> 
+							<button  class="btn btn-danger" ng-click="picFile = null" ng-show="picFile"><i class="fa fa-remove"></i></button>
+						</center>
+						<div class="form-file">
+								<input type="file" ngf-select ng-model="picFile" id= "file" name="file" accept="image/*" required>
+								<button class="btn btn-default">Upload</button>
+						</div>
+					</div>
+					<button class="btn btn-primary pull-right" ng-click="addSpeaker(picFile)">Save</button>
+	          	</accordion-group>
+       		 </accordion>
         </div>
     </div>
-    <div class="form-group">
-		<label for="firstname">First name</label>
-		<input type="text" id="firstname" ng-model="firstname" class="form-control"/> 
-	</div>
-	<center> ------  TRAINING SIGNATORIES ------ </center>
+    <legend style="font-size: 14px;">Training Signatories</legend>
+	<div class="row">
+        <div class="col-md-6">
+          	<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th><center>#</center></th>
+						<th><center>Name</center></th>
+						<th width="5px"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in signtories track by $index">
+						<td>{{$index + 1}}</td>
+						<td>{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
+						<td><a href><i class="mdi-navigation-more-vert"></i></a></td>
+					</tr>
+				</tbody>
+		 	</table>
+        </div>
+        <div class="col-md-6">
+          	<accordion close-others="oneAtATime">
+	          	<accordion-group is-open="status.open" class="b-default">
+		            <accordion-heading>
+		                Add Signatory <i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+	              	</accordion-heading>
+		            <div class="form-group">
+						<label>First name</label>
+						<input type="text" ng-model="data2.firstname" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Middle name</label>
+						<input type="text"  ng-model="data2.middlename" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Last name</label>
+						<input type="text"  ng-model="data2.lastname" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Positon</label>
+						<input type="text"  ng-model="data2.position" class="form-control"/> 
+					</div>
+					<div class="form-group">
+						<label>Accredition No.</label>
+						<input type="text"  ng-model="data2.accredition_no" class="form-control"/> 
+					</div>
+					<button class="btn btn-primary pull-right" ng-click="addSignatory()">Save</button>
+				</accordion-group>
+       		 </accordion>
+        </div>
+    </div>
+
 </div>
 <div class="modal-footer">                  
-    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-success" ng-click="ok()">OK</button>
+    <button class="btn btn-default" ng-click="cancel()">Close</button>
 </div>

@@ -20,17 +20,17 @@
 		 
 		 }
 		 
-		 public function add_signatories() {
-			if ($this->input->post('training_id') != null && $this->input->post('firstname') != null && $this->input->post('middlename') != null && $this->input->post('lastname') != null) {
+		public function add_signatory() {
+			if ($this->input->post('training_id') != null && $this->input->post('firstname') != null && $this->input->post('user_id') != null && $this->input->post('lastname') != null) {
 				$training_id = $this->input->post('training_id');
 				$firstname = $this->input->post('firstname');
 				$middlename = $this->input->post('middlename');
 				$lastname = $this->input->post('lastname');
-				$title = $this->input->post('title');
 				$position = $this->input->post('position');
 				$accredition_no = $this->input->post('accredition_no');
+				$uid = $this->input->post('user_id');
 
-				$result = $this->signatories_model->add_signatories($title, $fname, $mname, $lname, $position, $accredition_no, $training_id);
+				$result = $this->signatories_model->add_signatories($firstname, $middlename, $lastname, $position, $accredition_no, $training_id, $uid);
 				if ($result) {
 					$json_response = array('returnMessage'=>'Successfully added',
 										   'returnValue'=>'SUCCESS');    
@@ -47,6 +47,41 @@
 			else {
 				$json_response = array('returnMessage'=>'Invalid request parameters',
 									   'returnValue'=>'FAILURE');    
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
+
+		public function get_signatories_by_training_id() {
+			$id = $this->input->get('training_id');
+			if ($id != null) {
+				$result = $this->signatories_model->get_signatries_using_training_id($id);
+				if ($result) {
+					 $this->output->set_content_type('application/json')->set_output(json_encode($result));
+				}
+				else {
+					$json_response = array('returnMessage' => 'No available records found.',
+										'returnValue' => 'FAILURE');    
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+				}
+			}
+			else {
+				$json_response = array('returnMessage' => 'Invalid request parameters',
+										'returnValue' => 'FAILURE');    
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
+
+		public function signatories() {
+			$result = $this->signatories_model->signatories();
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result));
+			}
+			else {
+				$json_response = array('returnMessage' => 'No available records found.',
+									'returnValue' => 'FAILURE');    
 
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 			}

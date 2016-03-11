@@ -44,12 +44,12 @@
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/participants/addParticipantModalView.html',
 			controller: 'addParticipantModalController',
-			size: ''/*,
+			size: '',
 			resolve: {
-			  id: function () {
-				return $scope.id;
+			  trainingId: function () {
+				return 0;
 			  }
-			}*/
+			}
 			});
 		}
 		

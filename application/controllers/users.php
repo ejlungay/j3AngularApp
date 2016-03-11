@@ -175,7 +175,7 @@ class Users extends CI_Controller {
 						//load the external library
 						$this->load->library('dateoperations');
 						//define the limit time; 5 minutes is the allowed allowance
-						$limit = $this->dateoperations->subtract($now,'minute', 5); // 5 minutes expiry
+						$limit = $this->dateoperations->subtract($now,'minute', 15); // 5 minutes expiry
 						if ($temp[2] < $limit) { 
 							//check if theres a file having username as the filename
 							unlink('./21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt');

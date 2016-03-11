@@ -12,7 +12,6 @@
 				}
 				if ($scope.username[1] != null) {
 					dashboardFactory.isLoggedIn($scope.username[1]).then(function(response) {
-						console.log(response.data.returnValue);
 						if (response.data.returnValue == 'FALSE') window.location.href="index.php";
 					});
 				}
@@ -31,35 +30,40 @@
 		/*************  DATABASE QUERY ****************/
 		$scope.trainings = [];
 		dashboardFactory.upcomingTrainings().then(function(response) {
-			$scope.trainings = response.data;
-			var trainingID_values = [];
-			var trainingTitles_values = [];
-			var fromDate_values = [];
-			var toDate_values = [];
-			for(var i=0;i<$scope.trainings.length;i++){
-				var obj = $scope.trainings[i];
-				for(var key in obj){
-					var attrName = key;
-					var attrValue = obj[key];
-					if (attrName == 'training_id') trainingID_values.push(attrValue);
-					if (attrName == 'training_name') trainingTitles_values.push(attrValue); 
-					if (attrName == 'from_date') fromDate_values.push(attrValue);
-					if (attrName == 'to_date') toDate_values.push(attrValue);
+			if (response.data.length > 0) {
+				$scope.trainings = response.data;
+				var trainingID_values = [];
+				var trainingTitles_values = [];
+				var fromDate_values = [];
+				var toDate_values = [];
+
+				for(var i=0;i<$scope.trainings.length;i++) {
+					var obj = $scope.trainings[i];
+					for(var key in obj){
+						var attrName = key;
+						var attrValue = obj[key];
+						if (attrName == 'training_id') trainingID_values.push(attrValue);
+						if (attrName == 'course_name') trainingTitles_values.push(attrValue); 
+						if (attrName == 'from_date') fromDate_values.push(attrValue);
+						if (attrName == 'to_date') toDate_values.push(attrValue);
+					}
+				}
+				//adding custom events from the database into the calendar :D
+				for (var i = 0; i < response.data.length; i++) {
+					vm.events.push({
+						id: trainingID_values[i],
+						title: trainingTitles_values[i],
+						type: 'success',
+						startsAt: new Date(fromDate_values[i]),
+						endsAt: new Date(toDate_values[i]),
+						draggable: true,
+						resizable: true
+					  });
 				}
 			}
-			//adding custom events from the database into the calendar :D
-			for (var i = 0; i < trainingTitles_values.length; i++) {
-				vm.events.push({
-					id: trainingID_values[i],
-					title: trainingTitles_values[i],
-					type: 'success',
-					startsAt: new Date(fromDate_values[i]),
-					endsAt: new Date(toDate_values[i]),
-					draggable: true,
-					resizable: true
-				  });
+			else {
+				$scope.trainings = [];
 			}
-			console.log('vm: ', vm.events);
 		});
 		
 

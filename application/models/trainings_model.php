@@ -53,7 +53,7 @@
        }
        // a model for querying all trainings
        public function get_trainings_list($year) {
-          $this->db->select('a.training_id,  date(a.from_date) as from_date, date(a.to_date) as to_date, a.location, a.date_added, CONCAT(b.firstname, " ", b.lastname) as added_by, c.course_name');
+          $this->db->select('a.training_id,  date(a.from_date) as from_date, date(a.to_date) as to_date, a.location, a.date_added, CONCAT(b.firstname, " ", b.lastname) as added_by, c.course_name, a.time_start, a.time_end');
           $this->db->from('trainings as a, users as b, course as c');
 		  $this->db->where("EXTRACT(YEAR FROM a.to_date) = $year and a.uid = b.uid and a.course_id = c.course_id");
           $this->db->limit(0);
@@ -71,9 +71,9 @@
 
        // a model for querying training delegates
        public function get_training_delegates($training_id) {
-          $this->db->select('b.*');
-          $this->db->from('trainings as a,  delegates as b');
-          $this->db-> where("a.training_id = $training_id  and a.training_id = b.training_id");
+          $this->db->select('b.*, c.date_paid, c.amount_paid, c.or_no');
+          $this->db->from('trainings as a,  delegates as b, delegate_accounts as c');
+          $this->db-> where("a.training_id = $training_id  and a.training_id = b.training_id and b.delegate_id = c.delegate_id");
           $this->db->limit(0);
           $query = $this->db->get();
 
@@ -138,9 +138,9 @@
 		public function getTrainingsbyMonth($month) {
 			$year = date('Y');
 			
-			$this->db->select("*");
-			$this->db->from("trainings as a");
-			$this->db->where("EXTRACT(YEAR FROM a.to_date) = $year and EXTRACT(MONTH FROM a.to_date) = $month");
+			$this->db->select("a.*, b.course_name as course_name");
+			$this->db->from("trainings as a, course as b");
+			$this->db->where("EXTRACT(YEAR FROM a.to_date) = $year and EXTRACT(MONTH FROM a.to_date) = $month and a.course_id = b.course_id");
 			$this->db->limit(0);
 			$this->db->order_by("EXTRACT(DAY FROM a.to_date)", "asc");
 			$query = $this->db->get();

@@ -33,9 +33,9 @@
 						<th  style="width:1%">#</th>
 						<th  style="width:3%">Image</th>
 						<th  style="width:25%">Full name</th>
-						<th>Status</th>
 						<th>Amount paid</th>
 						<th>Date paid</th>
+						<th>OR No.</th>
 						<th style="width:3%"></th>
 					</tr>
 				</thead>
@@ -44,12 +44,12 @@
 						<td>{{$index + 1}}</td>
 						<td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
 						<td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{delegate.amount_paid}}</td>
+						<td>{{delegate.date_paid}}</td>
+						<td>{{delegate.or_no}}</td>
 						<td>
 							<p>
-								<a href><i class="fa fa-info-circle" popover="About '{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}'" popover-trigger="mouseenter"></i></a>
+								<a href ng-click="showProfile()"><i class="fa fa-info-circle" popover="About '{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}'" popover-trigger="mouseenter"></i></a>
 							</p>
 						</td>
 					</tr>

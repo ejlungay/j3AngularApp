@@ -74,7 +74,7 @@
 			controller: 'editCertificateDetailModalController',
 			size: 'xs',
 			resolve: {
-				  trainingiI: function () {
+				  trainingId: function () {
 					return $scope.training_id;
 				  }
 				}
@@ -93,6 +93,9 @@
 			});
 		}
 
+		$scope.printAll = function() {
+			 $window.open('#/app/certificates/delegate-certificates/all', '_blank');
+		}
 	});
 	
 	

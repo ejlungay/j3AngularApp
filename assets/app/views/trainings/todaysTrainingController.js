@@ -48,16 +48,29 @@
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/participants/addParticipantModalView.html',
 			controller: 'addParticipantModalController',
-			size: ''/*,
+			size: '',
 			resolve: {
-			  id: function () {
-				return $scope.id;
+			  trainingId: function () {
+				return training_id[1];
 			  }
-			}*/
+			}
 			});
 		}
 		$scope.existing = function() {
 			alert('existing');
+		}
+
+		$scope.showProfile = function() {
+			var modalInstance = $modal.open({
+			templateUrl: 'assets/app/views/participants/delegateProfileModalView.html',
+			controller: 'delegateProfileModalController',
+			size: 'lg'/*,
+			resolve: {
+			  trainingId: function () {
+				return training_id[1];
+			  }
+			}*/
+			});
 		}
 	});
 	

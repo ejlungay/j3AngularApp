@@ -86,12 +86,12 @@
 					}
 				}
 
-				trainingFactory.addTraining($scope.training.course_id, $scope.training.training_location, sdate, edate, $scope.startTime, $scope.endTime, userid, $scope.regular, $scope.discounted).then(function(response){
+				trainingFactory.addTraining($scope.course_id, $scope.training_location, sdate, edate, $scope.startTime, $scope.endTime, userid, $scope.regular, $scope.discounted).then(function(response){
 					if (response.data.returnValue == 'SUCCESS') {
 						toastr.success('Successfully updated');
 						$modalInstance.close();
 					}
-			});
+				});
 
 			});
 		};

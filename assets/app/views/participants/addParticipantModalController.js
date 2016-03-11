@@ -1,16 +1,26 @@
 
-	angular.module('app').controller('addParticipantModalController', function($scope, $modalInstance, categoryFactory, courseFactory, delegateFactory, trainingFactory, userFactory, toastr) {
+	angular.module('app').controller('addParticipantModalController', function($scope, $modalInstance, categoryFactory, courseFactory, delegateFactory, trainingFactory, userFactory, toastr, trainingId) {
 		$scope.takePic = false;
-		var vm = this;
-		$scope.onlyNumbers = /^\d+$/;
-		
+		$scope.data = {};
+
 		$scope.courses = [];
 		$scope.loadCourses = function() {
-			courseFactory.load_courses_that_has_trainings().then(function(response) {
-				if (response.data.length > 0) $scope.courses = response.data;
-				
-				else $scope.courses = [];
-			});
+			//predefined training sent frrom the main source
+			if (parseInt(trainingId) == 0) {
+				courseFactory.load_courses_that_has_trainings().then(function(response) {
+					if (response.data.length > 0) $scope.courses = response.data;
+					
+					else $scope.courses = [];
+				});
+			}
+			//there is a predefined training that the user wanted to add this participant so query the training detail
+			else {
+				courseFactory.get_course_by_training_id(trainingId).then(function(response) {
+					if (response.data.length > 0) $scope.courses = response.data;
+					
+					else $scope.courses = [];
+				});
+			}
 		}
 		$scope.loadCourses();
 
@@ -52,16 +62,19 @@
 				}
 
 				if ($scope.takePic) {
-					alert('take pic');
+					$scope.data.or_no = or_no;
+					$scope.data.picture_mode = 'take';
+					$scope.data.user_id = userid;
+
 					/*****  REQUIRED FIELDS  ****/
-					if ($scope.training_id == null || $scope.firstname == null || $scope.lastname == null || $scope.gender == null) {
+					if ($scope.data.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
 						toastr.error('You cannot add participant without primary details.');
 						return;
 					}
 					/*****  OPTIONAL FIELDS  ****/
-					if ($scope.middlename == null || $scope.email == null || $scope.company == null || $scope.industry == null || $scope.position == null || $scope.phone == null || $scope.address == null || $scope.vm.picture == null) {
+					if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null || $scope.vm.picture == null) {
 						if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
-							delegateFactory.addDelegate_take($scope.training_id, $scope.firstname, $scope.middlename, $scope.lastname, $scope.email, $scope.company, $scope.industry, $scope.position, $scope.phone, $scope.gender, $scope.address, 'take', $scope.vm.picture, userid, $scope.amount_paid, or_no).then(function(response) {
+							delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
 								if (response.data.returnValue == 'SUCCESS') {
 									toastr.success(response.data.returnMessage);
 									$modalInstance.close();
@@ -73,7 +86,7 @@
 						}
 					}
 					else {
-						delegateFactory.addDelegate_take($scope.training_id, $scope.firstname, $scope.middlename, $scope.lastname, $scope.email, $scope.company, $scope.industry, $scope.position, $scope.phone, $scope.gender, $scope.address, 'take', $scope.vm.picture, userid, $scope.amount_paid, or_no).then(function(response) {
+						delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
 								if (response.data.returnValue == 'SUCCESS') {
 									toastr.success(response.data.returnMessage);
 									$modalInstance.close();
@@ -85,14 +98,19 @@
 					}
 				}
 				else {
-					if ($scope.training_id == null || $scope.firstname == null || $scope.lastname == null || $scope.gender == null) {
+					$scope.data.or_no = or_no;
+					$scope.data.picture_mode = 'upload';
+					$scope.data.user_id = userid;
+
+					/*****  REQUIRED FIELDS  ****/
+					if ($scope.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
 						toastr.error('You cannot add participant without primary details.');
 						return;
 					}
 					/*****  OPTIONAL FIELDS  ****/
-					if ($scope.middlename == null || $scope.email == null || $scope.company == null || $scope.industry == null || $scope.position == null || $scope.phone == null || $scope.address == null) {
+					if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null) {
 						if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
-							delegateFactory.addDelegate($scope.training_id, $scope.firstname, $scope.middlename, $scope.lastname, $scope.email, $scope.company, $scope.industry, $scope.position, $scope.phone, file, $scope.gender, $scope.address, 'upload', userid, $scope.amount_paid, or_no).then(function(response) {
+							delegateFactory.addDelegate($scope.data, file).then(function(response) {
 								if (response.data.returnValue == 'SUCCESS') {
 									toastr.success(response.data.returnMessage);
 									$modalInstance.close();
@@ -104,7 +122,7 @@
 						}
 					}
 					else {
-						delegateFactory.addDelegate($scope.training_id, $scope.firstname, $scope.middlename, $scope.lastname, $scope.email, $scope.company, $scope.industry, $scope.position, $scope.phone, file, $scope.gender, $scope.address, 'upload', userid, $scope.amount_paid, or_no).then(function(response) {
+						delegateFactory.addDelegate($scope.data, file).then(function(response) {
 								if (response.data.returnValue == 'SUCCESS') {
 									toastr.success(response.data.returnMessage);
 									$modalInstance.close();
