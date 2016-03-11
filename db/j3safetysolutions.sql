@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2016 at 12:58 PM
+-- Generation Time: Mar 11, 2016 at 10:53 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.19
 
@@ -68,7 +68,8 @@ CREATE TABLE `course` (
 INSERT INTO `course` (`course_id`, `uid`, `category_id`, `course_code`, `course_name`, `date_added`) VALUES
 (2, 1, 1, '123-abc-def', 'Construction Project Management Course', '2016-03-10 14:06:32'),
 (3, 1, 8, 'kldjs-43k3-43', 'Quality Management Course', '2016-03-10 14:07:00'),
-(4, 1, 5, '1223234sddf', 'Food safety course', '2016-03-10 16:06:03');
+(4, 1, 5, '1223234sddf', 'Food safety course', '2016-03-10 16:06:03'),
+(5, 1, 3, 'AWGDJHCO-sa', 'AWV-DSJKJH-FF', '2016-03-11 15:12:43');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,15 @@ INSERT INTO `delegates` (`delegate_id`, `training_id`, `registration_id`, `first
 (4, 4, 10, 'pp', 'ppp', 'ppp', NULL, '123456', 'ppp', 'pppp', 'http://localhost/j3safetysolutions/uploads/delegates/', 'ppp', 'pppp', 'Male'),
 (5, 4, 11, 'ooo', 'ooo', 'oo', NULL, '77878', 'ooo', 'oo', 'http://localhost/j3safetysolutions/uploads/delegates/8868.png', 'oo', 'oo', 'Male'),
 (6, 5, 12, 'lll', 'll', 'l', NULL, '142', 'lll', 'llll', 'http://localhost/j3safetysolutions/uploads/delegates/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr.jpg', 'lll', 'lll', 'Male'),
-(7, 6, 13, 'mm', 'mm', 'mm', NULL, '124', 'mm', 'mm', 'http://localhost/j3safetysolutions/uploads/delegates/Paige.jpg', 'mm', 'mm', 'Female');
+(7, 6, 13, 'mm', 'mm', 'mm', NULL, '124', 'mm', 'mm', 'http://localhost/j3safetysolutions/uploads/delegates/Paige.jpg', 'mm', 'mm', 'Female'),
+(8, 8, 14, 'or', 'kill', 'everyone', 'around@gmail.com', '12653032126', 'killers group of companies', 'standing innovation', 'http://localhost/j3safetysolutions/uploads/delegates/we.jpg', 'around', 'bloods', 'Male'),
+(9, 8, 15, 'tae', 'tae', 'tae', 'tae@tae.com', '1346', 'tae', 'tae', 'http://localhost/j3safetysolutions/uploads/delegates/images.png', 'tae', 'tae', 'Male'),
+(10, 8, 16, 'yolo', 'yolo', 'yolo', NULL, '9367133136', 'oylo', 'standing', 'http://localhost/j3safetysolutions/uploads/delegates/w.png', 'yolo', 'yolo', 'Female'),
+(11, 8, 17, 'll', 'l', 'l', NULL, '654656', 'l', 'll', 'http://localhost/j3safetysolutions/uploads/delegates/log_in.JPG', 'l', 'll', 'Male'),
+(12, 8, 18, 'klkl', 'kl', 'klkl', NULL, '546466', 'l;l;lk', 'jhijiij', 'http://localhost/j3safetysolutions/uploads/delegates/shield.png', 'klkl', 'jkjk', 'Female'),
+(13, 8, 19, 'wak', 'wak', 'walk', NULL, '13249687', 'wak', 'wak', 'http://localhost/j3safetysolutions/uploads/delegates/senyo.jpg', 'wak', 'wak', 'Male'),
+(14, 8, 20, 'kl', 'lk', 'kl', 'jkjk', '45545', 'llpki', 'kjk', 'http://localhost/j3safetysolutions/uploads/delegates/FEZ-04-512.png', 'jjkj', 'lkj', 'Male'),
+(15, 8, 21, 'lollipop f', 'lollipop m', 'lollipop  l', 'lollipop  ema', '123456', 'lollipop  com', 'lollipop  pos', 'http://localhost/j3safetysolutions/uploads/delegates/settings-512.png', 'lollipop  add', 'lollipop  indu', 'Male');
 
 -- --------------------------------------------------------
 
@@ -131,7 +140,15 @@ INSERT INTO `delegate_accounts` (`account_id`, `delegate_id`, `amount_paid`, `or
 (4, 4, NULL, '123456', '2016-03-10 15:55:32'),
 (5, 5, NULL, '123456', '2016-03-10 15:56:46'),
 (6, 6, NULL, '123456', '2016-03-10 16:00:20'),
-(7, 7, NULL, '123456', '2016-03-10 16:08:29');
+(7, 7, NULL, '123456', '2016-03-10 16:08:29'),
+(8, 8, NULL, '123456', '2016-03-11 15:58:06'),
+(9, 9, NULL, '123456', '2016-03-11 16:00:28'),
+(10, 10, NULL, '123456', '2016-03-11 16:03:36'),
+(11, 11, 12021, '123456', '2016-03-11 16:08:47'),
+(12, 12, 78985, '123456', '2016-03-11 16:17:30'),
+(13, 13, 4456, '123456', '2016-03-11 16:41:14'),
+(14, 14, 4454, '123456', '2016-03-11 16:48:38'),
+(15, 15, 13457, '123456', '2016-03-11 17:02:14');
 
 -- --------------------------------------------------------
 
@@ -156,7 +173,36 @@ INSERT INTO `registration` (`registration_id`, `userid`, `date_registered`) VALU
 (10, 1, '2016-03-10 15:55:32'),
 (11, 1, '2016-03-10 15:56:46'),
 (12, 1, '2016-03-10 16:00:20'),
-(13, 1, '2016-03-10 16:08:29');
+(13, 1, '2016-03-10 16:08:29'),
+(14, 1, '2016-03-11 15:58:06'),
+(15, 1, '2016-03-11 16:00:28'),
+(16, 1, '2016-03-11 16:03:36'),
+(17, 1, '2016-03-11 16:08:47'),
+(18, 1, '2016-03-11 16:17:30'),
+(19, 1, '2016-03-11 16:41:14'),
+(20, 1, '2016-03-11 16:48:38'),
+(21, 1, '2016-03-11 17:02:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `signatories`
+--
+
+CREATE TABLE `signatories` (
+  `signatory_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `signatories`
+--
+
+INSERT INTO `signatories` (`signatory_id`, `uid`, `date_created`) VALUES
+(5, 1, '2016-03-11 06:43:50'),
+(6, 1, '2016-03-11 06:59:59'),
+(7, 1, '2016-03-11 07:00:44');
 
 -- --------------------------------------------------------
 
@@ -170,12 +216,25 @@ CREATE TABLE `speakers` (
   `firstname` varchar(50) DEFAULT NULL,
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
-  `company` varchar(200) DEFAULT NULL,
-  `company_position` varchar(200) DEFAULT NULL,
-  `image` blob
+  `company` varchar(100) DEFAULT NULL,
+  `company_position` varchar(50) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `speakers`
+--
+
+INSERT INTO `speakers` (`speaker_id`, `training_id`, `firstname`, `middlename`, `lastname`, `email`, `phone`, `company`, `company_position`, `image`, `date_added`) VALUES
+(2, 3, 'test', 'test', 'test', 'test email', 'test phone', 'test company', 'test company_position', 'http://localhost/j3safetysolutions/uploads/speakers/user2-160x160.jpg', '2016-03-11 11:36:57'),
+(3, 3, 'ako', 'c', 'ako', 'ako@gmail.com', '215433', 'dsdw', 'ddwq', 'http://localhost/j3safetysolutions/uploads/speakers/user2-160x160.jpg', '2016-03-11 11:57:30'),
+(4, 6, 'kko', 'ko', 'ko', 'okkoko', '4564', 'poikfdok', 'ikofs', 'http://localhost/j3safetysolutions/uploads/speakers/j3.jpg', '2016-03-11 12:01:17'),
+(5, 3, 'ako', 'si', 'buang', 'ewe', '4653465', 'dsd', 'dsdd', 'http://localhost/j3safetysolutions/uploads/speakers/logo1.jpg', '2016-03-11 13:41:44'),
+(6, 3, 'hi', NULL, 'joe', 'jo@jo.com', '546398965', 'lata groups of company', 'mandidangay', 'http://localhost/j3safetysolutions/uploads/speakers/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr.jpg', '2016-03-11 15:01:32'),
+(7, 3, 'balay', 'ni', 'mayang', 'mayang@balai.com', '1268768', 'secret company', 'standing again :D', 'http://localhost/j3safetysolutions/uploads/speakers/hahaha.JPG', '2016-03-11 15:04:15');
 
 -- --------------------------------------------------------
 
@@ -205,7 +264,9 @@ INSERT INTO `trainings` (`training_id`, `uid`, `date_added`, `course_id`, `locat
 (3, 1, '2016-03-10 14:07:42', 2, '2nd floor, Butuan City', '2016-03-10', '2016-03-10', 'Thu Mar 10 2016 08:0', 'Thu Mar 10 2016 17:0', 2500, 2000),
 (4, 1, '2016-03-10 14:09:45', 3, 'MSU Iligan, Iligan City', '2016-03-10', '2016-03-10', 'Thu Mar 10 2016 08:0', 'Thu Mar 10 2016 17:0', 3500, 3000),
 (5, 1, '2016-03-10 15:44:03', 3, 'Cagayan de Oro City', '2016-03-10', '2016-03-10', 'Thu Mar 10 2016 08:0', 'Thu Mar 10 2016 17:0', 2500, 2000),
-(6, 1, '2016-03-10 16:06:48', 4, 'Naawan, Misamis Oriental', '2016-03-17', '2016-03-19', 'Thu Mar 10 2016 08:0', 'Thu Mar 10 2016 17:0', 5000, 25000);
+(6, 1, '2016-03-10 16:06:48', 4, 'Naawan, Misamis Oriental', '2016-03-17', '2016-03-19', 'Thu Mar 10 2016 08:0', 'Thu Mar 10 2016 17:0', 5000, 25000),
+(7, 1, '2016-03-11 15:19:27', 5, 'Laguindingan, Misamis Oriental', '2016-04-13', '2016-04-14', 'Fri Mar 11 2016 08:0', 'Fri Mar 11 2016 17:0', 2500, 2000),
+(8, 1, '2016-03-11 15:27:03', 5, 'Alubijid, Misamis Oriental', '2016-03-11', '2016-03-11', 'Fri Mar 11 2016 08:0', 'Fri Mar 11 2016 17:0', 5000, 4000);
 
 -- --------------------------------------------------------
 
@@ -229,14 +290,23 @@ CREATE TABLE `training_expenses` (
 
 CREATE TABLE `training_signatories` (
   `sign_id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `middlename` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `position` varchar(100) NOT NULL,
   `accredition_no` varchar(30) NOT NULL,
-  `training_id` int(11) NOT NULL
+  `training_id` int(11) NOT NULL,
+  `signatory_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `training_signatories`
+--
+
+INSERT INTO `training_signatories` (`sign_id`, `firstname`, `middlename`, `lastname`, `position`, `accredition_no`, `training_id`, `signatory_id`) VALUES
+(2, 'firstname', 'midlename', 'lastname', 'standing', '123345', 3, 5),
+(3, 'Jhon', '', 'Doe', 'CEO', '468756', 3, 6),
+(4, 'Sis', '', 'Ter', 'Manager', '3685656', 3, 7);
 
 -- --------------------------------------------------------
 
@@ -306,6 +376,13 @@ ALTER TABLE `registration`
   ADD KEY `userid` (`userid`);
 
 --
+-- Indexes for table `signatories`
+--
+ALTER TABLE `signatories`
+  ADD PRIMARY KEY (`signatory_id`),
+  ADD KEY `uid` (`uid`);
+
+--
 -- Indexes for table `speakers`
 --
 ALTER TABLE `speakers`
@@ -332,7 +409,8 @@ ALTER TABLE `training_expenses`
 --
 ALTER TABLE `training_signatories`
   ADD PRIMARY KEY (`sign_id`),
-  ADD KEY `training_id` (`training_id`);
+  ADD KEY `training_id` (`training_id`),
+  ADD KEY `signatory_id` (`signatory_id`);
 
 --
 -- Indexes for table `users`
@@ -353,32 +431,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `delegates`
 --
 ALTER TABLE `delegates`
-  MODIFY `delegate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `delegate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `delegate_accounts`
 --
 ALTER TABLE `delegate_accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT for table `signatories`
+--
+ALTER TABLE `signatories`
+  MODIFY `signatory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `speakers`
 --
 ALTER TABLE `speakers`
-  MODIFY `speaker_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `speaker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `training_expenses`
 --
@@ -388,7 +471,7 @@ ALTER TABLE `training_expenses`
 -- AUTO_INCREMENT for table `training_signatories`
 --
 ALTER TABLE `training_signatories`
-  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -431,6 +514,12 @@ ALTER TABLE `registration`
   ADD CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`uid`);
 
 --
+-- Constraints for table `signatories`
+--
+ALTER TABLE `signatories`
+  ADD CONSTRAINT `signatories_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
+
+--
 -- Constraints for table `speakers`
 --
 ALTER TABLE `speakers`
@@ -453,7 +542,8 @@ ALTER TABLE `training_expenses`
 -- Constraints for table `training_signatories`
 --
 ALTER TABLE `training_signatories`
-  ADD CONSTRAINT `training_signatories_ibfk_1` FOREIGN KEY (`training_id`) REFERENCES `trainings` (`training_id`);
+  ADD CONSTRAINT `training_signatories_ibfk_1` FOREIGN KEY (`training_id`) REFERENCES `trainings` (`training_id`),
+  ADD CONSTRAINT `training_signatories_ibfk_2` FOREIGN KEY (`signatory_id`) REFERENCES `signatories` (`signatory_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
