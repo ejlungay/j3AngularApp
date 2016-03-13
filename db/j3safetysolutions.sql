@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2016 at 10:53 AM
+-- Generation Time: Mar 13, 2016 at 09:19 AM
 -- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- PHP Version: 5.5.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -79,6 +79,7 @@ INSERT INTO `course` (`course_id`, `uid`, `category_id`, `course_code`, `course_
 
 CREATE TABLE `delegates` (
   `delegate_id` int(11) NOT NULL,
+  `delegate_number` int(11) NOT NULL,
   `training_id` int(11) DEFAULT NULL,
   `registration_id` int(11) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
@@ -98,22 +99,22 @@ CREATE TABLE `delegates` (
 -- Dumping data for table `delegates`
 --
 
-INSERT INTO `delegates` (`delegate_id`, `training_id`, `registration_id`, `firstname`, `middlename`, `lastname`, `email`, `phone`, `company`, `company_position`, `image`, `address`, `industry`, `gender`) VALUES
-(1, 3, 7, 'dfsfs', 'jkj', 'k', NULL, '15241', 'sdds', 'dsa', 'http://localhost/j3safetysolutions/uploads/delegates/', 'k', 'da', 'Male'),
-(2, 3, 8, 'wdwqdwd', 'ujijuikj', 'jhkihjk', 'hjhydjdh@gmail.com', '565456', ';d;likp', 'huii', 'http://localhost/j3safetysolutions/uploads/delegates/22.png', 'oiooi', 'siuhihi', 'Male'),
-(3, 5, 9, 'test', 'test', 'test', NULL, '4454554', 'test', 'test', 'http://localhost/j3safetysolutions/uploads/delegates/', 'test', 'test', 'Male'),
-(4, 4, 10, 'pp', 'ppp', 'ppp', NULL, '123456', 'ppp', 'pppp', 'http://localhost/j3safetysolutions/uploads/delegates/', 'ppp', 'pppp', 'Male'),
-(5, 4, 11, 'ooo', 'ooo', 'oo', NULL, '77878', 'ooo', 'oo', 'http://localhost/j3safetysolutions/uploads/delegates/8868.png', 'oo', 'oo', 'Male'),
-(6, 5, 12, 'lll', 'll', 'l', NULL, '142', 'lll', 'llll', 'http://localhost/j3safetysolutions/uploads/delegates/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr.jpg', 'lll', 'lll', 'Male'),
-(7, 6, 13, 'mm', 'mm', 'mm', NULL, '124', 'mm', 'mm', 'http://localhost/j3safetysolutions/uploads/delegates/Paige.jpg', 'mm', 'mm', 'Female'),
-(8, 8, 14, 'or', 'kill', 'everyone', 'around@gmail.com', '12653032126', 'killers group of companies', 'standing innovation', 'http://localhost/j3safetysolutions/uploads/delegates/we.jpg', 'around', 'bloods', 'Male'),
-(9, 8, 15, 'tae', 'tae', 'tae', 'tae@tae.com', '1346', 'tae', 'tae', 'http://localhost/j3safetysolutions/uploads/delegates/images.png', 'tae', 'tae', 'Male'),
-(10, 8, 16, 'yolo', 'yolo', 'yolo', NULL, '9367133136', 'oylo', 'standing', 'http://localhost/j3safetysolutions/uploads/delegates/w.png', 'yolo', 'yolo', 'Female'),
-(11, 8, 17, 'll', 'l', 'l', NULL, '654656', 'l', 'll', 'http://localhost/j3safetysolutions/uploads/delegates/log_in.JPG', 'l', 'll', 'Male'),
-(12, 8, 18, 'klkl', 'kl', 'klkl', NULL, '546466', 'l;l;lk', 'jhijiij', 'http://localhost/j3safetysolutions/uploads/delegates/shield.png', 'klkl', 'jkjk', 'Female'),
-(13, 8, 19, 'wak', 'wak', 'walk', NULL, '13249687', 'wak', 'wak', 'http://localhost/j3safetysolutions/uploads/delegates/senyo.jpg', 'wak', 'wak', 'Male'),
-(14, 8, 20, 'kl', 'lk', 'kl', 'jkjk', '45545', 'llpki', 'kjk', 'http://localhost/j3safetysolutions/uploads/delegates/FEZ-04-512.png', 'jjkj', 'lkj', 'Male'),
-(15, 8, 21, 'lollipop f', 'lollipop m', 'lollipop  l', 'lollipop  ema', '123456', 'lollipop  com', 'lollipop  pos', 'http://localhost/j3safetysolutions/uploads/delegates/settings-512.png', 'lollipop  add', 'lollipop  indu', 'Male');
+INSERT INTO `delegates` (`delegate_id`, `delegate_number`, `training_id`, `registration_id`, `firstname`, `middlename`, `lastname`, `email`, `phone`, `company`, `company_position`, `image`, `address`, `industry`, `gender`) VALUES
+(1, 205, 3, 7, 'Troy', 'de', 'Guzman', 'troy@gmail.com', '9367166156', 'My company', 'CEO', 'uploads/delegates/', 'lalang, lanao del norte', 'da', 'Male'),
+(2, 0, 3, 8, 'wdwqdwd', 'ujijuikj', 'jhkihjk', 'hjhydjdh@gmail.com', '565456', ';d;likp', 'huii', 'uploads/delegates/22.png', 'oiooi', 'siuhihi', 'Male'),
+(3, 0, 5, 9, 'test', 'test', 'test', NULL, '4454554', 'test', 'test', 'uploads/delegates/', 'test', 'test', 'Male'),
+(4, 0, 4, 10, 'pp', 'ppp', 'ppp', NULL, '123456', 'ppp', 'pppp', 'uploads/delegates/', 'ppp', 'pppp', 'Male'),
+(5, 0, 4, 11, 'ooo', 'ooo', 'oo', NULL, '77878', 'ooo', 'oo', 'uploads/delegates/8868.png', 'oo', 'oo', 'Male'),
+(6, 0, 5, 12, 'lll', 'll', 'l', NULL, '142', 'lll', 'llll', 'uploads/delegates/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr.jpg', 'lll', 'lll', 'Male'),
+(7, 0, 6, 13, 'mm', 'mm', 'mm', NULL, '124', 'mm', 'mm', 'uploads/delegates/Paige.jpg', 'mm', 'mm', 'Female'),
+(8, 0, 8, 14, 'or', 'kill', 'everyone', 'around@gmail.com', '12653032126', 'killers group of companies', 'standing innovation', 'uploads/delegates/we.jpg', 'around', 'bloods', 'Male'),
+(9, 0, 8, 15, 'tae', 'tae', 'tae', 'tae@tae.com', '1346', 'tae', 'tae', 'uploads/delegates/images.png', 'tae', 'tae', 'Male'),
+(10, 0, 8, 16, 'yolo', 'yolo', 'yolo', NULL, '9367133136', 'oylo', 'standing', 'uploads/delegates/w.png', 'yolo', 'yolo', 'Female'),
+(11, 0, 8, 17, 'll', 'l', 'l', NULL, '654656', 'l', 'll', 'uploads/delegates/log_in.JPG', 'l', 'll', 'Male'),
+(12, 0, 8, 18, 'klkl', 'kl', 'klkl', NULL, '546466', 'l;l;lk', 'jhijiij', 'uploads/delegates/shield.png', 'klkl', 'jkjk', 'Female'),
+(13, 0, 8, 19, 'wak', 'wak', 'walk', NULL, '13249687', 'wak', 'wak', 'uploads/delegates/senyo.jpg', 'wak', 'wak', 'Male'),
+(14, 0, 8, 20, 'kl', 'lk', 'kl', 'jkjk', '45545', 'llpki', 'kjk', 'uploads/delegates/FEZ-04-512.png', 'jjkj', 'lkj', 'Male'),
+(15, 0, 8, 21, 'lollipop f', 'lollipop m', 'lollipop  l', 'lollipop  ema', '123456', 'lollipop  com', 'lollipop  pos', 'uploads/delegates/settings-512.png', 'lollipop  add', 'lollipop  indu', 'Male');
 
 -- --------------------------------------------------------
 
@@ -330,9 +331,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `lastname`, `image`, `user_type`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej', 'Govino', 'Lungay', 'http://localhost/j3safetysolutions/uploads/avatar3.jpg', 'admin'),
-(2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'http://localhost/j3safetysolutions/uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'standard-user'),
-(3, NULL, 'd41d8cd98f00b204e9800998ecf8427e', NULL, NULL, NULL, '0', NULL);
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej', 'Govino', 'Lungay', 'uploads/avatar3.jpg', 'admin'),
+(2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'standard-user');
 
 --
 -- Indexes for dumped tables
