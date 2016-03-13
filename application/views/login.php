@@ -84,7 +84,7 @@
 						toastr.error('Invalid username or password.');
 					}
  				}).error(function(response) {
-					toastr.error('En error occured while communicating with the server. Please contact system administrator. Error detail: ' + response);
+					toastr.error('An error occured while communicating with the server. Please contact system administrator. Error detail: ' + response);
 				});
 			}
 		}

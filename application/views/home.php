@@ -108,6 +108,8 @@
   <script src="assets/app/views/trainings/addTrainingModalController.js"></script>
   <script src="assets/app/views/trainings/initializeAddtrainingController.js"></script>
   <script src="assets/app/views/trainings/addTrainingScheduleController.js"></script>
+  <script src="assets/app/views/trainings/editTrainingController.js"></script>
+  <script src="assets/app/views/trainings/aboutTrainingController.js"></script>
   <!-- REPORTS -->
    <script src="assets/app/views/reports/attendanceController.js"></script>
    <script src="assets/app/views/reports/certificateController.js"></script>

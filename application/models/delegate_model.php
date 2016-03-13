@@ -91,14 +91,17 @@
 		}
 
 		//function to update delegate detail 
-		public function updateDelegateDetail($delegate_id, $fname, $mname, $lname, $email, $company, $company_position, $phone) {
+		public function updateDelegateDetail($delegate_id, $fname, $mname, $lname, $email, $company, $company_position, $phone, $address, $delegate_number, $image) {
 			$data = array('firstname' => $fname,
 						  'middlename' => $mname,
 						  'lastname' => $lname,
 						  'email' => $email,
 						  'company' => $company,
 						  'company_position' => $company_position,
-						  'phone' => $phone);
+						  'phone' => $phone,
+						  'address' => $address,
+						  'delegate_number' => $delegate_number,
+						  'image' => $image);
 
 			$this->db->where('delegate_id', $delegate_id);
 			$this->db->update('delegates', $data);
@@ -142,5 +145,39 @@
 				return false;
 			}
 		}
+
+		public function get_delegate_all_detail($delegate_id) {
+			$this->db->select('a.*, b.*, c.course_name, d.*');
+			$this->db->from('delegates as a, trainings as b, course as c, delegate_accounts d');
+			$this->db->where("a.delegate_id = $delegate_id and a.delegate_id = $delegate_id and a.delegate_id = d.delegate_id and a.training_id = b.training_id and b.course_id = c.course_id");
+			$this->db->limit(0);
+			
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function get_delegate_payment_details($delegate_id) {
+			$this->db->select(' b.*, c.course_name, d.*');
+			$this->db->from('delegates as a, trainings as b, course as c, delegate_accounts d');
+			$this->db->where("d.delegate_id = $delegate_id and  a.training_id = b.training_id and b.course_id = c.course_id");
+			$this->db->limit(0);
+			
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+
   }
 ?>

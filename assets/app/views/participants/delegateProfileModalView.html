@@ -5,13 +5,13 @@
 	<div class="modal-body" style="background-color: #EFEFEF">
 		<div class="box">
 		    <div class="col-md-3">
-		      	<div style="background:url(http://localhost/j3safetysolutions/uploads/delegates/settings-512.png) center center; background-size:cover">
+		      	<div style="background:url({{userData.image}}) center center; background-size:cover">
 		        	<div class="p-lg bg-white-overlay text-center">
 		          		<a href class="w-xs inline">
-		            		<img src="http://localhost/j3safetysolutions/uploads/delegates/settings-512.png" class="img-circle img-responsive">
+		            		<img ng-src="{{userData.image}}" class="img-circle img-responsive">
 		          		</a>
 		          		<div class="m-b m-t-sm h2">
-		            		<span class="text-black">Mike</span>
+		            		<span class="text-black">{{userData.firstname}}</span>
 		          		</div>
 		          	<p>
 		            	Great day, Great life
@@ -19,104 +19,132 @@
 		        	</div>
 		      	</div>
 		      	<ul class="nav nav-lists b-t" ui-nav>
-			        <li class="active">
+			        <li class="active"  ng-click="toggleWhatToShow('profile')">
 			          	<a href>Profile</a>
 			        </li>
-			        <li>
+			        <li  ng-click="toggleWhatToShow('training')">
 			          	<a href>Trainings Attended</a>
 			        </li>
-			        <li>
+			        <li  ng-click="toggleWhatToShow('payment')">
 			          	<a href>Payment</a>
 			        </li>
-			        <li>
+			        <li  ng-click="toggleWhatToShow('registration')">
 			          	<a href>Registration Detail</a>
 			        </li>
 		      	</ul>
 		    </div>
 		    <div class="col-md-9 bg-white">
-		    	<div class="p-md bg-light lt b-b font-bold">Public profile</div>
+		    	<div class="p-md bg-light lt b-b font-bold">{{title}} <buttonng ng-show="showProfile" ng-click="editMode()" class="btn btn-default pull-right"><i class="fa fa-edit"></i></button></div>
 		    	<!--  Profile-->
-		    	<div>
+		    	<div ng-show="showProfile">
 				    <form role="form" class="p-md col-md-6">
 				        <div class="form-group">
 				          	<label>Profile picture</label>
 				          	<div class="form-file">
-				           	 	<input type="file" ng-model="image" accept="image/*">
-				            	<button class="btn btn-default">Upload new picture</button>
+				           	 	<input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" required>
+				            	<button class="btn btn-default" ng-disabled="!editable">Upload new picture</button>
 				         	 </div>
 				        </div>
 				        <div class="form-group">
 				          	<label>First name</label>
-				          	<input type="text" ng-model="data.firstname" class="form-control">
+				          	<input type="text" ng-model="userData.firstname" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				         	<label>Middle name</label>
-				          	<input type="text" ng-model="data.middlename" class="form-control">
+				          	<input type="text" ng-model="userData.middlename" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Last name</label>
-				          	<input type="text" ng-model="data.lastname" class="form-control">
+				          	<input type="text" ng-model="userData.lastname" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Email</label>
-				          	<input type="text" ng-model="data.email" class="form-control">
+				          	<input type="text" ng-model="userData.email" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Phone</label>
-				          	<input type="number" ng-model="data.phone" class="form-control">
+				          	<input type="number" ng-model="userData.phone" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Company</label>
-				          	<input type="text" ng-model="data.company" class="form-control">
+				          	<input type="text" ng-model="userData.company" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Position</label>
-				          	<input type="text" ng-model="data.position" class="form-control">
+				          	<input type="text" ng-model="userData.position" class="form-control" ng-disabled="!editable">
 				        </div>
 				        <div class="form-group">
 				          	<label>Address</label>
-				          	<input type="text" ng-model="data.address" class="form-control">
+				          	<input type="text" ng-model="userData.address" class="form-control" ng-disabled="!editable">
+				        </div>
+				        <div class="form-group">
+				          	<label>Participant Number</label>
+				          	<input type="number" ng-model="userData.number" class="form-control" ng-disabled="!editable">
 				        </div>
 
-				        <button type="submit" class="btn btn-info m-t">Submit</button>
+				        <button type="submit" class="btn btn-info m-t" ng-disabled="!editable" ng-click="update(picFile)">Submit</button>
 				    </form>
 				</div>
 				<!-- END Profile -->
 				<!-- START Trainings Attended -->
-				<div>
+				<div ng-show="showTraining">
 					<table class="table table-bordered table-hover bg-white">
-					<thead>
-			        	<tr>
-			            	<th  style="width:3%">#</th>
-			            	<th  style="width:3%">Image</th>
-			            	<th  style="width:25%">Full name</th>
-			            	<th  style="width:25%">Address</th>
-			            	<th  style="width:25%">Phone</th>
-			            	<th  style="width:25%">Email</th>
-			           	 	<th  style="width:3%"></th>
-			          	</tr>
-			        </thead>
-					<tbody>
-					  <tr ng-repeat="delegate in delegateList | filter: searchKeyword track by $index">
-			            	<td  style="width:10%">{{$index + 1}}</td>
-			            	<td  style="width:25%"><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
-			            	<td  style="width:25%">{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
-			            	<td  style="width:25%">{{delegate.address}}</td>
-			            	<td  style="width:25%">{{delegate.phone}}</td>
-			            	<td  style="width:25%">{{delegate.email}}</td>
-			            	<td><a href ng-click="showParticipantProfile('{{delegate.delegate_id}}')"><i class="icon mdi-action-perm-identity"></i></a></td>
-			          	</tr>
-			        </tbody>
+						<thead>
+				        	<tr>
+				            	<th  style="width:3%">#</th>
+				            	<th  style="width:25%">Course name</th>
+				            	<th  style="width:25%">Training Date</th>
+				            	<th  style="width:25%">Training Venue</th>
+				          	</tr>
+				        </thead>
+						<tbody>
+						  <tr ng-repeat="item in details track by $index">
+				            	<td  style="width:10%">{{$index + 1}}</td>
+				            	<td  style="width:25%">{{item.course_name}}</td>
+				            	<td  style="width:25%">{{item.from_date}} - {{item.to_date}}</td>
+				            	<td  style="width:25%">{{item.location}}</td>
+				          	</tr>
+				        </tbody>
 				  </table>
 				</div>
 				<!-- END Trainings Attended -->
 				<!-- START Payment -->
-				<div>
-
+				<div ng-show="showPayment">
+					<div style="width: 150px;" class="pull-right">
+				  		<select class="form-control" ng-model="training_id">
+				  			<option>Select training</option>
+				  			<option ng-repeat="item in details track by $index" value="{{item.training_id}}">{{item.course_name}}</option>
+				  		</select>
+				  	</div>
+				  	<div class="box">
+				  		<label>Payment Information</label>
+				  		<table class="table table-bordered table-hover bg-white">
+							<thead>
+						        <tr>
+						            <th>Course name</th>
+						            <th>Training Fee</th>
+						            <th>Amount paid</th>
+						            <th>Balance</th>
+						            <th>Date Paid</th>
+						            <th></th>
+						          </tr>
+						       </thead>
+							<tbody>
+								<tr ng-repeat="item in details track by $index">
+						        	<td>{{item.course_name}}</td>
+						            <td>{{item.regular_fee}}</td>
+						            <td>{{item.amount_paid}}</td>
+						            <td>{{userData.balance}}</td>
+						            <td>{{item.date_paid}}</td>
+						            <td></td>
+						        </tr>
+						    </tbody>
+						</table>
+				  	</div>
 				</div>
 				<!-- END Payment -->
 				<!-- START Registration detail -->
-				<div>
+				<div ng-show="showRegistration">
 
 				</div>
 				<!-- END Registration detail -->

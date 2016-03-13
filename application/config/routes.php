@@ -98,6 +98,8 @@
 	$route['delegate_detail']['get'] = 'delegate_controller/get_delegate_by_delegate_id';
 	$route['update_delegate']['post'] = 'delegate_controller/update_delegate';
 	$route['all_delegates']['get'] = 'delegate_controller/delegateList';
+	$route['delegate_details']['get'] = 'delegate_controller/delegate_details';
+	$route['payment_detail']['get'] = 'delegate_controller/get_delegate_payment_details';
 
 	//routing categories
 	$route['add_category']['post'] = 'category_controller/add_category';

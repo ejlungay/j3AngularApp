@@ -53,14 +53,14 @@
 			});
 		}
 		
-		$scope.showParticipantProfile = function(id) {
+		$scope.showParticipantProfile = function(delegateId) {
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/participants/delegateProfileModalView.html',
 			controller: 'delegateProfileModalController',
-			size: '',
+			size: 'lg',
 			resolve: {
-			  id: function () {
-				return id;
+			  delegateId: function () {
+				return delegateId;
 			  }
 			}
 			});

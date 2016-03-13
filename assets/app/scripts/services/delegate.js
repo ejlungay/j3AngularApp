@@ -60,7 +60,7 @@ angular.module('app')
                     return response;
                 }).error(function(response) {
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
-                	console.log(response);
+                	
                 });
             },
 			getTrainingDelegatesUsingTrainingId: function(training_id) {
@@ -81,6 +81,43 @@ angular.module('app')
                     method: 'GET'
                 }).success(function(response) {
                     return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                	console.log(response);
+                });
+            },
+
+             get_delegate_details: function(id) {
+                return $http({
+                    url: 'delegate_details?delegate_id=' + id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                	console.log(response);
+                });
+            },
+
+            updateDelegate: function(datum, file) {
+				return file.upload = Upload.upload({
+                    url: 'update_delegate',
+					data: {
+						delegate_id: datum.delegate_id, 
+						firstname: datum.firstname, 
+						middlename: datum.middlename, 
+						lastname: datum.lastname, 
+						email: datum.email,
+						company: datum.company,
+						company_position: datum.position,
+						phone: datum.phone,
+						industry: datum.industry,
+						address: datum.address,
+						delegate_number: datum.number,
+						file: file
+					}
+                }).success(function(response) {
+                    return response;
                 }).error(function(response) {
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
                 	console.log(response);

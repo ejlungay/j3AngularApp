@@ -35,7 +35,7 @@ class Delegate_controller extends CI_Controller {
         $industry = $this->input->post('industry');
         $gender = $this->input->post('gender');
 		$added_by = $this->input->post('added_by');
-		$image_url = 'http://localhost/j3safetysolutions/uploads/delegates/';
+		$image_url = 'uploads/delegates/';
 		$userid = $this->input->post('user_id');
 		$amount_paid = $this->input->post('amount_paid');
 		$or_no = $this->input->post('or_no');
@@ -135,9 +135,22 @@ class Delegate_controller extends CI_Controller {
         $company = $this->input->post('company');
         $company_position = $this->input->post('company_position');
         $phone = $this->input->post('phone');
+        $address = $this->input->post('address');
+        $delegate_number = $this->input->post('delegate_number');
+     	$image_url = 'uploads/delegates/';
+
+     	$config['upload_path']  = './uploads/delegates/';
+		$config['allowed_types'] = '*';
+	 
+		$this->load->library('upload', $config);
+		
+		if ($this->upload->do_upload('file')) {
+			$temp = $this->upload->data();
+			$image_url = $image_url.$temp['file_name'];
+		}
 
         if ($delegate_id != null) {
-            $result = $this->delegate_model->updateDelegateDetail($delegate_id, $fname, $mname, $lname, $email, $company, $company_position, $phone);
+            $result = $this->delegate_model->updateDelegateDetail($delegate_id, $fname, $mname, $lname, $email, $company, $company_position, $phone, $address, $delegate_number, $image_url);
             if ($result) {
                 $json_response = array('delegate id' => $delegate_id,
                                       'firstname' => $fname,
@@ -238,6 +251,53 @@ class Delegate_controller extends CI_Controller {
 			return false;
 		}
     }
+
+	public function delegate_details() {
+		$delegate_id = $this->input->get('delegate_id');
+		
+		if ($delegate_id != null) {
+			$result = $this->delegate_model->get_delegate_all_detail($delegate_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to find a delegate detail with the given id.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}
+
 	
+	public function get_delegate_payment_details() {
+		$delegate_id = $this->input->get('delegate_id');
+		
+		if ($delegate_id != null) {
+			$result = $this->delegate_model->get_delegate_payment_details($delegate_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to find a delegate detail with the given id.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}
+
   }
 ?>

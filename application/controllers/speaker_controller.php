@@ -29,7 +29,7 @@
 			$phone = $this->input->post('phone');
 			$company = $this->input->post('company');
 			$company_position = $this->input->post('company_position');
-			$image_url = 'http://localhost/j3safetysolutions/uploads/speakers/';
+			$image_url = 'uploads/speakers/';
 
 			if ($training_id != null && $fname != null && $lname != null) {
 

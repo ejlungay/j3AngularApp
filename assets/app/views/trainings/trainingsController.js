@@ -16,6 +16,32 @@
 		$scope.openAddTrainingModal = function() {
 			window.location = 'home#/app/training/add-training';
 		}
+
+		$scope.edit = function() {
+			var modalInstance = $modal.open({
+			templateUrl: 'assets/app/views/trainings/editTrainingView.html',
+			controller: 'editTrainingController',
+			size: '',
+			resolve: {
+			  id: function () {
+				return $scope.id;
+			  }
+			}
+			});
+		}
+
+		$scope.about = function() {
+			var modalInstance = $modal.open({
+			templateUrl: 'assets/app/views/trainings/aboutTrainingView.html',
+			controller: 'aboutTrainingController',
+			size: '',
+			resolve: {
+			  id: function () {
+				return $scope.id;
+			  }
+			}
+			});
+		}
 	});
 
 	  

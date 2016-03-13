@@ -20,7 +20,7 @@
 				<th style="width:auto">Venue</th>
 				<th style="width:auto">Date Created</th>
 				<th style="width:auto">Created By</th>
-				<th style="width:3%"></th>
+				<th style="width:8%"></th>
 			</tr>
         </thead>
 		 <tbody>
@@ -31,7 +31,12 @@
 				<td>{{training.location}}</td>
 				<td>{{training.date_added}}</td>
 				<td>{{training.added_by}}</td>
-				<td><center><a href><i class="fa fa-edit"></i></a></center></td>
+				<td>
+					<center>
+						<a href popover="Edit" popover-trigger="mouseenter" ng-click="edit()"><i class="fa fa-edit"></i></a>
+						<a href popover="More detail" popover-trigger="mouseenter" ng-click="about()"><i class="fa fa-info-circle"></i></a>
+					</center>
+				</td>
 			</tr>
         </tbody>
 	  </table>
