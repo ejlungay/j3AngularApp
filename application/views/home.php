@@ -118,6 +118,8 @@
    <script src="assets/app/views/reports/editCertificateDetailModalController.js"></script>
    <script src="assets/app/views/reports/directoryController.js"></script>
    <script src="assets/app/views/reports/printDirectoryController.js"></script>
+   <script src="assets/app/views/reports/financialController.js"></script>
+   <script src="assets/app/views/reports/editFinancialController.js"></script>
   <!-- Pages Services Scripts -->
   <script src="assets/app/scripts/services/course.js"></script>
   <script src="assets/app/scripts/services/training.js"></script>
@@ -128,6 +130,7 @@
   <script src="assets/app/scripts/services/category.js"></script>
   <script src="assets/app/scripts/services/speaker.js"></script>
   <script src="assets/app/scripts/services/signatory.js"></script>
+  <script src="assets/app/scripts/services/report.js"></script>
 </body>
 </html>
 

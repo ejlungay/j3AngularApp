@@ -1,33 +1,76 @@
 	
-	<style type="text/css">
+	<style>
 		@media print {
 			.separate {
 			    background-color: black !important;
 			    -webkit-print-color-adjust: exact; 
 			}
-			footer {page-break-after: always;}
+			.pagebreak { 
+				page-break-before: always; 
+			}
+
+			div, table { 
+			    page-break-inside: always;
+				page-break-before: always; 
+				page-break-after: always;
+			}
 		}
+
+		.text-wrap-right {
+			float: right;
+			margin: 10px;
+		}
+
+		.text-wrap-left {
+		    float: left;
+			margin: 10px;
+		}
+
+		p.small {
+		    line-height: 80%;
+		}
+	
 	</style>
 
 	<div ng-controller="printDirectoryController">
-		<img src="assets/img/printLogo.png" height="50">
-		<div class="separate form-control" style="height: 10px; background-color: black;"></div></br></br>
+		<button class="btn btn-default pull-right" ng-click="print()"><i class="fa fa-print"> Print</i></button>
+		<div id="printDiv">
+			<!--<img src="assets/img/printLogo.png" height="50">-->
+			<div class="separate form-control" style="height: 10px; background-color: black;"></div></br></br>
 
-		<label><u>Place: Cagayan de Oro City</u></label>
-		<div class="pull-right">
-			<label><u>Date: Dcember 1, 20190</u></label>
-		</div>
-
-		<table>
-			<tbody>
-				<tr ng-repeat="item in participants">
-					<td style="width: 50%">
-						<img src="{{item.image}}" width="100" height="100" style="border: solid 1px black">
-					</td>
-					<td style="width: 50%">
-						<img src="{{item.image}}" width="100" height="100" style="border: solid 1px black">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+			<label><u>Place: Cagayan de Oro City</u></label>
+			<div class="pull-right">
+				<label><u>Date: Dcember 1, 20190</u></label>
+			</div>
+			<div  style="border: solid 1px black">
+				<div ng-repeat="item in participants" ng-if="$index % 2 == 0" style="page-break-after:always;">
+			        <div class="col-xs-6" ng-show="participants[$index].image!=null">
+				         	<img class="img-thumbnail text-wrap-left" height="250" width="150" src="{{participants[$index].image}}"style="border: solid 2px black;" style=" float: left; margin: 10px;">
+					   <div class="p">
+					   		<p class="small">Name:{{participants[$index].firstname}} {{participants[$index].middlename}}. {{participants[$index].lastname}}</p>
+			        		<p class="small">Contact: {{participants[$index].phone}}</p>
+			        		<p class="small">Positon: {{participants[$index].company_position}}</p>
+			        		<p class="small">Company: {{participants[$index].company}}</p>
+			        		<p class="small">Industry: {{participants[$index].industry}}</p>
+			        		<p class="small">Email: {{participants[$index].email}}</p>
+					   </div>
+			        </div>
+			        <div class="col-xs-6" ng-show="participants[$index + 1].image!=null">
+			        	<div class="item">
+				         	<img class="img-thumbnail text-wrap-left" height="250" width="150" src="{{participants[$index + 1].image}}"style="border: solid 2px black;">
+				        </div>
+					   <div class="p">
+					   		<p class="small">Name:{{participants[$index + 1].firstname}} {{participants[$index + 1].middlename}}. {{participants[$index + 1].lastname}}</p>
+			        		<p class="small">Contact: {{participants[$index + 1].phone}}</p>
+			        		<p class="small">Positon: {{participants[$index + 1].company_position}}</p>
+			        		<p class="small">Company: {{participants[$index + 1].company}}</p>
+			        		<p class="small">Industry: {{participants[$index + 1].industry}}</p>
+			        		<p class="small">Email: {{participants[$index + 1].email}}</p>
+					   </div>
+			        </div>
+			        <div class="pagebreak"></div>
+		    	</div>
+	    	</div>
+	   	 </div>
+   	</div>
+   	 

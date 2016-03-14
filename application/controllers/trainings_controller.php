@@ -323,5 +323,34 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 		}
 	}
+
+	public function add_training_expense() {
+        $training_id = $this->input->post('training_id');
+        $expense_name = $this->input->post('expense_name');
+        $amount_paid = $this->input->post('amount_paid');
+        $or_no = $this->input->post('or_no');
+
+        if ($training_id != null && $expense_name != null && $amount_paid != null && $or_no != null) {
+          $result = $this->trainings_model->add_training_expense($training_id, $expense_name, $amount_paid, $or_no);
+          if ($result) {
+          	$json_response = array( 'returnMessage'=>'Expense successfully added.',
+	                                'returnValue'=>'SUCCESS');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+          }
+          else {
+          	$json_response = array( 'returnMessage'=>'An error occur while adding the data.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+          }
+        }
+        else {
+        	$json_response = array( 'returnMessage'=>'Invalid request parameters.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+        }
+     }
   } // end class
 ?>

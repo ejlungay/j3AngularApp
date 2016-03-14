@@ -199,6 +199,17 @@
 			    return false;
 		    }
 		}
+
+		public function add_training_expense($training_id, $expense_name, $amount_paid, $or_no) {
+			$data = array(
+				'training_id' => $training_id,
+				'expense_name' => $expense_name,
+				'amount_paid' => $amount_paid,
+				'or_no' => $or_no
+			);
+
+			return $this->db->insert('training_expenses', $data);
+		}
   }
 ?>
 

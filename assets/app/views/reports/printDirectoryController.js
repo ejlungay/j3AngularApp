@@ -1,5 +1,5 @@
 	
-	angular.module('app').controller('printDirectoryController', function($scope, $state, $stateParams, delegateFactory) {
+	angular.module('app').controller('printDirectoryController', function($scope, $state, $stateParams, delegateFactory, ReportingService) {
 		//alert($stateParams.training_id);
 
 		$scope.participants = [];
@@ -12,4 +12,10 @@
 				$scope.participants = [];
 			}
 		});
+
+		$scope.print = function() {
+			alert();
+		  	var divToPrint = document.getElementById('printDiv');
+            ReportingService.printData(divToPrint);
+        }
 	});

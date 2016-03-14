@@ -81,6 +81,5 @@ class training_attended_controller extends CI_Controller {
             return false;
         }
      }
-
   }
 ?>
