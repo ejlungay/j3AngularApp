@@ -1,33 +1,75 @@
-	
-	<style type="text/css">
-		@media print {
-			.separate {
-			    background-color: black !important;
-			    -webkit-print-color-adjust: exact; 
-			}
-			footer {page-break-after: always;}
-		}
-	</style>
-
-	<div ng-controller="printDirectoryController">
-		<img src="assets/img/printLogo.png" height="50">
-		<div class="separate form-control" style="height: 10px; background-color: black;"></div></br></br>
-
-		<label><u>Place: Cagayan de Oro City</u></label>
-		<div class="pull-right">
-			<label><u>Date: Dcember 1, 20190</u></label>
-		</div>
-
-		<table>
-			<tbody>
-				<tr ng-repeat="item in participants">
-					<td style="width: 50%">
-						<img src="{{item.image}}" width="100" height="100" style="border: solid 1px black">
-					</td>
-					<td style="width: 50%">
-						<img src="{{item.image}}" width="100" height="100" style="border: solid 1px black">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+<style type="text/css">
+@media print {
+    .separate {
+        background-color: black !important;
+        -webkit-print-color-adjust: exact;
+    }
+    footer {
+        page-break-after: always;
+    }
+}
+</style>
+<div ng-controller="printDirectoryController">
+    <img src="assets/img/printLogo.png" height="50">
+    <div class="separate form-control" style="height: 10px; background-color: black;"></div>
+    </br>
+    </br>
+    <label><u>Place: Cagayan de Oro City</u></label>
+    <div class="pull-right">
+        <label><u>Date: Dcember 1, 20190</u></label>
+    </div>
+    <div class="row" ng-repeat="item in participants" ng-if="$index % 2 == 0">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <img ng-src="{{participants[$index].image}}" alt="" class="img-thumbnail" width="100" height="100" />
+                    <!-- <img src="{{participants[$index].image}}" width="100" height="100" style="border: solid 1px black"> -->
+                </div>
+                <div class="col-sm-6 col-md-8">
+                    <h4>{{participants[$index].firstname}} {{participants[$index].lastname}}</h4>
+                    <small><cite>{{participants[$index].address}}<i class="glyphicon glyphicon-map-marker">
+                        </i></cite></small>
+                    <p>
+                        <i class="glyphicon glyphicon-envelope"></i>{{participants[$index].email}}
+                        <br />
+                        <i class="glyphicon glyphicon-phone"></i>{{participants[$index].phone}}
+                        <br />
+                        <i class="glyphicon glyphicon-home"></i>{{participants[$index].company}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <img ng-src="{{participants[$index +1].image}}" alt="" class="img-thumbnail" width="100" height="100" />
+                    <!-- <img src="{{participants[$index].image}}" width="100" height="100" style="border: solid 1px black"> -->
+                </div>
+                <div class="col-sm-6 col-md-8">
+                    <h4>{{participants[$index +1].firstname}} {{participants[$index +1].lastname}}</h4>
+                    <small><cite>{{participants[$index +1].address}}<i class="glyphicon glyphicon-map-marker">
+                        </i></cite></small>
+                    <p>
+                        <i class="glyphicon glyphicon-envelope"></i>{{participants[$index +1].email}}
+                        <br />
+                        <i class="glyphicon glyphicon-phone"></i>{{participants[$index +1].phone}}
+                        <br />
+                        <i class="glyphicon glyphicon-home"></i>{{participants[$index +1].company}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <table>
+        <tbody>
+            <tr >
+                <td style="width: 50%">
+                    <img src="{{item[$index].image}}" width="100" height="100" style="border: solid 1px black">
+                </td>
+                <td style="width: 50%">
+                    <img src="{{item[$index + 1].image}}" width="100" height="100" style="border: solid 1px black">
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+</div>
