@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <h3 class="modal-title">Select participant!</h3>
+</div>
+<div class="modal-body">
+						<h4>Select participant</h4>
+    <table class="table table-bordered table-hover bg-white">
+		<thead>
+			<tr>
+				<th colspan="7">
+					<div class="pull-right">
+						<input type="text" ng-model="searchKeyword" placeholder="Search" class="form-control pull-right">
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th  style="width:1%">#</th>
+				<th  style="width:3%">Image</th>
+				<th  style="width:25%">Full name</th>
+				<th>Address</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="delegate in delegateList | filter: searchKeyword">
+				<td>{{$index + 1}}</td>
+				<td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
+				<td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
+				<td>{{delegate.address}}</td>
+				<td>{{delegate.phone}}</td>
+				<td>{{delegate.email}}</td>
+				<td><a href ng-click="add(delegate.delegate_id, $index)" popover="Select participant" popover-trigger="mouseenter"><i class="glyphicon glyphicon-ok"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>	
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="ok()">Close</button>
+</div>

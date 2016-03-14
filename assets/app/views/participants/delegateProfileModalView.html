@@ -98,7 +98,7 @@
 				          	</tr>
 				        </thead>
 						<tbody>
-						  <tr ng-repeat="item in details track by $index">
+						  <tr ng-repeat="item in trainings track by $index">
 				            	<td  style="width:10%">{{$index + 1}}</td>
 				            	<td  style="width:25%">{{item.course_name}}</td>
 				            	<td  style="width:25%">{{item.from_date}} - {{item.to_date}}</td>
@@ -111,9 +111,8 @@
 				<!-- START Payment -->
 				<div ng-show="showPayment">
 					<div style="width: 150px;" class="pull-right">
-				  		<select class="form-control" ng-model="training_id">
-				  			<option>Select training</option>
-				  			<option ng-repeat="item in details track by $index" value="{{item.training_id}}">{{item.course_name}}</option>
+				  		<select class="form-control" ng-model="trainingData.training_id" ng-change="payment()">
+				  			<option ng-repeat="item in trainings track by $index" value="{{item.training_id}}">{{item.course_name}}</option>
 				  		</select>
 				  	</div>
 				  	<div class="box">
@@ -130,7 +129,7 @@
 						          </tr>
 						       </thead>
 							<tbody>
-								<tr ng-repeat="item in details track by $index">
+								<tr ng-repeat="item in payments track by $index">
 						        	<td>{{item.course_name}}</td>
 						            <td>{{item.regular_fee}}</td>
 						            <td>{{item.amount_paid}}</td>

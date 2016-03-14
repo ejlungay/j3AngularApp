@@ -423,6 +423,39 @@ class Users extends CI_Controller {
 			return false;
 		}
      }
-	
+
+	function getUserDetailUsingUserId() {
+		$userid = $this->input->get('userid');
+		
+		if ($userid != null) {
+			$result = $this->user->getUserDetailUsingUserId($userid);
+			if ($result) {
+				$json_response;
+				foreach ($result as $row) {
+					$json_response = array(
+					'fullname' => $row->firstname.' '.$row->lastname
+					);
+				}
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+			else {
+				$json_response = array('username' => $username,
+									  'returnMessage'=>'No available records from the given user id',
+									  'returnValue'=>'FAILURE');    
+
+			   $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+
+				return false;
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');    
+
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			return false;
+		}
+     }
  }
 ?>

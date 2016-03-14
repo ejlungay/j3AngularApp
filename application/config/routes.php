@@ -61,6 +61,7 @@
 	$route['update_profile_pic']['post'] = 'users/updateProfilePicture';
 	$route['get_user_type']['get'] = 'users/getUserType';
 	$route['get_user_detail']['get'] = 'users/getUserDetail';
+	$route['get_user_detail_using_id']['get'] = 'users/getUserDetailUsingUserId';
 	//----------------------- 
 	$route['current_user'] = 'users/retrieve_user';
 	$route['destroy_user'] = 'users/destroy_session';
@@ -86,6 +87,8 @@
 	$route['todaysTrainings']['get'] = 'trainings_controller/todaysTrainings'; //route for getting todays trainings
 	$route['update_training']['post'] = 'trainings_controller/updateTraining'; //route for getting todays trainings
 	$route['get_trainings_by_month']['get'] = 'trainings_controller/getTrainingsByMonth'; //route for getting todays trainings
+	$route['count_training_delegates']['get'] = 'trainings_controller/count_training_delegates'; //route for getting todays trainings
+	$route['get_training_detail']['get'] = 'trainings_controller/get_training_detail'; //route for getting todays trainings
 
 	//routing training speaker APIs
 	$route['add_speaker']['post'] = 'speaker_controller/add_training_speaker';
@@ -99,7 +102,10 @@
 	$route['update_delegate']['post'] = 'delegate_controller/update_delegate';
 	$route['all_delegates']['get'] = 'delegate_controller/delegateList';
 	$route['delegate_details']['get'] = 'delegate_controller/delegate_details';
+	$route['get_delegate_profile']['get'] = 'delegate_controller/get_delegate_profile';
+	$route['get_delegate_trainings']['get'] = 'delegate_controller/get_delegate_trainings';
 	$route['payment_detail']['get'] = 'delegate_controller/get_delegate_payment_details';
+	$route['delegate_transactions']['get'] = 'delegate_controller/load_delegate_transaction';
 
 	//routing categories
 	$route['add_category']['post'] = 'category_controller/add_category';
@@ -111,6 +117,10 @@
 	$route['add_signatory']['post'] = 'signatories_controller/add_signatory';
 	$route['get_signatories_using_training_id']['get'] = 'signatories_controller/get_signatories_by_training_id';
 	$route['signatories']['get'] = 'signatories_controller/signatories';
+
+	//routing training attended controller
+	$route['add_delegate_to_training']['post'] = 'training_attended_controller/add_delegate_to_training';
+	$route['check_delegate']['get'] = 'training_attended_controller/check_delegate';
 	
 	$route['translate_uri_dashes'] = FALSE;
 	

@@ -50,26 +50,35 @@
 			controller: 'addParticipantModalController',
 			size: '',
 			resolve: {
-			  trainingId: function () {
-				return training_id[1];
-			  }
-			}
+			  	trainingId: function () {
+					return training_id[1];
+			 	 }
+				}
 			});
 		}
 		$scope.existing = function() {
-			alert('existing');
+			var modalInstance = $modal.open({
+			templateUrl: 'assets/app/views/trainings/selectFromExistingView.html',
+			controller: 'selectFromExistingController',
+			size: 'lg',
+			resolve: {
+			  		trainingId: function () {
+					return training_id[1];
+			 	}
+			}
+			});
 		}
 
-		$scope.showProfile = function() {
+		$scope.showProfile = function(delegateId) {
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/participants/delegateProfileModalView.html',
 			controller: 'delegateProfileModalController',
-			size: 'lg'/*,
+			size: 'lg',
 			resolve: {
-			  trainingId: function () {
-				return training_id[1];
+			  delegateId: function () {
+				return delegateId;
 			  }
-			}*/
+			}
 			});
 		}
 	});

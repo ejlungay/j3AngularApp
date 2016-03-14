@@ -8,11 +8,14 @@
 
 		$scope.editable = false;
 
+		$scope.trainingData = {};
+		$scope.payments = [];
+
 		$scope.userData = {};
 		$scope.userData.delegate_id = delegateId;
 		$scope.details = [];
 		$scope.loadDetails = function() {
-			delegateFactory.get_delegate_details(delegateId).then(function(response) {
+			delegateFactory.get_delegate_profile(delegateId).then(function(response) {
 				var amount_paid = 0;
 				var fee = 0;
 				if (response.data.length > 0) {
@@ -49,6 +52,7 @@
 		}
 		$scope.loadDetails();
 
+		$scope.trainings = [];
 		$scope.toggleWhatToShow = function(param) {
 			if (param == 'profile') {
 				$scope.title = 'Participant Profile';
@@ -63,6 +67,16 @@
 				$scope.showTraining = true;
 				$scope.showPayment = false;
 				$scope.showRegistration = false;
+
+				delegateFactory.get_delegate_trainings(delegateId).then(function(response) {
+					console.log(response.data);
+					if (response.data.length > 0) {
+						$scope.trainings = response.data;
+					}
+					else {
+						$scope.trainings = [];
+					}
+				});
 			}
 			else if (param == 'payment') {
 				$scope.title = 'Payment Transaction';
@@ -108,5 +122,19 @@
 					console.error(response.data);
 				}
 			});
+		}
+
+		$scope.payment = function() {
+			alert();
+			$scope.trainingData.delegate_id = delegateId;
+				delegateFactory.get_delegate_transactions($scope.trainingData).then(function(response) {
+					console.log(response.data);
+					if (response.data.length > 0) {
+						$scope.payments = response.data;
+					}
+					else {
+						$scope.payments = [];
+					}
+				});
 		}
 	});

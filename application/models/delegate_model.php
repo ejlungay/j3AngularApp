@@ -26,6 +26,18 @@
 		  	}
 		}
 
+		public function getMaxTrainingAttendedId() {
+			$this->db->select('MAX(a.ta_id) as id');
+			$this->db->from('training_attended as a');
+			$this->db->limit(0);
+
+			$query = $this -> db -> get();
+          
+			foreach ($query->result() as $row) {
+		      return $row->id;
+		  	}
+		}
+
         //function for adding training course
 		public function add_delegate($training_id, $fname, $mname, $lname, $email, $address, $company, $industry, $company_position, $phone,  $image_url, $gender, $added_by, $userid, $amount_paid, $or_no) {
 			/***************   MULTIPLE INSERT***************/
@@ -39,7 +51,7 @@
 
 				$registration_id = $this->getMaxRegistrationId();
 
-				$data2 = array( 'training_id' => $training_id,
+				$data2 = array( 
 								'registration_id' => $registration_id,
 							   	'firstname' => $fname,
 							   	'middlename' => $mname,
@@ -58,12 +70,24 @@
 
 					$delegate_id = $this->getMaxDelegateId();
 
-					$data3 = array(
+					$data4 = array(
+							'delegate_id' => $delegate_id,
+							'training_id' => $training_id
+					);
+
+					if ($this->db->insert('training_attended', $data4)) {
+						$training_attended_id = $this->getMaxTrainingAttendedId();
+
+						$data3 = array(
 							'delegate_id' => $delegate_id,
 							'amount_paid' => $amount_paid,
-							'or_no' => $or_no
+							'or_no' => $or_no,
+							'training_attended_id' => $training_attended_id
 						);
-					if (!$this->db->insert('delegate_accounts', $data3)) $successful = false;
+
+						if (!$this->db->insert('delegate_accounts', $data3)) $successful = false;
+					}
+					
 				}
 			}
 			else {
@@ -75,7 +99,7 @@
       
 		//function to get a specific speaker detail
 		public function get_delegate_by_delegate_id($delegate_id) {
-			$this -> db -> select('a.delegate_id, a.training_id, a.firstname, a.middlename, a.lastname, a.email, a.phone, a.company, a.company_position');
+			$this -> db -> select('*');
 			$this -> db -> from('delegates as a');
 			$this -> db -> where('a.delegate_id', $delegate_id);
 			$this -> db -> limit(0);
@@ -148,8 +172,13 @@
 
 		public function get_delegate_all_detail($delegate_id) {
 			$this->db->select('a.*, b.*, c.course_name, d.*');
-			$this->db->from('delegates as a, trainings as b, course as c, delegate_accounts d');
-			$this->db->where("a.delegate_id = $delegate_id and a.delegate_id = $delegate_id and a.delegate_id = d.delegate_id and a.training_id = b.training_id and b.course_id = c.course_id");
+			$this->db->from('delegates as a, trainings as b, course as c, delegate_accounts d, training_attended as e');
+			$this->db->where("a.delegate_id = $delegate_id and
+							  a.delegate_id = $delegate_id and
+							  a.delegate_id = d.delegate_id 
+							  a.delegate_id = e.delegate_id and
+							  b.training_id = e.training_id and
+							   b.course_id = c.course_id");
 			$this->db->limit(0);
 			
 			$query = $this->db->get();
@@ -178,6 +207,58 @@
 			}
 		}
 
+
+		public function get_delegate_profile($delegate_id) {
+			$this->db->select('*');
+			$this->db->from('delegates as a');
+			$this->db->where("a.delegate_id = $delegate_id");
+
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function get_delegate_trainings($delegate_id) {
+			$this->db->select('a.from_date, a.to_date, a.location, c.course_name');
+			$this->db->from('trainings as a, training_attended as b, course as c, categories as d');
+			$this->db->where("a.training_id = b.training_id and
+							  a.course_id = c.course_id and
+							  c.category_id = d.category_id and
+							  b.delegate_id = $delegate_id");
+
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function load_delegate_transaction($delegate_id, $training_id) {
+			$this->db->select('a.*, c.course_name, b.*');
+			$this->db->from('trainings as a, training_attended as b, course as c, categories as d');
+			$this->db->where("a.training_id = b.training_id and
+							  a.course_id = c.course_id and
+							  c.category_id = d.category_id and
+							  b.delegate_id = $delegate_id and
+							  a.training_id = $training_id");
+
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
 
   }
 ?>

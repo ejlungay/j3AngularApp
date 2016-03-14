@@ -12,6 +12,17 @@ angular.module('app')
                 }).error(function(response) {
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator. : ' + response, 'ERROR');
                 });
+            },
+
+            getUserDetailUsingUserId: function(id) {
+                return $http({
+                    url: 'get_user_detail_using_id?userid=' + id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator. : ' + response, 'ERROR');
+                });
             }
         };
     });

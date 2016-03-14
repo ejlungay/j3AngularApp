@@ -72,8 +72,11 @@
        // a model for querying training delegates
        public function get_training_delegates($training_id) {
           $this->db->select('b.*, c.date_paid, c.amount_paid, c.or_no');
-          $this->db->from('trainings as a,  delegates as b, delegate_accounts as c');
-          $this->db-> where("a.training_id = $training_id  and a.training_id = b.training_id and b.delegate_id = c.delegate_id");
+          $this->db->from('trainings as a,  delegates as b, delegate_accounts as c, training_attended as d');
+          $this->db-> where("a.training_id = $training_id  and
+          					 a.training_id = d.training_id and
+          					 b.delegate_id = c.delegate_id and 
+          					 b.delegate_id = d.delegate_id");
           $this->db->limit(0);
           $query = $this->db->get();
 
@@ -120,7 +123,7 @@
 		    }
 		}
 		
-		public function updateTraining($training_id, $date_start, $date_end, $time_start, $time_end, $location, $r_fee, $d_fee) {
+		public function updateTraining($training_id, $date_start, $date_end, $time_start, $time_end, $location, $r_fee, $d_fee, $remarks) {
 			$data = array(
 				'from_date' => $date_start,
 				'to_date' => $date_end,
@@ -128,7 +131,8 @@
 				'time_end' => $time_end,
 				'location' => $location,
 				'regular_fee' => $r_fee,
-				'discounted_fee' => $d_fee
+				'discounted_fee' => $d_fee,
+				'remarks' => $remarks
 			);
 			
 			$this->db->where("training_id = $training_id");
@@ -147,6 +151,49 @@
 		   
 		    if ($query->num_rows() >= 1) {
 			    return $query->result();
+		    }
+		    else {
+			    return false;
+		    }
+		}
+
+		public function count_training_participants($training_id) {
+			$this->db->select('COUNT(a.delegate_id) as total');
+			$this->db->from('training_attended as a');
+			$this->db->where("a.training_id = $training_id");
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+		    	$total = 0;
+		    	foreach ($query->result() as $row) {
+		    		$total = $row->total;
+		    	}
+			    return $total;
+		    }
+		    else {
+			    return false;
+		    }
+		}
+
+		public function get_training_detail($training_id) {
+			$this->db->select('a.location, a.remarks, a.from_date, a.to_date, a.date_added, a.time_end, a.time_start, a.regular_fee,
+							   a.discounted_fee, b.category_name, c.course_name, CONCAT(d.firstname, " ", d.lastname) as added_by');
+			$this->db->from('trainings as a, categories as b, course as c, users as d');
+			$this->db->where("a.training_id = $training_id and 
+							  a.course_id = c.course_id and
+							  a.uid = d.uid and
+							  b.category_id = c.category_id");
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+		    	if ($query->num_rows() >= 1) {
+			    	return $query->result();
+			    }
+			    else {
+				    return false;
+			    }
 		    }
 		    else {
 			    return false;

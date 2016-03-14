@@ -4,7 +4,6 @@
 	angular.module('app').controller('trainingsController',  function($scope, $http, $modal, toastr, trainingFactory) {
 		$scope.trainingList = [];
 		trainingFactory.getTrainings().then(function(response) {
-			console.log(response.data);
 			if (response.data.length > 0) {
 				$scope.trainingList = response.data;
 			}
@@ -17,27 +16,27 @@
 			window.location = 'home#/app/training/add-training';
 		}
 
-		$scope.edit = function() {
+		$scope.edit = function(trainingId) {
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/trainings/editTrainingView.html',
 			controller: 'editTrainingController',
 			size: '',
 			resolve: {
-			  id: function () {
-				return $scope.id;
+			  trainingId: function () {
+				return trainingId;
 			  }
 			}
 			});
 		}
 
-		$scope.about = function() {
+		$scope.about = function(trainingId) {
 			var modalInstance = $modal.open({
 			templateUrl: 'assets/app/views/trainings/aboutTrainingView.html',
 			controller: 'aboutTrainingController',
 			size: '',
 			resolve: {
-			  id: function () {
-				return $scope.id;
+			  trainingId: function () {
+				return trainingId;
 			  }
 			}
 			});

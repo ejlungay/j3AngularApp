@@ -18,7 +18,6 @@
 				<th style="width:auto">Training title</th>
 				<th style="width:auto">Training Date</th>
 				<th style="width:auto">Venue</th>
-				<th style="width:auto">Date Created</th>
 				<th style="width:auto">Created By</th>
 				<th style="width:8%"></th>
 			</tr>
@@ -29,12 +28,11 @@
 				<td>{{training.course_name}}</td>
 				<td>{{training.from_date}} - {{training.to_date}}</td>
 				<td>{{training.location}}</td>
-				<td>{{training.date_added}}</td>
 				<td>{{training.added_by}}</td>
 				<td>
 					<center>
-						<a href popover="Edit" popover-trigger="mouseenter" ng-click="edit()"><i class="fa fa-edit"></i></a>
-						<a href popover="More detail" popover-trigger="mouseenter" ng-click="about()"><i class="fa fa-info-circle"></i></a>
+						<a href popover="Edit" popover-trigger="mouseenter" ng-click="edit(training.training_id)"><i class="fa fa-edit"></i></a>
+						<a href popover="More detail" popover-trigger="mouseenter" ng-click="about(training.training_id)"><i class="fa fa-info-circle"></i></a>
 					</center>
 				</td>
 			</tr>

@@ -90,10 +90,10 @@
 			}
 	   }
 	   
-	   function getUserDetail($username) {
+	   function getUserDetailUsingUserId($userid) {
 			$this -> db -> select('*');
 			$this -> db -> from('users as a');
-			$this -> db -> where('a.username', $username);
+			$this -> db -> where('a.uid', $userid);
 			$this -> db -> limit(1);
        
 			$query = $this -> db -> get();
@@ -107,5 +107,23 @@
 				return false;
 			}
 	   }
+
+     function getUserDetail($username) {
+      $this -> db -> select('*');
+      $this -> db -> from('users as a');
+      $this -> db -> where('a.username', $username);
+      $this -> db -> limit(1);
+       
+      $query = $this -> db -> get();
+       
+      if($query -> num_rows() >= 1)
+      {
+        return $query->result();
+      }
+      else
+      {
+        return false;
+      }
+     }
   }
 ?>

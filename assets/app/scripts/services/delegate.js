@@ -87,7 +87,7 @@ angular.module('app')
                 });
             },
 
-             get_delegate_details: function(id) {
+            get_delegate_details: function(id) {
                 return $http({
                     url: 'delegate_details?delegate_id=' + id,
                     method: 'GET'
@@ -121,6 +121,72 @@ angular.module('app')
                 }).error(function(response) {
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
                 	console.log(response);
+                });
+            },
+
+            addDelegateToTraining: function(data) {
+				return $http({
+                    url: 'add_delegate_to_training',
+                    method: 'POST',
+					data: $.param ({
+						training_id: data.training_id, 
+						delegate_id: data.delegate_id
+						}),
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(response) {
+                    return response;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                	
+                });
+            },
+
+            checkDelegate: function(data) {
+                return $http({
+                    url: 'check_delegate?delegate_id=' + data.delegate_id + '&training_id=' + data.training_id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                	console.log(response);
+                });
+            },
+            
+            get_delegate_profile: function(id) {
+                return $http({
+                    url: 'get_delegate_profile?delegate_id=' + id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
+            },
+
+            get_delegate_trainings: function(id) {
+                return $http({
+                    url: 'get_delegate_trainings?delegate_id=' + id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
+            },
+
+            
+            get_delegate_transactions: function(data) {
+                return $http({
+                    url: 'delegate_transactions?delegate_id=' + data.delegate_id + '&training_id=' + data.training_id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
                 });
             }
         };

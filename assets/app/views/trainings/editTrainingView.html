@@ -4,26 +4,13 @@
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
-			<label>Select Category</label>
-			<select class="form-control" ng-model="category_id" ng-change="loadCourses()">
-				<option ng-repeat="item in categories track by $index" value="{{item.category_id}}">{{item.category_name}}</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label>Select Course</label>
-			<select ng-model="course_id" class="form-control">
-				<option ng-repeat="item in courses track by $index" value="{{item.course_id}}">{{item.course_name}}</option>
-			</select>
-		</div>
-		
-		<div class="form-group">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Date Start</label>
 						<div>
 							<p class="input-group">
-								<input type="text" id="start_date" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="startOpened" min-date="'2000-01-01'" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+								<input type="text" id="start_date" class="form-control" datepicker-popup="{{format}}" ng-model="data.from_date" is-open="startOpened" min-date="'2000-01-01'" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
 								<span class="input-group-btn">
 									<button type="button" class="btn btn-default" ng-click="openStartDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 								</span>
@@ -38,7 +25,7 @@
 						<label>Date End</label>
 						 <div>
 							<p class="input-group">
-							  <input type="text" id="end_date" class="form-control" datepicker-popup="{{format}}" ng-model="endDate"  is-open="endOpened" min-date="'2000-01-01'" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+							  <input type="text" id="end_date" class="form-control" datepicker-popup="{{format}}" ng-model="data.to_date"  is-open="endOpened" min-date="'2000-01-01'" max-date="'2050-01-01'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
 							  <span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 							  </span>
@@ -55,14 +42,14 @@
 				<div class="col-md-6">
 					<label>Time Start</label>
 					<div class="m-b-lg">
-						<timepicker ng-model="startTime"  hour-step="1" minute-step="1" show-meridian="ismeridian"></timepicker>
+						<timepicker ng-model="data.time_start"  hour-step="1" minute-step="1" show-meridian="ismeridian"></timepicker>
 						<!--<pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>-->
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label>Time End</label>
 					<div class="m-b-lg">
-						<timepicker ng-model="endTime" ng-change="t()" hour-step="1" minute-step="1" show-meridian="ismeridian"></timepicker>
+						<timepicker ng-model="data.time_end" ng-change="t()" hour-step="1" minute-step="1" show-meridian="ismeridian"></timepicker>
 						<!--<pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>-->
 					</div>
 				</div>
@@ -70,16 +57,21 @@
 		</div>
 		<div class="form-group">
 			<label for="location">Location</label>
-			<input type="text" class="form-control" id="location" ng-model="training_location" placeholder="Enter training location">
+			<input type="text" class="form-control" id="location" ng-model="data.location" placeholder="Enter training location">
 		</div>
 		Amount to be paid (₱):
 		<div class="form-group">
 			<label for="regular">Regular</label>
-			<input type="number" class="form-control" id="regular" ng-model="regular" placeholder="Regular rate">
+			<input type="number" class="form-control" id="regular" ng-model="data.regular_fee" placeholder="Regular rate">
 		</div>
 		<div class="form-group">
 			<label for="discounted">Discounted</label>
-			<input type="number" class="form-control" id="discounted" ng-model="discounted" placeholder="Discounted rate ">
+			<input type="number" class="form-control" id="discounted" ng-model="data.discounted_fee" placeholder="Discounted rate ">
+		</div>
+		<div class="form-group">
+			<label>Reason/Remarks <i popover="Reason or remarks for editing the training such as moving venue, etc. for future user." popover-trigger="mouseenter" class="glyphicon glyphicon-question-sign"></i></label>
+			<textarea class="form-control" ng-model="data.remarks" maxlength="500"  rows="4" cols="50"></textarea>
+			<small>{{500 - data.remarks.length}} left</small>
 		</div>
 	</div>
 	<div class="modal-footer">                  

@@ -1,42 +1,12 @@
 	
-	angular.module('app').controller('editTrainingController', function($scope, $modalInstance, trainingFactory, categoryFactory, toastr, courseFactory, userFactory) {
-		
-		$scope.categories = [];
-		$scope.training = {};
-		
-		$scope.loadCategories = function() {
-			categoryFactory.categoryList().then(function(response) {
-				$scope.categories = response.data;
-			});
-		}
-		$scope.loadCategories();
-		
-		$scope.courses = [];
-		$scope.loadCourses = function() {
-			courseFactory.loadCourseByCategoryId($scope.category_id).then(function(response) {
-				if (response.data.length > 0) $scope.courses = response.data;
-				
-				else $scope.courses = [];
-			});
-		}
-		
+	angular.module('app').controller('editTrainingController', function($scope, $modalInstance, trainingFactory, categoryFactory, toastr, courseFactory, userFactory, trainingId) {
+		$scope.data = {};
+
 		$scope.btnOkClicked = function () {
-			//direct date check
-			if (($scope.startDate > $scope.endDate) || ($scope.startDate == null) || ($scope.endDate == null)) {
-				toastr.error('Training Start date or End date is invalid. Please check them and try again.', 'ERROR');
-				return;
-			}
-			
-			//check input fields
-			if ($scope.course_id == null || $scope.training_location == null || $scope.regular == null || $scope.discounted == null) {
-				toastr.error('There are empty fields. Please check them and try again.', 'ERROR');
-				return;
-			}
-			
 			
 			//format start date and end date
-			var sdate = new Date($scope.startDate);
-			var edate = new Date($scope.endDate);
+			var sdate = new Date($scope.data.from_date);
+			var edate = new Date($scope.data.to_date);
 			
 			var dd = sdate.getDate();
 			var mm = sdate.getMonth()+1; //January is 0!
@@ -47,7 +17,7 @@
 			if(mm<10) {
 				mm='0'+mm
 			} 
-			sdate = yyyy + '.' + mm + '.' + dd;
+			$scope.data.from_date = yyyy + '.' + mm + '.' + dd;
 			
 			
 			dd = edate.getDate();
@@ -59,7 +29,7 @@
 			if(mm<10) {
 				mm='0'+mm
 			} 
-			edate = yyyy + '.' + mm + '.' + dd;
+			$scope.data.to_date = yyyy + '.' + mm + '.' + dd;
 			
 			//get the current logged on user
 			var temp = document.cookie.split(';');
@@ -85,11 +55,14 @@
 						}
 					}
 				}
-
-				trainingFactory.addTraining($scope.course_id, $scope.training_location, sdate, edate, $scope.startTime, $scope.endTime, userid, $scope.regular, $scope.discounted).then(function(response){
+				$scope.data.remarks = $scope.data.remarks + ' => userid:' + userid;
+				trainingFactory.updateTraining($scope.data).then(function(response){
 					if (response.data.returnValue == 'SUCCESS') {
 						toastr.success('Successfully updated');
 						$modalInstance.close();
+					}
+					else {
+						toastr.error(response.data.returnMessage);
 					}
 				});
 
@@ -196,4 +169,89 @@
 		  $scope.timeStart = d;
 		}
 		/**** END TIME PICKER START CONTROLLER *****/
+
+		$scope.detail = [];
+		$scope.loadDetail = function() {
+			$scope.data.trainingId = trainingId;
+			trainingFactory.trainingDetail(trainingId).then(function(response) {
+				console.log(response.data);
+				$scope.detail = response.data;
+				for(var i = 0; i < $scope.detail.length; i++){
+					var obj = $scope.detail[i];
+					for(var key in obj) {
+						var attrName = key;
+						var attrValue = obj[key];
+
+						if (attrName == 'training_id') $scope.data.training_id = attrValue;
+						if (attrName == 'course_name') $scope.data.course_name = attrValue; 
+						if (attrName == 'from_date') $scope.data.from_date = attrValue;
+						if (attrName == 'to_date') $scope.data.to_date = attrValue;
+						if (attrName == 'location') $scope.data.location = attrValue;
+
+						if (attrName == 'time_start') {
+							$scope.data.time_start = attrValue;
+							$scope.data.time_start_hour = extractTime(attrValue, 'hour');
+							$scope.data.time_start_minute = extractTime(attrValue, 'minute');
+						}
+
+						if (attrName == 'time_end') {
+							$scope.data.time_end = attrValue;
+							$scope.data.time_end_hour = extractTime(attrValue, 'hour');
+							$scope.data.time_end_minute = extractTime(attrValue, 'minute');
+						}
+
+						if (attrName == 'regular_fee') $scope.data.regular_fee = parseFloat(attrValue);
+						if (attrName == 'discounted_fee') $scope.data.discounted_fee = parseFloat(attrValue);
+						if (attrName == 'category_name') $scope.data.category_name = attrValue;
+						if (attrName == 'date_added') $scope.data.date_added = attrValue;
+						if (attrName == 'added_by') $scope.data.added_by = attrValue;
+
+						if (attrName == 'remarks') {
+							var temp = attrValue.split('=>');
+							$scope.data.remarks = temp[0];
+						}
+					}
+				}
+			});
+		}
+		$scope.loadDetail();
+
+		function extractTime(time, extractWhat) {
+			// 0 = 12am; 23 = 11pm
+			var temp = time.split(' ');
+			var temp1 = temp[4].split(':'); // 0 - 1 index
+			var hour = parseInt(temp1[0]);
+			var minute = temp1[1];
+
+			if (minute.length == 1) minute += '0';
+
+			if (extractWhat == 'hour') return hour;
+
+			else if (extractWhat == 'minute') return minute;
+
+			else return hour + ':' + minute;
+		}
+
+		function formatDate(date) {
+			var monthsInText = [
+				'January',
+				'February',
+				'March',
+				'April',
+				'May',
+				'June',
+				'July',
+				'August',
+				'September',
+				'October',
+				'November',
+				'December'
+			];
+			var temp = date.split('-');
+			var year = temp[0];
+			var month = parseInt(temp[1]);
+			var day = temp[2];
+
+			return monthsInText[month - 1] + ' ' + day + ', ' + year;
+		}
 	}); 

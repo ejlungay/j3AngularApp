@@ -28,19 +28,20 @@ angular.module('app')
 					console.error(response);
 				});
             },
-			/*updateTraining: function(trainingId, trainingLocation, training_start_date, training_end_date, timeStart, timeEnd, r_fee, d_fee) {
+			updateTraining: function(data) {
                 return $http({
                     url: 'update_training',
                     method: 'POST',
 					data: $.param ({
-						training_id: trainingId,
-						location: trainingLocation,
-						date_start: training_start_date,
-						date_end: training_end_date,
-						time_start: timeStart,
-						time_end: timeEnd,
-						regular_fee: r_fee,
-						discounted_fee: d_fee
+						training_id: data.trainingId ,
+						location: data.location,
+						date_start: data.from_date,
+						date_end: data.to_date,
+						time_start: data.time_start,
+						time_end: data.time_end,
+						regular_fee: data.regular_fee,
+						discounted_fee: data.discounted_fee,
+                        remarks: data.remarks
 						}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(response) {
@@ -49,7 +50,7 @@ angular.module('app')
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
 					console.error(response);
 				});
-            },*/
+            },
 			updateCourse: function(courseId, courseName, courseCode) {
                 return $http({
                     url: 'update_course',
@@ -130,7 +131,32 @@ angular.module('app')
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
 					console.error(response);
 				});
+            },
+
+            countDelegates: function(trainingId) {
+                return $http({
+                    url: 'count_training_delegates?training_id=' + trainingId,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.error(response);
+                });
+            },
+
+            trainingDetail: function(trainingId) {
+                return $http({
+                    url: 'get_training_detail?training_id=' + trainingId,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.error(response);
+                });
             }
+
         };
     });
 

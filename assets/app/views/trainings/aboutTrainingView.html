@@ -4,11 +4,47 @@
 	</div>
 
 	<div class="modal-body">
-		<label>Course category: </label></br>
-		<label>Course name: </label></br>
-		<label>Date created: </label></br>
-		<label>Created by: </label></br>
-		<label>Number of participants: </label>
+		<label><strong>Course category:</strong> {{data.category_name}}</label></br>
+		<label><strong>Course name:</strong> {{data.course_name}}</label></br>
+		<label><strong>Training date:</strong> {{data.from_date}} - {{data.to_date}}</label></br>
+		<label><strong>Regular fee:</strong> {{data.regular_fee}}</label></br>
+		<label><strong>Discounted fee:</strong> {{data.discounted_fee}}</label></br>
+		<label><strong>Location:</strong> {{data.location}}</label></br>
+		<label><strong>Date created:</strong> {{data.date_added}}</label></br>
+		<label><strong>Created by:</strong> {{data.added_by}}</label></br>
+		<label><strong>Number of participants:</strong> <a ng-init="show=false" ng-click="show=true" href><b style="color: #405E85;">{{delegateCounts}}</b></a> &nbsp;&nbsp;
+			<a ng-init="show=false" ng-click="show=true" href><i class="glyphicon glyphicon-chevron-down"></i></a></label> </br>
+		<table class="table table-bordered table-hover bg-white" ng-show="show">
+		 <thead>
+		 	<tr>
+				<th style="width:2%" colspan="4">
+					<div class="pull-right">
+						<input class="form-control" type="text" ng-model="search_keys" placeholder="Search here">
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th style="width:2%">#</th>
+				<th style="width:auto">Participant name</th>
+				<th style="width:auto">Phone</th>
+				<th style="width:auto">Email</th>
+			</tr>
+        </thead>
+		 <tbody>
+			<tr ng-repeat="item in participants | filter: search_keys track by $index">
+				<td>{{$index + 1}}</td>
+				<td>{{item.firstname}} {{item.middlename}} {{item.lastname}}</td>
+				<td>{{item.phone}}</td>
+				<td>{{item.email}}</td>
+			</tr>
+        </tbody>
+	  </table>
+	</br>
+	<div ng-show="isEddited">
+		<p >The training was modified/edited by <strong>{{data.edited_by}}</strong></p>
+		<p >Remarks:</p>
+		<p >&nbsp;&nbsp; {{data.remarks}}</p>
+	</div>
 	</div>
 	<div class="modal-footer">                  
 		<button class="btn btn-default" ng-click="btnOkClicked()">Close</button>

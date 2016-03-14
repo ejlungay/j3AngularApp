@@ -237,25 +237,28 @@
 		$location = $this->input->post('location');
 		$r_fee = $this->input->post('regular_fee');
 		$d_fee = $this->input->post('discounted_fee');
+		$remarks = $this->input->post('remarks');
 		
-		$result = $this->trainings_model->updateTraining($training_id, $date_start, $date_end, $time_start, $time_end, $location, $r_fee, $d_fee);
-		if ($result) {
-			$json_response = array('date start: ' => $date_start,
-									'date_end: ' => $date_end,
-									'returnMessage'=>'Successfully updated.',
-                                   'returnValue'=>'SUCCESS');   
-									   
-			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
-				
-			return false;
+		if ($training_id != null and $date_start != null and $date_end != null and $time_start != null and $time_end != null and $remarks != null) {
+			$result = $this->trainings_model->updateTraining($training_id, $date_start, $date_end, $time_start, $time_end, $location, $r_fee, $d_fee, $remarks);
+			if ($result) {
+				$json_response = array('returnMessage'=>'Successfully updated.',
+	                                   'returnValue'=>'SUCCESS');   
+										   
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+			else {
+				$json_response = array('returnMessage'=>'Unable to update training.',
+	                                   'returnValue'=>'FAILURE');   
+										   
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
 		}
 		else {
-			$json_response = array('returnMessage'=>'Unable to update training.',
-                                   'returnValue'=>'FAILURE');   
-									   
+			$json_response = array( 'returnMessage' => 'Invalid request parameters.',
+	                                'returnValue' => 'FAILURE');   
+										   
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
-				
-			return false;
 		}
 	}
 	
@@ -266,12 +269,58 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($result));
 		}
 		else {
-			$json_response = array('returnMessage'=>'No available trainings',
-                                    'returnValue'=>'FAILURE');   
+			$json_response = array('returnMessage' => 'No available trainings',
+                                    'returnValue' => 'FAILURE');   
 									   
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 				
 			return false;
+		}
+	}
+
+	public function count_training_delegates() {
+		$training_id = $this->input->get('training_id');
+		if ($training_id != null) {
+			$result = $this->trainings_model->count_training_participants($training_id) ;
+			if ($result) {
+				$json_response = array( 'total' => $result);
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+			else {
+				$json_response = array('returnMessage'=>'No available delegates for the training.',
+	                                    'returnValue'=>'FAILURE');   
+										   
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
+		else {
+			$json_response = array( 'returnMessage'=>'Invalid request parameters.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+		}
+	}
+
+	public function get_training_detail() {
+		$training_id = $this->input->get('training_id');
+		if ($training_id != null) {
+			$result = $this->trainings_model->get_training_detail($training_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result));
+			}
+			else {
+				$json_response = array('returnMessage'=>'Training not found.',
+	                                    'returnValue'=>'FAILURE');   
+										   
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
+		else {
+			$json_response = array( 'returnMessage'=>'Invalid request parameters.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 		}
 	}
   } // end class

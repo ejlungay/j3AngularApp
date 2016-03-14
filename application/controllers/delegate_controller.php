@@ -299,5 +299,76 @@ class Delegate_controller extends CI_Controller {
 		}
 	}
 
+	public function get_delegate_profile() {
+		$delegate_id = $this->input->get('delegate_id');
+		
+		if ($delegate_id != null) {
+			$result = $this->delegate_model->get_delegate_profile($delegate_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to find a delegate detail with the given id.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}	
+
+	
+	public function get_delegate_trainings() {
+		$delegate_id = $this->input->get('delegate_id');
+		
+		if ($delegate_id != null) {
+			$result = $this->delegate_model->get_delegate_trainings($delegate_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to find a trainings.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}	
+
+	public function load_delegate_transaction() {
+		$delegate_id = $this->input->get('delegate_id');
+		$training_id = $this->input->get('training_id');
+		
+		if ($delegate_id != null && $training_id != null) {
+			$result = $this->delegate_model->load_delegate_transaction($delegate_id, $training_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to find a trainings.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}	
+
   }
 ?>
