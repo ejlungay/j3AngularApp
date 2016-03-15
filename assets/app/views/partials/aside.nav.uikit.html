@@ -1,4 +1,4 @@
-<nav ui-nav>
+<nav ui-nav ng-controller="sidebarController">
   <ul class="nav">
     <li class="nav-header m-v-sm hidden-folded">
       MAIN MENU
@@ -18,14 +18,12 @@
   </li>
 	 <li ui-sref-active="active">
       <a md-ink-ripple ui-sref="app.trainings">
-        <i class="pull-right up"><b class="label bg-info">new</b></i> 
         <i class="icon mdi-action-settings i-20"></i></i>
         <span class="font-normal">Trainings</span>
       </a>
     </li>
 	<li ui-sref-active="active">
       <a md-ink-ripple ui-sref="app.participants">
-        <i class="pull-right up"><b class="label bg-info">new</b></i> 
         <i class="icon mdi-social-people-outline i-20"></i></i>
         <span class="font-normal">Participants</span>
       </a>
@@ -49,18 +47,16 @@
         <li ui-sref-active="active">
           <a md-ink-ripple ui-sref="app.directory"><i class="glyphicon glyphicon-floppy-saved"></i> Directory</a>
         </li>
-		<li ui-sref-active="active">
+		      <li ui-sref-active="active">
           <a md-ink-ripple ui-sref="app.financial"><i class="fa fa-dollar"></i> Financial</a>
         </li>
       </ul>
     </li>
-    <li ui-sref-active="active">
-      <a md-ink-ripple ui-sref="app.users">
-        <i class="pull-right up"><b class="label bg-info">new</b></i> 
+    <li ui-sref-active="active" ng-repeat="item in user_detail">
+      <a md-ink-ripple ui-sref="app.users" ng-show="item.user_type == 'Super Admin'">
         <i class="icon mdi-action-account-circle i-20"></i>
         <span class="font-normal">Manage users</span>
       </a>
     </li>
-    <li class="b-b b m-v-sm"></li>
   </ul>
 </nav>
