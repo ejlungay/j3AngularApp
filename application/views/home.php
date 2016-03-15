@@ -120,6 +120,13 @@
    <script src="assets/app/views/reports/printDirectoryController.js"></script>
    <script src="assets/app/views/reports/financialController.js"></script>
    <script src="assets/app/views/reports/editFinancialController.js"></script>
+   <script src="assets/app/views/reports/printAttendanceModalController.js"></script>
+   <script src="assets/app/views/reports/printDirectoryModalController.js"></script>
+   <script src="assets/app/views/reports/certificateModalController.js"></script>
+   <!-- USERS -->
+   <script src="assets/app/views/user-management/usersController.js"></script>
+   <script src="assets/app/views/user-management/addAccountController.js"></script>
+   <script src="assets/app/views/asideController.js"></script>
   <!-- Pages Services Scripts -->
   <script src="assets/app/scripts/services/course.js"></script>
   <script src="assets/app/scripts/services/training.js"></script>

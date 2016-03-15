@@ -77,8 +77,8 @@
 			if ($.trim($scope.username) != null && $.trim($scope.password) != null) {
 				$http.get('signin?username=' + $scope.username + '&password=' + $scope.password).success(function(response) {
 					if (response.returnValue == 'SUCCESS') {
-						document.cookie = 'username=' + response.username;
-						window.location="home";
+						  document.cookie = 'username=' + response.username + ';uid=' + response.uid;
+						  window.location="home";
 					}
 					else {
 						toastr.error('Invalid username or password.');

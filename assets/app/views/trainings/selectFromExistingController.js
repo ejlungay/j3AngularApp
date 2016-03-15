@@ -17,7 +17,6 @@
 			$scope.data.delegate_id = delegate_id;
 			$scope.data.training_id = trainingId;
 
-			alert(delegate_id);
 			delegateFactory.checkDelegate($scope.data).then(function(response) {
 				if (parseInt(response.data.total) <= 0 ) {
 					delegateFactory.addDelegateToTraining($scope.data).then(function(response) {

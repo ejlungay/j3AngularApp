@@ -155,8 +155,38 @@ angular.module('app')
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
                     console.error(response);
                 });
-            }
+            },
 
+            add_training_expense: function(data) {
+                return $http({
+                    url: 'add_training_expense',
+                    method: 'POST',
+                    data: $.param ({
+                        training_id: data.training_id,
+                        expense_name: data.expense_name,
+                        amount_paid: data.amount_paid,
+                        or_no: data.or_no
+                    }),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(response) {
+                    return response;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.error(response);
+                });
+            },
+
+            getTrainingExpenses: function(trainingId) {
+                return $http({
+                    url: 'get_training_expenses?training_id=' + trainingId,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.error(response);
+                });
+            }
         };
     });
 

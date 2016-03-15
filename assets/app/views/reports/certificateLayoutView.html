@@ -10,9 +10,15 @@
 			}	
 		}
 	</style>
-
-	<div id="toBePrinted" style="HEIGHT: auto; WIDTH: 816px" ng-controller='certificateLayoutController'>
-		<input type="text" class="from-control"/>
-		<img style="POSITION: absolute; LEFT: -1px; TOP: -1px" border="0" hspace="0" src="assets/img/certbg.png" width="816" height="1056">
-
+	<div ng-controller='certificateLayoutController'>
+		<button class="btn btn-success" ng-click="print()"><i class="fa fa-print"> Print</i></button>
+		<div id="printMe">
+			<div style="HEIGHT: auto; WIDTH: 816px">
+				<img src="assets/img/bg1.png">
+				<div style="position: absolute; visibility: visible; left: 58.5%; top: 59%; z-index: 200;">
+					<img width="150" height="170" style="border: solid 1px black;" src="assets/img/user2-160x160.jpg">
+				</div>
+			</div>
+			</br>
+		</div>
 	</div>

@@ -6,6 +6,8 @@
 		$scope.training_location = '';
 		$scope.isSearchEnabled = false;
 		
+		$scope.basicData = {};
+
 		$scope.trainingList = [];
 		trainingFactory.getTrainings().then(function(response) {
 			$scope.trainingList = response.data;
@@ -38,12 +40,17 @@
 					for (var i = 0; i < trainingID_values.length; i++) {
 						if (trainingID_values[i] === $scope.training_id) {
 							$scope.training_name = trainingTitles_values[i];
+							$scope.basicData.training_name = $scope.training_name;
 							
 							if (fromDate_values[i] == toDate_values[i]) $scope.training_date = fromDate_values[i];
 							
 							else $scope.training_date = fromDate_values[i] + ' - ' + toDate_values[i];
+
+							$scope.basicData.training_date = $scope.training_date;
 							
 							$scope.training_location = location[i];
+							$scope.basicData.training_location = $scope.training_location;
+
 							break;
 						}
 					}
@@ -59,5 +66,21 @@
 		
 		$scope.removeRow = function(index) {
 			$scope.delegateList.splice(index, 1);	
+		}
+
+		$scope.print = function(){
+			var modalInstance = $modal.open({
+					templateUrl: 'assets/app/views/reports/printAttendanceModalView.html',
+					controller: 'printAttendanceModalController',
+					size: 'lg',
+					resolve: {
+					  data: function() {
+						return $scope.delegateList;
+					  },
+					  basicData: function() {
+					  	return $scope.basicData;
+					  }
+					}
+			});
 		}
 	});

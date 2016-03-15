@@ -125,5 +125,36 @@
         return false;
       }
      }
+
+     public function signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image) {
+        $data = array (
+          'username' => $username,
+          'password' => md5($password),
+          'firstname' => $firstname,
+          'middlename' => $middlename,
+          'lastname' => $lastname,
+          'user_type' => $user_type,
+          'image' => $image
+        );
+
+        return $this->db->insert('users', $data);
+     }
+
+     public function get_users() {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->limit(0);
+
+        $query = $this -> db -> get();
+       
+        if($query -> num_rows() >= 1)
+        {
+          return $query->result();
+        }
+        else
+        {
+          return false;
+        }
+     }
   }
 ?>

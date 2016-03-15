@@ -1,26 +1,5 @@
 	
 	angular.module('app').controller('dashboardController', function($scope, $http, dashboardFactory, moment, toastr, $modal) {
-		//login checker
-		$scope.isLoggedIn = function() {
-			$scope.temp = document.cookie.split(';');
-			$scope.username = '';
-			if ($scope.temp != null) {
-				for (var i = 0; i < $scope.temp.length; i++) {
-					if ($scope.temp[i].indexOf("username") > -1) {
-						$scope.username = $scope.temp[i].split('=');
-					}
-				}
-				if ($scope.username[1] != null) {
-					dashboardFactory.isLoggedIn($scope.username[1]).then(function(response) {
-						if (response.data.returnValue == 'FALSE') window.location.href="index.php";
-					});
-				}
-				else {
-					window.location.href="index.php";
-				}
-			}
-		}
-		$scope.isLoggedIn();
 		$scope.id = 0;
 		/************  CALENDAR PART   ***************/
 		var vm = this;
@@ -70,6 +49,8 @@
 		vm.isCellOpen = true;
 
 		vm.eventClicked = function(event) {
+			window.location = 'home#/app/training/todays-training?hellofromtheoutside=' + event.id;
+			/*
 			// getting system date
 			var current_date = new Date();
 			var dd = current_date.getDate();
@@ -103,6 +84,7 @@
 			else {
 				$scope.openEventInfoModal();
 			}
+			*/
 		}; 
 		/*****************   END OF EVENT CLICK FUNCTION ***********************/
 		

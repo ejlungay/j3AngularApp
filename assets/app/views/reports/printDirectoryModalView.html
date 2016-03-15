@@ -1,49 +1,19 @@
 	
-	<style>
-		@media print {
-			.separate {
-			    background-color: black !important;
-			    -webkit-print-color-adjust: exact; 
-			}
-			.pagebreak { 
-				page-break-before: always; 
-			}
-
-			div, table { 
-			    page-break-inside: always;
-				page-break-before: always; 
-				page-break-after: always;
-			}
-		}
-
-		.text-wrap-right {
-			float: right;
-			margin: 10px;
-		}
-
-		.text-wrap-left {
-		    float: left;
-			margin: 10px;
-		}
-
-		p.small {
-		    line-height: 80%;
-		}
 	
-	</style>
-
-	<div class="panel" ng-controller="printDirectoryController">
-		<button class="btn btn-default pull-right" ng-click="print()"><i class="fa fa-print"> Print</i></button>
-		<div class="row" id="printDiv">
-			<div style="margin-left: 2%">
-				<label><strong>Place:</strong> {{basicData.location}}</label></br>
-				<label><strong>Date:</strong> {{basicData.from_date}} - {{basicData.to_date}}</label>
+	<div class="modal-header">
+	    <h3 class="modal-title">Print Directory!</h3>
+	</div>
+	<div class="modal-body">
+	    <div class="box" id="printMe">
+			<label><u><strong>Place:</strong> {{basicData.location}}</u></label>
+			<div class="pull-right">
+				<label><u><strong>Date:</strong> {{basicData.from_date}} - {{basicData.to_date}}</u></label>
 			</div>
-			<div>
-				<div ng-repeat="item in participants" ng-if="$index % 2 == 0" style="page-break-after:always;">
+			<div  style="border: solid 1px black">
+				<div ng-repeat="item in participants" ng-if="$index % 2 == 0">
 			        <div class="col-xs-6" ng-show="participants[$index].image!=null">
 				         	<img height="200" width="170" src="{{participants[$index].image}}" style="float: left; margin: 10px; border: solid 2px black; border-radius: 15px;">
-					   <div class="p">
+					   <div style="float: left; margin: 10px;">
 					   		<p class="small">Name:{{participants[$index].firstname}} {{participants[$index].middlename}}. {{participants[$index].lastname}}</p>
 			        		<p class="small">Contact: {{participants[$index].phone}}</p>
 			        		<p class="small">Positon: {{participants[$index].company_position}}</p>
@@ -56,7 +26,7 @@
 			        	<div class="item">
 				         	<img height="200" width="170" src="{{participants[$index + 1].image}}" style="float: left; margin: 10px; border: solid 2px black; border-radius: 15px;">
 				        </div>
-					   <div class="p">
+					   <div style="float: left; margin: 10px;">
 					   		<p class="small">Name:{{participants[$index + 1].firstname}} {{participants[$index + 1].middlename}}. {{participants[$index + 1].lastname}}</p>
 			        		<p class="small">Contact: {{participants[$index + 1].phone}}</p>
 			        		<p class="small">Positon: {{participants[$index + 1].company_position}}</p>
@@ -65,9 +35,11 @@
 			        		<p class="small">Email: {{participants[$index + 1].email}}</p>
 					   </div>
 			        </div>
-			        <div class="pagebreak"></div>
 		    	</div>
 	    	</div>
-	   	 </div>
-   	</div>
-   	 
+	   	</div>
+	</div>
+	<div class="modal-footer">                  
+	    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-success" ng-click="ok()"><i class="fa fa-print"></i> Print</button>
+	</div>

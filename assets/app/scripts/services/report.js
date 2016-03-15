@@ -16,7 +16,7 @@ angular.module('app')
                         <title></title>\
                         <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.min.css">\
                         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
-                        <style type="text/css" media="screen">body {padding-top: 50px; } .text-wrap-left {float: left;margin: 10px;}</style>\
+                        <style type="text/css" media="screen">body {padding-top: 50px; } p {page-break-inside: avoid;}</style>\
                     </head>\
                     <body onload="window.print()">\
                     <div class="container">\
@@ -36,6 +36,34 @@ angular.module('app')
                         </div>\
                         </body>\
                         </html>';
+
+
+                newWin.document.open();
+                newWin.document.write(content);
+                newWin.document.close();
+            },
+
+            normalPrint: function(divToPrint) {
+                var newWin = window.open('', 'Print-Window', 'width=800,height=600');
+
+                var content = '<!DOCTYPE html>\
+                    <html xmlns="http://www.w3.org/1999/xhtml">\
+                    <head>\
+                        <meta charset="utf-8">\
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+                        <meta name="description" content="">\
+                        <meta name="author" content="">\
+                        <title></title>\
+                        <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.min.css">\
+                        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
+                        <style type="text/css" media="screen">body {padding-top: 50px; } .text-wrap-left {float: left;margin: 10px;}</style>\
+                    </head>\
+                    <body onload="window.print()">\
+                    <div class="container" style="magrin: 3%;">\
+                        <div class="col-lg-12"> ' + divToPrint.innerHTML + '</div>\
+                    </div>\
+                    </body>\
+                    </html>';
 
 
                 newWin.document.open();

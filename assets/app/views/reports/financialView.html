@@ -8,22 +8,25 @@
 			visibility: visible;;
 		}
 	}
+	p.small {
+		line-height: 70%;
+	}
 </style>
 
 <div ng-controller="financialController"> 
 	 <div class="row">
 	   <div class="col-xs-6 col-sm-4" style="width: 200px;">
-	     <select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
+	     <select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()" ng-disabled="!isEditable">
 		   <option ng-repeat="item in trainingList" value="{{item.training_id}}">{{item.course_name}}</option>
 		  </select>
 	    </div>
 		<div class="pull-right">
 		   <button class="btn btn-danger" ng-click="edit()"><i class="fa fa-edit"></i></button>
-		   <button class="btn btn-success" onclick="window.print()"><i class="fa fa-print"></i></button>
+		   <button class="btn btn-success" ng-click="print()"><i class="fa fa-print"></i></button>
 		</div>
 	  </div>
 	  </br>
-	 <div class="row" style="border: solid 2px #E91E63;" id="print">
+	 <div class="row" style="border: solid 2px #E91E63;" id="printMe">
 	    <div class="col-md-6">
 		  <h5><b>Registration detail</b></h5>
 		  <table class="table table-bordered table-hover bg-white">
@@ -31,7 +34,7 @@
 			  <tr>
 			  	<th>#</th>
 				<th><center>Participant Name</center></th>
-				<th>Amount Paid</th>
+				<th>Amount Paid (₱)</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -41,26 +44,59 @@
 				<td>{{item.amount_paid}}</td>
 			  </tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="3">Total (₱): <strong class="pull-right">{{formatPeso(delegateAmountPaidTotal)}}</strong></th>
+				</tr>
+			</tfoot>
 		  </table>
-		  <h5>Total: </h5>
+
 		</div>
 	    <div class="col-md-6">
 		  <h5><b>Expenses detail</b></h5>
 		  <table class="table table-bordered table-hover bg-white">
 			<thead>
 			  <tr>
+			  	<th>#</th>
 				<th><center>Expenses</center></th>
-				<th><center>Amount Paid</center></th>
+				<th><center>Amount Paid (₱)</center></th>
+				<th><center>Date</center></th>
+				<th><center>O.R. No</center></th>
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr>
-				<td>Print tarpaulin</td>
-				<td>500</td>
+			  <tr ng-repeat="item in expenses track by $index">
+				<td>{{$index + 1}}</td>
+				<td>{{item.expense_name}}</td>
+				<td>{{item.amount_paid}}</td>
+				<td>{{item.date_time}}</td>
+				<td>{{item.or_no}}</td>
 			  </tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="5">Total (₱): <strong class="pull-right">{{formatPeso(expensesTotal)}}</strong></th>
+				</tr>
+			</tfoot>
 		  </table>
-		  <h5>Total: </h5>
+		  <!-- SUMMARY -->
+		  <div class="panel" ng-show="delegateAmountPaidTotal > 0">
+		  	<div class="panel-header">
+		  		<strong>SUMMARY</strong>
+		  	</div>
+		  	<div class="panel-body text-center small">
+		  		<p><strong>{{formatPeso(delegateAmountPaidTotal)}}</strong></p>
+		  		<p><strong>-</strong></p>
+		  		<p><strong>{{formatPeso(expensesTotal)}}</strong></p>
+		  		<center>
+		  			<div style="width: 150px;">
+		  				<legend></legend>
+		  			</div>
+		  		</center>
+		  		<p><strong>₱ {{formatPeso(delegateAmountPaidTotal - expensesTotal)}}</strong></p>
+		  	</div>
+		  </div>
+
 		</div>
 	  </div>
 </div>

@@ -188,12 +188,7 @@
 			$query = $this->db->get();
 		   
 		    if ($query->num_rows() >= 1) {
-		    	if ($query->num_rows() >= 1) {
-			    	return $query->result();
-			    }
-			    else {
-				    return false;
-			    }
+			    return $query->result();
 		    }
 		    else {
 			    return false;
@@ -210,7 +205,22 @@
 
 			return $this->db->insert('training_expenses', $data);
 		}
-  }
+
+		public function get_training_expense($training_id) {
+			$this->db->select('*');
+			$this->db->from('training_expenses as a');
+			$this->db->where("a.training_id = $training_id");
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+			    return $query->result();
+		    }
+		    else {
+			    return false;
+		    }
+		}
+  	}
 ?>
 
 

@@ -8,14 +8,36 @@
  * Config for the router
  */
 angular.module('app')
-  .run(
-    [           '$rootScope', '$state', '$stateParams',
-      function ( $rootScope,   $state,   $stateParams ) {
+  .run(['$rootScope', '$state', '$stateParams', 'userFactory', function ( $rootScope, $state, $stateParams, userFactory) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+
+        $rootScope.$on('$stateChangeStart', function (event) {
+          var temp = document.cookie.split(';');
+          var username = '';
+          if (temp != null) {
+            for (var i = 0; i < temp.length; i++) {
+              if (temp[i].indexOf("username") > -1) {
+                username = temp[i].split('=');
+              }
+            }
+
+            if (username[1] != null) {
+              userFactory.isLoggedIn(username[1]).then(function(response) {
+                if (response.data.returnValue == 'FALSE') {
+                  event.preventDefault();
+                  window.location.href="index.php";
+                }
+              });
+            }
+            else {
+              window.location.href="index.php";
+            }
+          }
+        });
+
       }
-    ]
-  )
+  ])
   .config(
     [          '$stateProvider', '$urlRouterProvider', 'MODULE_CONFIG',
       function ( $stateProvider,   $urlRouterProvider,  MODULE_CONFIG ) {
@@ -116,7 +138,7 @@ angular.module('app')
            })
 		  .state('app.users', {
              url: '/users',
-             templateUrl: 'assets/app/views/users/adminView.html',
+             templateUrl: 'assets/app/views/user-management/usersView.html',
              data : { title: 'Users' }
            })
 		   .state('app.error', {

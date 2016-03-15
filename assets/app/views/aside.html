@@ -1,4 +1,4 @@
-<div class="box bg-white">
+<div class="box bg-white" ng-controller="asideController">
   <div class="navbar md-whiteframe-z1 no-radius" style="background-color: #E91E63;" ng-class="$state.current.data.theme ? $state.current.data.theme.primary : app.setting.theme.primary">
       <a class="navbar-brand">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" style="
@@ -13,20 +13,20 @@
       </a>
       <!-- / brand -->
   </div>
-  <div class="box-row">
+  <div class="box-row" ng-repeat="item in user_detail">
     <div class="box-cell scrollable hover">
       <div class="box-inner">
         <div class="p hidden-folded" ng-class="$state.current.data.theme ? $state.current.data.theme.primary+'-50' : app.setting.theme.primary+'-50'" style="background-image:url(assets/app/images/bg.png); background-size:cover">
           <div class="rounded w-64 bg-white inline pos-rlt">
-            <img src="assets/app/images/a0.jpg" class="img-responsive rounded">
+            <img ng-src="{{item.image}}" class="img-responsive rounded">
           </div>
           <a class="block m-t-sm" ui-toggle-class="hide, show" target="#nav, #account">
-            <span class="block font-bold">John Smith</span>
+            <span class="block font-bold">{{item.firstname}} {{item.lastname}}</span>
             <span class="pull-right auto">
               <i class="fa inline fa-caret-down"></i>
               <i class="fa none fa-caret-up"></i>
             </span>
-            john.smith@gmail.com
+         
           </a>
         </div>
         <div id="nav" ng-include="'assets/app/views/partials/aside.nav.uikit.html'"></div>

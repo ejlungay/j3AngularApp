@@ -1,0 +1,40 @@
+	
+	<div class="modal-header">
+	    <h3 class="modal-title">Modal!</h3>
+	</div>
+	<div class="modal-body">
+	    <div id="printMe">
+			<h5>Training title: <b>{{basicData.training_name}}</b></h5>
+			<h5>Date: {{basicData.training_date}}</h5>
+			<h5>Location: {{basicData.training_location}}</h5>
+			<div class="table-responsive">
+			<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th colspan="2"><center>Signature</center></th>
+					</tr>
+					<tr>
+						<th><center>#</center></th>
+						<th><center>Participant name</center></th>
+						<th><center>AM</center></th>
+						<th><center>PM</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="delegate in delegateList track by $index">
+						<td>{{$index + 1}}</td>
+						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">                  
+	    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-success" ng-click="ok()"><i class="fa fa-print"></i> Print</button>
+	</div>

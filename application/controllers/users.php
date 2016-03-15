@@ -175,7 +175,7 @@ class Users extends CI_Controller {
 						//load the external library
 						$this->load->library('dateoperations');
 						//define the limit time; 5 minutes is the allowed allowance
-						$limit = $this->dateoperations->subtract($now,'minute', 15); // 5 minutes expiry
+						$limit = $this->dateoperations->subtract($now,'minute', 30); // 5 minutes expiry
 						if ($temp[2] < $limit) { 
 							//check if theres a file having username as the filename
 							unlink('./21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt');
@@ -238,30 +238,29 @@ class Users extends CI_Controller {
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));							
         }
         else {
-			$password = $this->input->post('password');
-			
-			$fileName = $_FILES['file']['name'];
-			$tmpName  = $_FILES['file']['tmp_name'];
-			$fileSize = $_FILES['file']['size'];
-			$fileType = $_FILES['file']['type'];
+        	$username = $this->input->post('username');
+        	$password = $this->input->post('password');
+        	$firstname = $this->input->post('firstname');
+        	$middlename = $this->input->post('middlename');
+        	$lastname = $this->input->post('lastname');
+        	$user_type = $this->input->post('user_type');
 
-			$fp = fopen($tmpName, 'r');
-			$content = fread($fp, filesize($tmpName));
-			fclose($fp);
- 
-			$data = array('username' => $this->input->post('username'),
-						  'password' => md5($password),
-						  'firstname' => $this->input->post('firstname'),
-						  'middlename' => $this->input->post('middlename'),
-						  'lastname' => $this->input->post('lastname'),
-						  'image' => $content);
+        	$image_url = 'uploads/users/';
 
-			$result = $this->db->insert('users', $data);
+			$config['upload_path']  = './uploads/users/';
+			$config['allowed_types'] = '*';
+	 
+			$this->load->library('upload', $config);
+		
+			if ($this->upload->do_upload('file')) {
+				$temp = $this->upload->data();
+				$image_url = $image_url.$temp['file_name'];
+			}
 
+			$result = $this->user->signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image);
 			if ($result) {
-				$json_response = array( 'username' => $this->input->post('username'),
-							   'returnMessage'=>'User account successfully created',
-							   'returnValue'=>'SUCCESS');   
+				$json_response = array( 'returnMessage'=>'User account successfully created',
+							   			'returnValue'=>'SUCCESS');   
 					
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
 			}
@@ -456,6 +455,21 @@ class Users extends CI_Controller {
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
 			return false;
 		}
-     }
+    }
+
+    public function get_users() {
+    	$result = $this->user->get_users();
+
+		if ($result) {
+			$this->output->set_content_type('application/json')->set_output(json_encode($result));
+		}
+		else {
+			$json_response = array('username' => $username,
+									'returnMessage'=>'No available records from the given username',
+									'returnValue'=>'FAILURE');    
+
+			  $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+    }
  }
 ?>

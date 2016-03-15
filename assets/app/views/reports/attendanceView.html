@@ -21,7 +21,7 @@
 	<div ng-controller="attendanceController">
 		<div class="pull-right">
 			<div class="btn-group">
-				<button type="button" class="btn btn-default pull-right" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
+				<button type="button" class="btn btn-default pull-right" ng-click="print()"><i class="fa fa-print"></i> Print</button>
 			</div>
 		</div>
 		<div class="pull-right" style="width: 150px; margin-right: 3px;">
@@ -32,7 +32,7 @@
 		<div class="pull-right" style="margin-right: 3px;">
 			<button ng-disabled="!isSearchEnabled" ng-click="loadTrainingDelegates()" class="btn btn-default"><i class="fa fa-refresh"></i></button>
 		</div>
-		<div id="printMe">
+		<div>
 			<h5>Training title: <b>{{training_name}}</b></h5>
 			<h5>Date: {{training_date}}</h5>
 			<h5>Location: {{training_location}}</h5>

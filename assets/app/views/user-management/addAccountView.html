@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add Account</h3>
+</div>
+<div class="modal-body">
+	<div class="form-group">
+		<label>Image</label>
+		<center>
+			<img ng-model="picView" ngf-thumbnail="picFile"  width="200" height="150"> 
+			<button  class="btn btn-danger" ng-click="picFile = null" ng-show="picFile"><i class="fa fa-remove"></i></button>
+		</center>
+		<div class="form-file">
+			<input type="file" ngf-select ng-model="picFile" id= "file" name="file" accept="image/*" required>
+			<button class="btn btn-default">Upload</button>
+		</div>
+	</div>
+    <div class="form-group">
+    	<label>Username</label>
+    	<input type="text" ng-model="data.username" placeholder="Username" class="form-control">
+    	<small>(Minimum length: 5 characters)</small>
+    </div>
+    <div class="form-group">
+    	<label>Password</label>
+    	<input type="password" ng-model="data.password1" placeholder="Password" class="form-control">
+    	<small>(Minimum length: 5 characters)</small>
+    </div>
+    <div class="form-group">
+    	<label>Confirm Password</label>
+    	<input type="password" ng-model="data.password2" placeholder="Confirm password" class="form-control">
+    	<small>(Minimum length: 5 characters)</small>
+    </div>
+    <div class="form-group">
+    	<label>Firstname</label>
+    	<input type="text" ng-model="data.firstname" placeholder="Firstname" class="form-control">
+    </div>
+    <div class="form-group">
+    	<label>Middlename</label>
+    	<input type="text" ng-model="data.middlename" placeholder="Middlename" class="form-control">
+    </div>
+    <div class="form-group">
+    	<label>Lastname</label>
+    	<input type="text" ng-model="data.lastname" placeholder="Lastname" class="form-control">
+    </div>
+    <div class="form-group">
+    	<label>User Type 
+    		<i class="glyphicon glyphicon-question-sign" popover-trigger="mouseenter" popover="User accounts are use to give specific privilege to a specific user. Super Admin: can access all data, actions and privilege of the system. Admin: is lower than a Super Admin but with similarities of some privileges. Standard User: can only add participant to the system. "></i>
+    	</label>
+    	<select class="form-control" ng-model="data.user_type">
+    		<option value="Super Admin">Super Admin</option>
+    		<option value="Admin">Admin</option>
+    		<option value="Standard User">Standard User</option>
+    	</select>
+    </div>
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="ok(picFile)">Add</button>
+</div>

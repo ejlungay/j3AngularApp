@@ -352,5 +352,27 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
         }
      }
+
+     public function get_training_expenses() {
+		$training_id = $this->input->get('training_id');
+		if ($training_id != null) {
+			$result = $this->trainings_model->get_training_expense($training_id);
+			if ($result) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($result));
+			}
+			else {
+				$json_response = array('returnMessage'=>'No training expense foudn with the given training id.',
+	                                    'returnValue'=>'FAILURE');   
+										   
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+			}
+		}
+		else {
+			$json_response = array( 'returnMessage'=>'Invalid request parameters.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+		}
+	}
   } // end class
 ?>
