@@ -1,12 +1,12 @@
 <?php
   Class User extends CI_Model
   {
-       function login($username, $password) {
-
+       function login($username, $password) { 
          $this -> db -> select('*');
          $this -> db -> from('users');
          $this -> db -> where('username', $username);
          $this -> db -> where('password', md5($password));
+         $this -> db -> where('status', 'ACTIVE');
          $this -> db -> limit(1);
        
          $query = $this -> db -> get();
@@ -14,6 +14,27 @@
          if($query -> num_rows() == 1)
          {
            return $query->result();
+         }
+         else
+         {
+           return false;
+         }
+       }
+
+       function checkStatus($username) {
+        $this->db->select('status');
+        $this->db->from('users');
+        $this->db->where('username', $username);
+        $this -> db -> limit(1);
+       
+         $query = $this -> db -> get();
+       
+         if($query -> num_rows() == 1)
+         {
+           foreach ($query->result() as $row) {
+             # code...
+            return $row->status;
+           }
          }
          else
          {
@@ -30,18 +51,24 @@
           $this->db->update('users', $data); 
 
           return true;
-          // Produces:
-          // UPDATE mytable 
-          // SET title = '{$title}', name = '{$name}', date = '{$date}'
-          // WHERE id = $id
        }
 
-       function updateUserDetail($username, $fname, $mname, $lname) {
-          $data = array(
-               'fname' => $fname,
-               'middlename' => $mname,
-               'lastname' => $lname
-            );
+       function updateUserDetail($username, $fname, $mname, $lname, $image) {
+          if ($image != null) {
+            $data = array(
+                 'firstname' => $fname,
+                 'middlename' => $mname,
+                 'lastname' => $lname,
+                 'image' => $image
+              );
+          }
+          else {
+            $data = array(
+                 'firstname' => $fname,
+                 'middlename' => $mname,
+                 'lastname' => $lname
+              );
+          }
 
           $this->db->where('username', $username);
           $this->db->update('users', $data);
@@ -146,6 +173,47 @@
         $this->db->limit(0);
 
         $query = $this -> db -> get();
+       
+        if($query -> num_rows() >= 1)
+        {
+          return $query->result();
+        }
+        else
+        {
+          return false;
+        }
+     }
+
+     public function updateUserType($uid, $newType) {
+        $data = array(
+            'user_type' => $newType
+        );
+
+        $this->db->where('uid', $uid);
+        return $this->db->update('users', $data);
+     }
+
+    public function updateUserStatus($uid, $newStatus) {
+        $data = array(
+            'status' => $newStatus
+        );
+
+        $this->db->where('uid', $uid);
+        return $this->db->update('users', $data);
+     }     
+
+     public function filterUsers($key) {
+      $where = "a.user_type = '$key'";
+
+      if ($key === 'Active' || $key === 'Inactive') $where = "a.status = '$key'";
+
+      if ($key === 'Super Admin' || $key === 'Admin' || $key === 'Standard User') $where = "a.user_type = '$key'";
+
+      $this->db->select('*');
+      $this->db->from('users as a');
+      $this->db->where($where);
+
+      $query = $this -> db -> get();
        
         if($query -> num_rows() >= 1)
         {

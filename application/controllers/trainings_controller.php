@@ -374,5 +374,24 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 		}
 	}
+
+	public function delegates_from_training() {
+		$training_id = $this->input->get('training_id');
+		if ($training_id != null) {
+			$result1 = $this->trainings_model->get_delegate_ids_in_trainings_attended_using_training_id($training_id);
+			$result2;
+			if ($result1) {
+				$result2 = $this->trainings_model->get_delegates_using_delegate_ids_array($result1);
+
+				$this->output->set_content_type('application/json')->set_output(json_encode($result2));
+			}
+		}
+		else {
+			$json_response = array( 'returnMessage'=>'Invalid request parameters.',
+	                                'returnValue'=>'FAILURE');   
+										   
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+		}
+	}
   } // end class
 ?>

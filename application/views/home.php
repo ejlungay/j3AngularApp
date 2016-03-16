@@ -126,6 +126,8 @@
    <!-- USERS -->
    <script src="assets/app/views/user-management/usersController.js"></script>
    <script src="assets/app/views/user-management/addAccountController.js"></script>
+   <script src="assets/app/views/user-management/editPrivilegeController.js"></script>
+   <script src="assets/app/views/user-management/userProfileController.js"></script>
    <script src="assets/app/views/asideController.js"></script>
    <script src="assets/app/views/partials/sidebarContoller.js"></script>
   <!-- Pages Services Scripts -->

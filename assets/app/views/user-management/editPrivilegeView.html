@@ -1,0 +1,79 @@
+	
+	<div class="modal-header">
+	    <h3 class="modal-title">Edit User</h3>
+	</div>
+	<div class="modal-body">
+	    <ul class="nav nav-sm nav-tabs">
+	        <li class="active">
+	          	<a href data-toggle="tab" data-target="#tab1">Privilege</a>
+	        </li>
+	        <li>
+	          	<a href data-toggle="tab" data-target="#tab2">Activation</a>
+	        </li>
+      	</ul>
+      <div class="tab-content p b-a no-b-t bg-white m-b-md clear">
+        	<div role="tabpanel" class="tab-pane animated fadeInUp active" id="tab1">
+        		<p>You can control user access using privilege level.</p>
+          		<div class="table-responsive">
+				    <table class="table table-bordered bg-white">
+				      	<thead>
+					        <tr>
+					          	<th style="width: 30%">Privilege Level</th>
+					          	<th>Description</th>
+					        </tr>
+				      	</thead>
+				      	<tbody>
+					        <tr>
+					          	<td>Super Admin</td>
+					          	<td>
+					          		<p><i class="fa fa-circle"></i> Create/Activate/Deactivate user accounts.</p>
+					          		<p><i class="fa fa-circle"></i> Assign a privilege level to each user.</p>
+					          		<p><i class="fa fa-circle"></i> Run all modules.</p>
+					          	</td>
+					        </tr>
+					        <tr>
+					          	<td>Admin</td>
+					          	<td>
+					          		<p><i class="fa fa-circle"></i> Run all modules except user management module..</p>
+					          	</td>
+					        </tr>
+					        <tr>
+					          	<td>Standard User</td>
+					          	<td>
+					          		<p><i class="fa fa-circle"></i> Can only add participant.</p>
+					          	</td>
+					        </tr>
+				      	</tbody>
+				    </table>
+				</div>
+
+          		<legend></legend>
+          		<div class="pull-left" style="width: 200px;">
+          			<div class="form-group">
+          				<label>Select User Type</label>
+		          		<select class="form-control" ng-model="editData.new_type">
+		          			<option value="Super Admin">Super Admin</option>
+		          			<option value="Admin">Admin</option>
+		          			<option value="Standard User">Standard User</option>
+		          		</select>
+	          		</div>
+	          	</div>
+        	</div>
+       		<div role="tabpanel" class="tab-pane animated fadeInUp" id="tab2">
+          		<p class="alert alert-info">User activation/deactivation is use to prevent users to login into the system.</p>
+          		<div class="form-group">
+			      <label class="col-sm-2 control-label">{{btnDisplay}}</label>
+			      <div class="col-sm-10">
+			        <label class="ui-switch ui-switch-md bg-info m-t-xs">
+			          <input ng-click="update()" type="checkbox" {{checkBox}}>
+			          <i></i>
+			        </label>
+			      </div>
+			    </div>
+        	</div>
+      	</div>
+	</div>
+	<div class="modal-footer">                  
+	    <button class="btn btn-success" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-danger" ng-click="ok()">Save</button>
+	</div>

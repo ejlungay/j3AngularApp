@@ -81,7 +81,7 @@
 						  window.location="home";
 					}
 					else {
-						toastr.error('Invalid username or password.');
+						toastr.error(response.returnMessage);
 					}
  				}).error(function(response) {
 					toastr.error('An error occured while communicating with the server. Please contact system administrator. Error detail: ' + response);

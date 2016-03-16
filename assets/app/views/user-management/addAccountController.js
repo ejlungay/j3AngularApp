@@ -21,9 +21,7 @@
 						toastr.error('Password is too short.');
 						return;
 					}
-
 					userFactory.signup($scope.data, file).then(function(response) {
-						console.log(response.data);
 						if (response.data.returnValue == 'SUCCESS') {
 							toastr.success(response.data.returnMessage);
 							$modalInstance.close();

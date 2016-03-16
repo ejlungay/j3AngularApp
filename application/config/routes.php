@@ -57,12 +57,15 @@
 	$route['signup']['post'] = 'users/signup';
 	$route['signin']['get'] = 'users/signin';
 	$route['change_password']['post'] = 'users/change_password';
-	$route['update_user']['post'] = 'users/change_user_detail';
+	$route['update_user']['post'] = 'users/updateProfile';
 	$route['update_profile_pic']['post'] = 'users/updateProfilePicture';
 	$route['get_user_type']['get'] = 'users/getUserType';
 	$route['get_user_detail']['get'] = 'users/getUserDetail';
 	$route['get_user_detail_using_id']['get'] = 'users/getUserDetailUsingUserId';
 	$route['users']['get'] = 'users/get_users';
+	$route['change_status']['post'] = 'users/updateUserStatus';
+	$route['change_user_type']['post'] = 'users/updateUserType';
+	$route['filter_users']['get'] = 'users/filterUsers';
 	//----------------------- 
 	$route['current_user'] = 'users/retrieve_user';
 	$route['destroy_user'] = 'users/destroy_session';
@@ -92,6 +95,7 @@
 	$route['get_training_detail']['get'] = 'trainings_controller/get_training_detail'; //route for getting todays trainings
 	$route['add_training_expense']['post'] = 'trainings_controller/add_training_expense'; //route for getting todays trainings
 	$route['get_training_expenses']['get'] = 'trainings_controller/get_training_expenses'; //route for getting todays trainings
+	$route['delegates_from_training']['get'] = 'trainings_controller/delegates_from_training'; //route for getting todays trainings
 
 	//routing training speaker APIs
 	$route['add_speaker']['post'] = 'speaker_controller/add_training_speaker';

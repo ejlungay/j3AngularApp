@@ -1,38 +1,55 @@
   
 	<div ng-controller="usersController"> 
-	 <div class="pull-right">
-		 <button md-ink-ripple class="md-btn md-raised m-b pink" ng-click="add()"><i class="fa fa-plus"></i> Add Account</button>
-	 </div>
-	  <div class="input-group pull-right" style="width: 200px; margin-right: 1%;">
+        <div class="pull-left" style="width: 200px;">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></div>
+                <select class="form-control" ng-model="data.filter" ng-change="filter()">
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Standard User">Standard User</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="All">Show All</option>
+                </select>
+            </div>
+        </div>
+    	<div class="pull-right">
+    		<button md-ink-ripple class="md-btn md-raised m-b pink" ng-click="add()"><i class="fa fa-plus"></i> Add Account</button>
+    	</div>
+    	<div class="input-group pull-right" style="width: 200px; margin-right: 1%;">
             <input class="form-control" ng-model="searchKeyword" placeholder="Search account" type="search" ng-change="search()" /> 
-			<span class="input-group-addon">
-				<span class="glyphicon glyphicon-search"></span>
-			</span>
-       </div>
-	 <div id="printMe">
-	  <table class="table table-bordered table-hover bg-white">
-		 <thead>
-          <tr>
-            <th  style="width:3%">#</th>
-            <th  style="width:3%">Image</th>
-            <th  style="width:25%">Full name</th>
-            <th  style="width:25%">User Type</th>
-            <th  style="width:25%">Date Created</th>
-            <th  style="width:3%"></th>
-          </tr>
-        </thead>
-		 <tbody>
-		  <tr ng-repeat="item in users | filter: searchKeyword track by $index">
-            <td  style="width:10%">{{$index + 1}}</td>
-            <td  style="width:25%"><img height="30" width="30" class="img img-circle" ng-src="{{item.image}}"/></td>
-            <td  style="width:25%">{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
-            <td  style="width:25%">{{item.user_type}}</td>
-            <td  style="width:25%">{{item.date_created}}</td>
-            <td  style="width:25%"><a href ng-click="edit(item.uid)"><i class="fa fa-edit"></i></a></td>
-          </tr>
-        </tbody>
-	  </table>
-	 </div>
+    		<span class="input-group-addon">
+    			<span class="glyphicon glyphicon-search"></span>
+    		</span>
+        </div>
+    	<div id="printMe">
+    	   <table class="table table-bordered table-hover bg-white">
+    		    <thead>
+                    <tr>
+                        <th style="width:3%">#</th>
+                        <th style="width:3%">Image</th>
+                        <th>Username</th>
+                        <th>Full name</th>
+                        <th>User Type</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th  style="width:3%"></th>
+                    </tr>
+                </thead>
+    		    <tbody>
+    		        <tr ng-repeat="item in users | filter: searchKeyword track by $index">
+                        <td>{{$index + 1}}</td>
+                        <td><img height="30" width="30" class="img img-circle" ng-src="{{item.image}}"/></td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
+                        <td>{{item.user_type}}</td>
+                        <td>{{item.status}}</td>
+                        <td>{{item.date_created}}</td>
+                        <td><a href ng-click="edit(item.uid)"><i class="fa fa-edit"></i></a></td>
+                    </tr>
+                </tbody>
+    	  </table>
+    	</div>
 	</div>
 
 	  

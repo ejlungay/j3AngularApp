@@ -28,9 +28,13 @@
 		
 		$scope.delegateList = [];
 		$scope.loadTrainingDelegates = function() {
-			delegateFactory.getTrainingDelegatesUsingTrainingId(training_id[1]).then(function(response) {
+			delegateFactory.delegates_from_training(training_id[1]).then(function(response) {
+				console.log('arrays', response.data.length);
 				if (response.data.returnValue == null) {
-					$scope.delegateList = response.data;
+					for (var i = 0; i < response.data.length; i++) {
+						$scope.delegateList.push(response.data[i]);
+					}
+					console.log('final data', $scope.delegateList);
 				}
 				else {
 					$scope.delegateList = [];

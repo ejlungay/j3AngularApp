@@ -188,6 +188,18 @@ angular.module('app')
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
                     console.log(response);
                 });
+            },
+
+            delegates_from_training: function(training_id) {
+                return $http({
+                    url: 'delegates_from_training?training_id=' + training_id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
             }
         };
     });

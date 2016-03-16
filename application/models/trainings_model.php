@@ -221,6 +221,49 @@
 			    return false;
 		    }
 		}
+		//**********************************************
+		public function get_delegate_ids_in_trainings_attended_using_training_id($training_id) {
+			$this->db->select('a.delegate_id');
+			$this->db->from('training_attended as a');
+			$this->db->where('a.training_id', $training_id);
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+			    return $query->result();
+		    }
+		    else {
+			    return false;
+		    }
+		}
+
+		public function get_delegate_detail_using_delegate_id($delegate_id) {
+			$this->db->select('a.*, b.*');
+			$this->db->from('delegates as a, delegate_accounts as b');
+			$this->db->where('a.delegate_id', $delegate_id);
+			$this->db->where('b.delegate_id', $delegate_id);
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+			    return $query->result();
+		    }
+		    else {
+			    return false;
+		    }
+		}
+
+		public function get_delegates_using_delegate_ids_array($array_of_id) {
+			$data = array();
+
+			foreach ($array_of_id as $row) {
+				$data[] = $this->get_delegate_detail_using_delegate_id($row->delegate_id);
+			}
+
+			return $data;
+		}
+
+		//*********************************************
   	}
 ?>
 

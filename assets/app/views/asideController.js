@@ -18,4 +18,10 @@
 			console.log(response.data);
 			$scope.user_detail = response.data;
 		});
+
+		$scope.logout = function() {
+			userFactory.logout(username[1]).then(function(response) {
+				window.location = 'index.php';
+			});
+		}
 	}); 

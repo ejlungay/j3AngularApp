@@ -22,7 +22,7 @@ angular.module('app')
               }
             }
 
-            if (username[1] != null) {
+            if (username[1] != '') {
               userFactory.isLoggedIn(username[1]).then(function(response) {
                 if (response.data.returnValue == 'FALSE') {
                   event.preventDefault();
@@ -33,6 +33,10 @@ angular.module('app')
             else {
               window.location.href="index.php";
             }
+          }
+          else {
+            alert('You are not logged in! Please login to continue.');
+              window.location.href="index.php";
           }
         });
 
@@ -140,7 +144,12 @@ angular.module('app')
              url: '/users',
              templateUrl: 'assets/app/views/user-management/usersView.html',
              data : { title: 'Users' }
-           })
+        })
+      .state('app.profile', {
+             url: '/users/user-profile',
+             templateUrl: 'assets/app/views/user-management/userProfileView.html',
+             data : { title: 'My Profile' }
+        })
 		   .state('app.error', {
              url: '/404',
              templateUrl: 'assets/app/views/404/pageErrorView.html',

@@ -1,0 +1,77 @@
+	
+	<div class="padding-out" ng-controller="userProfileController">
+	  	<div class="box">
+	    <div class="col-md-3">
+		    <div style="background:url({{data.image}}) center center; background-size:cover">
+		        <div class="p-lg bg-white-overlay text-center">
+		          	<a href class="w-xs inline">
+		            	<img src="{{data.image}}" class="img-circle img-responsive" ng-show="picFile == null">
+		            	<div>
+			            	<img ng-model="picView" ngf-thumbnail="picFile" class="img-circle img-responsive" ng-show="picFile != null"> 
+								<button  class="btn btn-danger" ng-click="picFile = null" ng-show="picFile"><i class="fa fa-remove"></i></button>
+						</div>
+		          	</a>
+		         	<div class="m-b m-t-sm h2">
+		            	<span class="text-black">{{data.firstname}}</span>
+		          	</div>
+		          	<p>Great day, Great life</p>
+		        </div>
+		    </div>
+	      	<ul class="nav nav-lists b-t" ui-nav>
+		        <li class="active" ng-click="show('profile')">
+		          	<a href>Profile</a>
+		        </li>
+		        <li ng-click="show('account')">
+		          	<a href>Account Settings</a>
+		        </li>
+	      	</ul>
+	    </div>
+	    <div class="col-md-9 b-l bg-white bg-auto">
+	      	<div class="p-md bg-light lt b-b font-bold">Public profile</div>
+		    <form role="form" class="p-md col-md-6">
+		    	<div ng-show="showProfile">
+			        <div class="form-group">
+			          	<label>Profile picture</label>
+			          	<div class="form-file">
+			            	<input type="file" ngf-select ng-model="picFile" accept="image/*">
+			            	<button class="btn btn-default">Upload new picture</button>
+			          	</div>
+			        </div>
+			        <div class="form-group">
+			          	<label>First name</label>
+			          	<input type="text" class="form-control" ng-model="data.firstname">
+			        </div>
+			        <div class="form-group">
+			          	<label>Middle name</label>
+			          	<input type="text" class="form-control" ng-model="data.middlename">
+			        </div>
+			        <div class="form-group">
+			          	<label>Last name</label>
+			          	<input type="text" class="form-control" ng-model="data.lastname">
+			        </div>
+			   </div>
+			   <div ng-show="!showProfile">
+			   		<div class="form-group">
+				        <label>Username</label>
+				        <input type="text" class="form-control" ng-model="data.username" disabled>
+				    </div>
+				    <div class="form-group">
+				        <label>Old password</label>
+				        <input type="password" class="form-control" ng-model="data.oldpassword">
+				    </div>
+				    <div class="form-group">
+				        <label>New password</label>
+				        <input type="password" class="form-control" ng-model="data.newpassword1">
+				    </div>
+				    <div class="form-group">
+				        <label>Confirm password</label>
+				        <input type="password" class="form-control" ng-model="data.newpassword2">
+				    </div>
+				</div>
+
+		        <button type="submit" class="btn btn-info m-t" ng-click="submit(picFile)">Submit</button>
+		    </form>
+	<!------------------------------------------------------------------------------------------- -->
+	    </div>
+	  </div>
+	</div>
