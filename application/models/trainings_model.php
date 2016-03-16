@@ -254,10 +254,10 @@
 		}
 
 		public function get_delegates_using_delegate_ids_array($array_of_id) {
-			$data = array();
+			$data = [];
 
 			foreach ($array_of_id as $row) {
-				$data[] = $this->get_delegate_detail_using_delegate_id($row->delegate_id);
+				$data = $this->get_delegate_detail_using_delegate_id($row->delegate_id);
 			}
 
 			return $data;

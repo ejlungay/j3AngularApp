@@ -33,20 +33,20 @@
 						<th  style="width:1%">#</th>
 						<th  style="width:3%">Image</th>
 						<th  style="width:25%">Full name</th>
-						<th>Amount paid</th>
-						<th>Date paid</th>
-						<th>OR No.</th>
+						<th>Address</th>
+						<th>Phone</th>
+						<th>Email</th>
 						<th style="width:3%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="delegate in delegateList | filter: searchKeyword">
+					<tr ng-repeat="delegate in delegateList | filter: searchKeyword track by $index">
 						<td>{{$index + 1}}</td>
 						<td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
 						<td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
-						<td>{{delegate.amount_paid}}</td>
-						<td>{{delegate.date_paid}}</td>
-						<td>{{delegate.or_no}}</td>
+						<td>{{delegate.address}}</td>
+						<td>{{delegate.phone}}</td>
+						<td>{{delegate.email}}</td>
 						<td>
 							<p>
 								<a href ng-click="showProfile(delegate.delegate_id)"><i class="fa fa-info-circle" popover="About '{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}'" popover-trigger="mouseenter"></i></a>
