@@ -18,7 +18,7 @@ angular.module('app')
                         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
                         <style type="text/css" media="screen">body {padding-top: 50px; } p {page-break-inside: avoid;}</style>\
                     </head>\
-                    <body onload="window.print()">\
+                    <body>\
                     <div class="container">\
                         <div class="row">\
                             <div class="col-xs-12">\
@@ -56,9 +56,10 @@ angular.module('app')
                         <title></title>\
                         <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.min.css">\
                         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
+                        <link rel="stylesheet" href="assets/app/styles/myfont.css">\
                         <style type="text/css" media="screen">body {padding-top: 50px; } .text-wrap-left {float: left;margin: 10px;}</style>\
                     </head>\
-                    <body onload="window.print()">\
+                    <body>\
                     <div class="container" style="magrin: 3%;">\
                         <div class="col-lg-12"> ' + divToPrint.innerHTML + '</div>\
                     </div>\

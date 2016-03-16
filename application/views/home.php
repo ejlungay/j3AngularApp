@@ -24,6 +24,8 @@
   
   <!-- CAMERA CSS --> 
   <link rel="stylesheet" href="assets/libs/angular/ng-camera/app/style.css"/>
+
+  <link rel="stylesheet" href="assets/app/styles/myfont.css">
 </head>
 <body ng-app="app">
   <div class="app" ui-view></div>

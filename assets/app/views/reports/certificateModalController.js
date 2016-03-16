@@ -4,7 +4,7 @@
 		//
 
 		$scope.ok = function () {
-			ReportingService.normalPrint(document.getElementById('printMe'));	
+			ReportingService.normalPrint(document.getElementById('printDiv'));	
 		  	$modalInstance.close();
 		};
 

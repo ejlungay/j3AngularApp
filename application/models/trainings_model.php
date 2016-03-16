@@ -71,12 +71,14 @@
 
        // a model for querying training delegates
        public function get_training_delegates($training_id) {
-          $this->db->select('b.*');
+          $this->db->select('b.*, c.*');
           $this->db->from('trainings as a,  delegates as b, delegate_accounts as c, training_attended as d');
           $this->db-> where("a.training_id = $training_id  and
           					 a.training_id = d.training_id and
           					 b.delegate_id = c.delegate_id and 
-          					 b.delegate_id = d.delegate_id
+          					 b.delegate_id = d.delegate_id and
+          					 d.training_id = $training_id and
+          					 c.training_attended_id = d.ta_id
           					 ");
           $this->db->limit(0);
           $query = $this->db->get();

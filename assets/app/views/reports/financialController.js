@@ -23,6 +23,7 @@
 			if ($scope.training_id == null) return;
 
 			delegateFactory.getTrainingDelegatesUsingTrainingId($scope.training_id).then(function(response) {
+				console.log('res: ', response.data);
 				if (response.data.returnValue == null || response.data.returnValue == undefined) {
 					$scope.delegateList = response.data;
 
