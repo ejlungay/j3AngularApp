@@ -1,9 +1,11 @@
 <?php
 	Class Category_model extends CI_Model {
         //function for adding training course
-		public function add_category($name, $userid) {
+		public function add_category($name, $userid, $description) {
 			$data = array('category_name' => $name,
-						  'user_id' => $userid);
+						  'user_id' => $userid,
+						  'description' => $description
+			);
 
 			return $this->db->insert('categories', $data);
 		}

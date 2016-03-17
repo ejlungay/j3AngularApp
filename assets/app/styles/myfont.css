@@ -1,7 +1,19 @@
 	
 	<style type="text/css">
-		@font-face { 
-			font-family: name; 
-			src: url(assets/fonts/NEWJUNE-BOLD.OTF);
+		html, body, div {
+			background-color: black !important;
+			-webkit-print-color-adjust: exact; 
 		}
+		@font-face { 
+						font-family: name; 
+						src: url(../../../assets/fonts/NEWJUNE-BOLD.OTF);
+					}
+					@font-face { 
+						font-family: june-regular; 
+						src: url(../../../assets/fonts/NEWJUNE-REGULAR.OTF);
+					}
+					@font-face { 
+						font-family: MKSDsynapseAI; 
+						src: url(../../../assets/fonts/096MKSA.TTF);
+					}
 	</style>

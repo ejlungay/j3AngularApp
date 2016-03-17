@@ -25,9 +25,10 @@
 			$userid = $this->input->post('user_id');
 			$course_code = $this->input->post('course_code');
 			$category_id = $this->input->post('category_id');
+			$description = $this->input->post('description');
 
 			if ($course_name != null && $userid != null && $course_code != null && $category_id != null) {
-				$result = $this->course_model->add_course($course_name, $userid, $course_code, $category_id);
+				$result = $this->course_model->add_course($course_name, $user_id, $course_code, $category_id, $description);
 				if ($result) {
 					$json_response = array('course_name' => $course_name,
 										   'course_code' => $course_code,

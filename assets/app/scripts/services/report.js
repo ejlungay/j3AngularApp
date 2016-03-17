@@ -44,7 +44,7 @@ angular.module('app')
             },
 
             normalPrint: function(divToPrint) {
-                var newWin = window.open('', 'Print-Window', 'width=800,height=600');
+                var newWin = window.open('', 'Print-Window', 'width=920,height=600, resizable=0');
 
                 var content = '<!DOCTYPE html>\
                     <html xmlns="http://www.w3.org/1999/xhtml">\
@@ -53,10 +53,10 @@ angular.module('app')
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">\
                         <meta name="description" content="">\
                         <meta name="author" content="">\
-                        <title></title>\
+                        <title>J3 Print Certificate</title>\
                         <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.min.css">\
                         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
-                        <link rel="stylesheet" href="assets/app/styles/myfont.css">\
+                        <link rel="stylesheet"  href="assets/app/styles/myfont.css">\
                         <style type="text/css" media="screen">body {padding-top: 50px; } .text-wrap-left {float: left;margin: 10px;}</style>\
                     </head>\
                     <body>\

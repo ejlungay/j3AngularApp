@@ -22,8 +22,9 @@
 			if ($this->input->post('category_name') != null && $this->input->post('user_id') != null) {
 				$category_name = $this->input->post('category_name');
 				$userid = $this->input->post('user_id');
+				$description = $this->input->post('description');
 
-				$result = $this->category_model->add_category($category_name, $userid);
+				$result = $this->category_model->add_category($category_name, $userid, $description);
 				if ($result) {
 					$json_response = array('returnMessage' => 'Category successfully added',
 										   'returnValue' => 'SUCCESS');    

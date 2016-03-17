@@ -3,13 +3,14 @@
 	angular.module('app')
 		.factory('categoryFactory', function($http, toastr) {
 			return {
-				addCategory: function(name, userid) {
+				addCategory: function(name, userid, description) {
 					return $http({
 						url: 'add_category',
 						method: 'POST',
 						data: $.param ({
 							category_name: name, 
-							user_id: userid
+							user_id: userid,
+							description: description
 							}),
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					}).success(function(response) {

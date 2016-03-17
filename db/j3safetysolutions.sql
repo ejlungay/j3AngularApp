@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2016 at 02:47 AM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- Generation Time: Mar 17, 2016 at 08:00 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `j3safetysolutions`
@@ -26,20 +26,25 @@ SET time_zone = "+00:00";
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `category_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `categories` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(200) NOT NULL,
   `user_id` int(50) NOT NULL,
-  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` mediumtext NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`category_id`, `category_name`, `user_id`, `date_added`) VALUES
-(1, 'BOSH', 1, '2016-03-14 14:52:11'),
-(2, 'CBAA', 1, '2016-03-16 18:22:58');
+INSERT INTO `categories` (`category_id`, `category_name`, `user_id`, `date_added`, `description`) VALUES
+(1, 'BOSH', 1, '2016-03-14 14:52:11', ''),
+(2, 'CBAA', 1, '2016-03-16 18:22:58', ''),
+(3, 'test', 1, '2016-03-17 14:51:34', ''),
+(4, 'cat name', 1, '2016-03-17 14:59:19', 'desc');
 
 -- --------------------------------------------------------
 
@@ -47,14 +52,17 @@ INSERT INTO `categories` (`category_id`, `category_name`, `user_id`, `date_added
 -- Table structure for table `course`
 --
 
-CREATE TABLE `course` (
-  `course_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `course` (
+  `course_id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `course_code` varchar(30) NOT NULL,
   `course_name` varchar(200) DEFAULT NULL,
-  `date_added` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`course_id`),
+  KEY `fk_course_to_user_id_idx` (`uid`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `course`
@@ -71,8 +79,8 @@ INSERT INTO `course` (`course_id`, `uid`, `category_id`, `course_code`, `course_
 -- Table structure for table `delegates`
 --
 
-CREATE TABLE `delegates` (
-  `delegate_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `delegates` (
+  `delegate_id` int(11) NOT NULL AUTO_INCREMENT,
   `delegate_number` int(11) NOT NULL,
   `registration_id` int(11) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
@@ -85,15 +93,17 @@ CREATE TABLE `delegates` (
   `image` varchar(500) DEFAULT NULL,
   `address` varchar(200) NOT NULL,
   `industry` varchar(100) NOT NULL,
-  `gender` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `gender` varchar(20) NOT NULL,
+  PRIMARY KEY (`delegate_id`),
+  KEY `registration_id` (`registration_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `delegates`
 --
 
 INSERT INTO `delegates` (`delegate_id`, `delegate_number`, `registration_id`, `firstname`, `middlename`, `lastname`, `email`, `phone`, `company`, `company_position`, `image`, `address`, `industry`, `gender`) VALUES
-(1, 1345, 1, 'iro ka', 'iro', 'iro', 'iro@iro.com', '123456', 'iro', 'iro', 'uploads/delegates/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr3.jpg', 'iro', 'iro', 'Male'),
+(1, 1514, 1, 'Elton Jon', 'G', 'Lungay', 'eltonjonlungay@gmail.com', '9367133136', 'J3 Trainer and Consultant', 'OJT', 'uploads/delegates/avatar2.jpg', 'Lugait, Misamis Oriental', 'iro', 'Male'),
 (2, 0, 2, 'jj', 'jj', 'jj', 'kjdsljd', '564', 'fsfhkj', 'jkldfsj', 'uploads/delegates/221.png', 'jj', 'hkjs', 'Male'),
 (3, 0, 3, 'kk', 'kkk', 'kk', 'kkk', '4568', 'kkk', 'kkk', 'uploads/delegates/3557-illustration-of-a-black-circular-arrow-pv.png', 'kk', 'kkk', 'Male'),
 (4, 0, 4, 'll', 'll', 'll', 'll', '4587', 'll', 'll', 'uploads/delegates/88681.png', 'll', 'll', 'Male'),
@@ -113,14 +123,17 @@ INSERT INTO `delegates` (`delegate_id`, `delegate_number`, `registration_id`, `f
 -- Table structure for table `delegate_accounts`
 --
 
-CREATE TABLE `delegate_accounts` (
-  `account_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `delegate_accounts` (
+  `account_id` int(11) NOT NULL AUTO_INCREMENT,
   `delegate_id` int(11) DEFAULT NULL,
   `amount_paid` double DEFAULT NULL,
   `or_no` varchar(30) DEFAULT NULL,
   `date_paid` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `training_attended_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `training_attended_id` int(11) NOT NULL,
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `delegate_id` (`delegate_id`),
+  KEY `training_attended_id` (`training_attended_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `delegate_accounts`
@@ -147,11 +160,13 @@ INSERT INTO `delegate_accounts` (`account_id`, `delegate_id`, `amount_paid`, `or
 -- Table structure for table `registration`
 --
 
-CREATE TABLE `registration` (
-  `registration_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `registration` (
+  `registration_id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
-  `date_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`registration_id`),
+  KEY `userid` (`userid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `registration`
@@ -178,11 +193,13 @@ INSERT INTO `registration` (`registration_id`, `userid`, `date_registered`) VALU
 -- Table structure for table `signatories`
 --
 
-CREATE TABLE `signatories` (
-  `signatory_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `signatories` (
+  `signatory_id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`signatory_id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `signatories`
@@ -197,8 +214,8 @@ INSERT INTO `signatories` (`signatory_id`, `uid`, `date_created`) VALUES
 -- Table structure for table `speakers`
 --
 
-CREATE TABLE `speakers` (
-  `speaker_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `speakers` (
+  `speaker_id` int(11) NOT NULL AUTO_INCREMENT,
   `training_id` int(11) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `middlename` varchar(50) DEFAULT NULL,
@@ -208,8 +225,10 @@ CREATE TABLE `speakers` (
   `company` varchar(100) DEFAULT NULL,
   `company_position` varchar(50) DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
-  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`speaker_id`),
+  KEY `fk_speaker_training_id_idx` (`training_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `speakers`
@@ -224,8 +243,8 @@ INSERT INTO `speakers` (`speaker_id`, `training_id`, `firstname`, `middlename`, 
 -- Table structure for table `trainings`
 --
 
-CREATE TABLE `trainings` (
-  `training_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `trainings` (
+  `training_id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `course_id` int(11) DEFAULT NULL,
@@ -236,8 +255,11 @@ CREATE TABLE `trainings` (
   `time_end` varchar(20) NOT NULL,
   `regular_fee` double NOT NULL,
   `discounted_fee` double NOT NULL,
-  `remarks` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `remarks` text NOT NULL,
+  PRIMARY KEY (`training_id`),
+  KEY `fk_trainings_course_id_idx` (`course_id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `trainings`
@@ -254,12 +276,15 @@ INSERT INTO `trainings` (`training_id`, `uid`, `date_added`, `course_id`, `locat
 -- Table structure for table `training_attended`
 --
 
-CREATE TABLE `training_attended` (
-  `ta_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `training_attended` (
+  `ta_id` int(11) NOT NULL AUTO_INCREMENT,
   `delegate_id` int(11) NOT NULL,
   `training_id` int(11) NOT NULL,
-  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ta_id`),
+  KEY `delegate_id` (`delegate_id`),
+  KEY `training_id` (`training_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `training_attended`
@@ -288,7 +313,8 @@ INSERT INTO `training_attended` (`ta_id`, `delegate_id`, `training_id`, `date_ad
 (20, 8, 4, '2016-03-16 10:36:24'),
 (21, 4, 4, '2016-03-16 10:36:38'),
 (22, 9, 4, '2016-03-16 10:36:40'),
-(23, 4, 1, '2016-03-16 10:37:01');
+(23, 4, 1, '2016-03-16 10:37:01'),
+(24, 2, 1, '2016-03-17 02:40:41');
 
 -- --------------------------------------------------------
 
@@ -296,14 +322,16 @@ INSERT INTO `training_attended` (`ta_id`, `delegate_id`, `training_id`, `date_ad
 -- Table structure for table `training_expenses`
 --
 
-CREATE TABLE `training_expenses` (
-  `expense_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `training_expenses` (
+  `expense_id` int(11) NOT NULL AUTO_INCREMENT,
   `training_id` int(11) NOT NULL,
   `expense_name` varchar(100) NOT NULL,
   `amount_paid` double NOT NULL,
   `or_no` varchar(30) NOT NULL,
-  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`expense_id`),
+  KEY `training_id` (`training_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `training_expenses`
@@ -321,16 +349,19 @@ INSERT INTO `training_expenses` (`expense_id`, `training_id`, `expense_name`, `a
 -- Table structure for table `training_signatories`
 --
 
-CREATE TABLE `training_signatories` (
-  `sign_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `training_signatories` (
+  `sign_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) NOT NULL,
   `middlename` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `position` varchar(100) NOT NULL,
   `accredition_no` varchar(30) NOT NULL,
   `training_id` int(11) NOT NULL,
-  `signatory_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `signatory_id` int(11) NOT NULL,
+  PRIMARY KEY (`sign_id`),
+  KEY `training_id` (`training_id`),
+  KEY `signatory_id` (`signatory_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `training_signatories`
@@ -345,8 +376,8 @@ INSERT INTO `training_signatories` (`sign_id`, `firstname`, `middlename`, `lastn
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `uid` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
@@ -355,15 +386,16 @@ CREATE TABLE `users` (
   `image` text,
   `user_type` varchar(30) DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` varchar(15) NOT NULL DEFAULT 'ACTIVE'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` varchar(15) NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `lastname`, `image`, `user_type`, `date_created`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej mo', 'Govino', 'Lungay', 'uploads/users/we1.jpg', 'Super Admin', '2016-03-15 15:37:43', 'ACTIVE'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Elton Jon', 'Govino', 'Lungay', 'uploads/users/avatar.jpg', 'Super Admin', '2016-03-15 15:37:43', 'ACTIVE'),
 (2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'Standard User', '2016-03-15 15:37:43', 'INACTIVE'),
 (3, 'ejlungay', 'd41d8cd98f00b204e9800998ecf8427e', 'EJ', 'G', 'Lungay', NULL, 'Standard User', '2016-03-15 16:29:39', 'ACTIVE'),
 (4, 'username', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', NULL, 'Super Admin', '2016-03-15 16:32:54', 'INACTIVE'),
@@ -374,162 +406,6 @@ INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `
 (11, 'username1', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', 'uploads/users/w2.png', 'Super Admin', '2016-03-16 09:47:07', 'ACTIVE'),
 (12, 'standard', 'd41d8cd98f00b204e9800998ecf8427e', 'standard', 'standard', 'standard', 'uploads/users/di9rRRGjT.png', 'Standard User', '2016-03-16 09:51:34', 'ACTIVE');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`category_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `course`
---
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`course_id`),
-  ADD KEY `fk_course_to_user_id_idx` (`uid`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `delegates`
---
-ALTER TABLE `delegates`
-  ADD PRIMARY KEY (`delegate_id`),
-  ADD KEY `registration_id` (`registration_id`);
-
---
--- Indexes for table `delegate_accounts`
---
-ALTER TABLE `delegate_accounts`
-  ADD PRIMARY KEY (`account_id`),
-  ADD UNIQUE KEY `delegate_id` (`delegate_id`),
-  ADD KEY `training_attended_id` (`training_attended_id`);
-
---
--- Indexes for table `registration`
---
-ALTER TABLE `registration`
-  ADD PRIMARY KEY (`registration_id`),
-  ADD KEY `userid` (`userid`);
-
---
--- Indexes for table `signatories`
---
-ALTER TABLE `signatories`
-  ADD PRIMARY KEY (`signatory_id`),
-  ADD KEY `uid` (`uid`);
-
---
--- Indexes for table `speakers`
---
-ALTER TABLE `speakers`
-  ADD PRIMARY KEY (`speaker_id`),
-  ADD KEY `fk_speaker_training_id_idx` (`training_id`);
-
---
--- Indexes for table `trainings`
---
-ALTER TABLE `trainings`
-  ADD PRIMARY KEY (`training_id`),
-  ADD KEY `fk_trainings_course_id_idx` (`course_id`),
-  ADD KEY `uid` (`uid`);
-
---
--- Indexes for table `training_attended`
---
-ALTER TABLE `training_attended`
-  ADD PRIMARY KEY (`ta_id`),
-  ADD KEY `delegate_id` (`delegate_id`),
-  ADD KEY `training_id` (`training_id`);
-
---
--- Indexes for table `training_expenses`
---
-ALTER TABLE `training_expenses`
-  ADD PRIMARY KEY (`expense_id`),
-  ADD KEY `training_id` (`training_id`);
-
---
--- Indexes for table `training_signatories`
---
-ALTER TABLE `training_signatories`
-  ADD PRIMARY KEY (`sign_id`),
-  ADD KEY `training_id` (`training_id`),
-  ADD KEY `signatory_id` (`signatory_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`uid`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `course`
---
-ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `delegates`
---
-ALTER TABLE `delegates`
-  MODIFY `delegate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `delegate_accounts`
---
-ALTER TABLE `delegate_accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `registration`
---
-ALTER TABLE `registration`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `signatories`
---
-ALTER TABLE `signatories`
-  MODIFY `signatory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `speakers`
---
-ALTER TABLE `speakers`
-  MODIFY `speaker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `trainings`
---
-ALTER TABLE `trainings`
-  MODIFY `training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `training_attended`
---
-ALTER TABLE `training_attended`
-  MODIFY `ta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT for table `training_expenses`
---
-ALTER TABLE `training_expenses`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `training_signatories`
---
-ALTER TABLE `training_signatories`
-  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --

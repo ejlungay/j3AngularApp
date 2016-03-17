@@ -44,8 +44,8 @@
 				}
 				//if editMode is false action = add new course
 				if (!$scope.editMode) {
-					if ($scope.category_name != null) {
-						categoryFactory.addCategory($scope.category_name, userid).then(function(response) {
+					if ($scope.category_name != null && $scope.description != null) {
+						categoryFactory.addCategory($scope.category_name, userid, $scope.description).then(function(response) {
 							if (response.data.returnValue == 'SUCCESS') {
 								toastr.success('Successfully added');
 								$scope.category_name = null;

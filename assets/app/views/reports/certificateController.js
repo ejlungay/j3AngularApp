@@ -3,6 +3,7 @@
 		
 		$scope.printAllEnabled = false;
 		$scope.editMode = false;
+		$scope.tid = 0;
 
 		$scope.training_name = '';
 		$scope.training_date = '';
@@ -15,6 +16,7 @@
 		
 		$scope.delegateList = [];
 		$scope.loadTrainingDelegates = function() {
+			$scope.tid = $scope.training_id;
 			delegateFactory.getTrainingDelegatesUsingTrainingId($scope.training_id).then(function(response) {
 				if (response.data.returnValue == null) {
 					$scope.delegateList = response.data;
@@ -65,7 +67,7 @@
 		}
 
 		$scope.printCertificate = function(del_id) {
-			$window.open('#/app/certificates/delegate-certificates/' + del_id, '_blank');
+			$window.open('#/app/certificates/delegate-certificates/---' + del_id + ':' + $scope.training_id, '_blank');
 		}
 
 		$scope.editTrainingDetail = function() {
@@ -94,7 +96,7 @@
 		}
 
 		$scope.printAll = function() {
-			 $window.open('#/app/certificates/delegate-certificates/all', '_blank');
+			 $window.open('#/app/certificates/delegate-certificates/' + $scope.training_id, '_blank');
 		}
 	});
 	
