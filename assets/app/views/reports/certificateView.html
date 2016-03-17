@@ -17,18 +17,18 @@
 				<thead>
 					<tr>
 						<th width="5%"><center>#</center></th>
-						<th><center>Participant name</center></th>
-						<th><center>Email</center></th>
-						<th width="25%"><center>Address</center></th>
+						<th>Participant name</th>
+						<th>Participant no</th>
+						<th>Email</th>
 						<th width="5%"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="delegate in delegateList track by $index">
 						<td>{{$index + 1}}</td>
-						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}} - {{delegate.delegate_id}}</td>
+						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
+						<td>{{delegate.delegate_number}}</td>
 						<td>{{delegate.email}}</td>
-						<td>{{delegate.phone}}</td>
 						<td><a target="_blank" ng-href='#/app/certificates/delegate-certificates/{{delegate.delegate_id}}:{{tid}}'><i class="fa fa-print"></i></a></td>
 					</tr>
 				</tbody>

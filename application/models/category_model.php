@@ -28,8 +28,11 @@
 		}
 
 		//function to update delegate detail 
-		public function updateCategory($name, $id) {
-			$data = array('category_name' => $name);
+		public function updateCategory($name, $id, $description) {
+			$data = array(
+					'category_name' => $name,
+					'description' => $description
+			);
 
 			$this->db->where('category_id', $id);
 			$this->db->update('categories', $data);

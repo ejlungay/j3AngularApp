@@ -49,6 +49,7 @@
 							if (response.data.returnValue == 'SUCCESS') {
 								toastr.success('Successfully added');
 								$scope.category_name = null;
+								$scope.description = null;
 								//update the table list
 								$scope.loadCategories();
 							}
@@ -63,11 +64,12 @@
 					}
 				}
 				else {
-					categoryFactory.updateCategory($scope.category_name, itemId).then(function(response) {
+					categoryFactory.updateCategory($scope.category_name, itemId, $scope.description).then(function(response) {
 						if (response.data.returnValue == 'SUCCESS') {
 							toastr.success('Successfully updated');
 							$scope.category_id = null;
 							$scope.category_name = null;
+							$scope.description = null;
 							//update the table list
 							$scope.hide();
 							$scope.loadCategories();
@@ -80,17 +82,19 @@
 			});
 		}
 		//when edit button is clicked
-		$scope.editCategory = function(category_id, category_name) {
+		$scope.editCategory = function(category_id, category_name, description) {
 			toastr.info('Edit mode');
 			itemId = category_id;
 			$scope.category_name = category_name;
 			$('#btnCancel').show();
+			$scope.description = description;
 			$scope.editMode = true;
 		}
 		//when cancel button is clicked, hide it self
 		$scope.hide = function () {
 			$scope.category_id = null;
 			$scope.category_name = null;
+			$scope.description = null;
 			$('#btnCancel').hide();
 			$scope.editMode = false;
 		}

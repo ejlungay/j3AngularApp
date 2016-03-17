@@ -13,7 +13,7 @@
 				<div ng-repeat="item in participants" ng-if="$index % 2 == 0">
 			        <div class="col-xs-6" ng-show="participants[$index].image!=null">
 				         	<img height="200" width="170" src="{{participants[$index].image}}" style="float: left; margin: 10px; border: solid 2px black; border-radius: 15px;">
-					   <div style="float: left; margin: 10px;">
+					   <div style="margin-top: 5%;">
 					   		<p class="small">Name:{{participants[$index].firstname}} {{participants[$index].middlename}}. {{participants[$index].lastname}}</p>
 			        		<p class="small">Contact: {{participants[$index].phone}}</p>
 			        		<p class="small">Positon: {{participants[$index].company_position}}</p>
@@ -26,7 +26,7 @@
 			        	<div class="item">
 				         	<img height="200" width="170" src="{{participants[$index + 1].image}}" style="float: left; margin: 10px; border: solid 2px black; border-radius: 15px;">
 				        </div>
-					   <div style="float: left; margin: 10px;">
+					   <div style="margin-top: 5%;">
 					   		<p class="small">Name:{{participants[$index + 1].firstname}} {{participants[$index + 1].middlename}}. {{participants[$index + 1].lastname}}</p>
 			        		<p class="small">Contact: {{participants[$index + 1].phone}}</p>
 			        		<p class="small">Positon: {{participants[$index + 1].company_position}}</p>

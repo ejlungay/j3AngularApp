@@ -23,7 +23,8 @@ angular.module('app')
 					picture_mode: data.picture_mode,
 					user_id: data.user_id,
 					amount_paid: data.amount_paid,
-					or_no: data.or_no
+					or_no: data.or_no,
+                    delegate_number: data.delegate_number
 				},
 				}).success( function(response) {
 					return response;
@@ -53,7 +54,8 @@ angular.module('app')
 						image_data: imageData,
 						user_id: data.user_id,
 						amount_paid: data.amount_paid,
-						or_no: data.or_no
+						or_no: data.or_no,
+                        delegate_number: data.delegate_number
 						}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(response) {
@@ -193,6 +195,18 @@ angular.module('app')
             delegates_from_training: function(training_id) {
                 return $http({
                     url: 'delegates_from_training?training_id=' + training_id,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
+            },
+
+            check_delegate_number: function(number) {
+                return $http({
+                    url: 'check_delegate_number?delegate_number=' + number,
                     method: 'GET'
                 }).success(function(response) {
                     return response.data;

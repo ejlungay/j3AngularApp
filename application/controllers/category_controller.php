@@ -71,7 +71,8 @@
 		public function update_category() {
 			$name = $this->input->post('category_name');
 			$id = $this->input->post('category_id');
-			$result = $this->category_model->updateCategory($name, $id);
+			$description = $this->input->post('description');
+			$result = $this->category_model->updateCategory($name, $id, $description);
 			if ($result) {
 				$json_response = array( 'id' => $id,
 										 'name' => $name,

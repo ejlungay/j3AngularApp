@@ -22,6 +22,7 @@ class Delegate_controller extends CI_Controller {
     }
      
     public function add_delegate() {
+    	$delegate_number = $this->input->post('delegate_number');
 		$pictureMode = $this->input->post('picture_mode');
 		$training_id = $this->input->post('training_id');
         $fname = $this->input->post('firstname');
@@ -67,8 +68,8 @@ class Delegate_controller extends CI_Controller {
 			}
 		}
 		
-        if ($training_id != null && $userid != null) {   
-            $result = $this->delegate_model->add_delegate($training_id, $fname, $mname, $lname, $email, $address, $company, $industry, $company_position, $phone,  $image_url, $gender, $added_by, $userid, $amount_paid, $or_no);
+        if ($training_id != null && $userid != null && $delegate_number != null && $fname != null && $lname != null) {   
+            $result = $this->delegate_model->add_delegate($training_id, $fname, $mname, $lname, $email, $address, $company, $industry, $company_position, $phone,  $image_url, $gender, $added_by, $userid, $amount_paid, $or_no, $delegate_number);
             if ($result) {
                 $json_response = array('training id' => $training_id,
                                       'firstname' => $fname,
@@ -369,6 +370,39 @@ class Delegate_controller extends CI_Controller {
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
 		}
 	}	
+
+
+	public function check_delegate_number() {
+		$number = $this->input->get('delegate_number');
+		
+		if ($number != null) {
+			$result = $this->delegate_model->check_delegate_number($number);
+			if ($result) {
+				foreach ($result as $row) 
+				$data = array(
+					'delegate_number' => $row->delegate_number,
+					'firstname' => $row->firstname,
+					'middlename' => $row->middlename,
+					'lastname' => $row->lastname,
+					'image' => $row->image
+				);	
+				$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'Unable to check delegate number.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}	
+
 
   }
 ?>

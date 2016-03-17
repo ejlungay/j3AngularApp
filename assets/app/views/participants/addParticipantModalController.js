@@ -2,6 +2,7 @@
 	angular.module('app').controller('addParticipantModalController', function($scope, $modalInstance, categoryFactory, courseFactory, delegateFactory, trainingFactory, userFactory, toastr, trainingId) {
 		$scope.takePic = false;
 		$scope.data = {};
+		$scope.data.amount_paid = 0;
 
 		$scope.courses = [];
 		$scope.loadCourses = function() {
@@ -34,6 +35,7 @@
 		}
 		
 		$scope.btnOKClicked = function(file) {
+
 			//get the current logged on user
 			var temp = document.cookie.split(';');
 			var username = '';
@@ -67,35 +69,45 @@
 					$scope.data.user_id = userid;
 
 					/*****  REQUIRED FIELDS  ****/
-					if ($scope.data.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
+					if ($scope.data.delegate_number == null || $scope.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
 						toastr.error('You cannot add participant without primary details.');
 						return;
 					}
-					/*****  OPTIONAL FIELDS  ****/
-					if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null || $scope.vm.picture == null) {
-						if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
-							delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
-								if (response.data.returnValue == 'SUCCESS') {
-									toastr.success(response.data.returnMessage);
-									$modalInstance.close();
-								}
-								else {
-									toastr.error(response.data.returnMessage);
-								}
-							});
+
+					//check delegate number
+					delegateFactory.check_delegate_number($scope.data.delegate_number).then(function(response) {
+						if (response.data.returnValue == null || response.data.returnValue == undefined) {
+							toastr.error('Delegate number ' + $scope.data.delegate_number + ' is already assigned to ' + response.data.firstname + ' ' + response.data.lastname + '. Please change delegate number.');
+							return;
 						}
-					}
-					else {
-						delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
-								if (response.data.returnValue == 'SUCCESS') {
-									toastr.success(response.data.returnMessage);
-									$modalInstance.close();
+						else {
+							/*****  OPTIONAL FIELDS  ****/
+							if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null || $scope.vm.picture == null) {
+								if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
+									delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
+										if (response.data.returnValue == 'SUCCESS') {
+											toastr.success(response.data.returnMessage);
+											$modalInstance.close();
+										}
+										else {
+											toastr.error(response.data.returnMessage);
+										}
+									});
 								}
-								else {
-									toastr.error(response.data.returnMessage);
-								}
-						});
-					}
+							}
+							else {
+								delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
+										if (response.data.returnValue == 'SUCCESS') {
+											toastr.success(response.data.returnMessage);
+											$modalInstance.close();
+										}
+										else {
+											toastr.error(response.data.returnMessage);
+										}
+								});
+							}
+						}
+					});
 				}
 				else {
 					$scope.data.or_no = or_no;
@@ -103,35 +115,45 @@
 					$scope.data.user_id = userid;
 
 					/*****  REQUIRED FIELDS  ****/
-					if ($scope.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
+					if ($scope.data.delegate_number == null || $scope.data.training_id == null || $scope.data.firstname == null || $scope.data.lastname == null || $scope.data.gender == null) {
 						toastr.error('You cannot add participant without primary details.');
 						return;
 					}
-					/*****  OPTIONAL FIELDS  ****/
-					if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null) {
-						if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
-							delegateFactory.addDelegate($scope.data, file).then(function(response) {
-								if (response.data.returnValue == 'SUCCESS') {
-									toastr.success(response.data.returnMessage);
-									$modalInstance.close();
-								}
-								else {
-									toastr.error(response.data.returnMessage);
-								}
-							});
+
+					//check delegate number
+					delegateFactory.check_delegate_number($scope.data.delegate_number).then(function(response) {
+						if (response.data.returnValue == null || response.data.returnValue == undefined) {
+							toastr.error('Delegate number ' + $scope.data.delegate_number + ' is already assigned to ' + response.data.firstname + ' ' + response.data.lastname + '. Please change delegate number.');
+							return;
 						}
-					}
-					else {
-						delegateFactory.addDelegate($scope.data, file).then(function(response) {
-								if (response.data.returnValue == 'SUCCESS') {
-									toastr.success(response.data.returnMessage);
-									$modalInstance.close();
+						else {
+							/*****  OPTIONAL FIELDS  ****/
+							if ($scope.data.middlename == null || $scope.data.email == null || $scope.data.company == null || $scope.data.industry == null || $scope.data.position == null || $scope.data.phone == null || $scope.data.address == null) {
+								if (confirm('There are empty fields including participant picture. Are you sure you want to add this records?')) {
+									delegateFactory.addDelegate($scope.data, file).then(function(response) {
+										if (response.data.returnValue == 'SUCCESS') {
+											toastr.success(response.data.returnMessage);
+											$modalInstance.close();
+										}
+										else {
+											toastr.error(response.data.returnMessage);
+										}
+									});
 								}
-								else {
-									toastr.error(response.data.returnMessage);
-								}
-						});
-					}
+							}
+							else {
+								delegateFactory.addDelegate($scope.data, file).then(function(response) {
+										if (response.data.returnValue == 'SUCCESS') {
+											toastr.success(response.data.returnMessage);
+											$modalInstance.close();
+										}
+										else {
+											toastr.error(response.data.returnMessage);
+										}
+								});
+							}
+						}
+					});
 				}
 
 			});

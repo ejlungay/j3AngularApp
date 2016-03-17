@@ -39,7 +39,7 @@
 		}
 
         //function for adding training course
-		public function add_delegate($training_id, $fname, $mname, $lname, $email, $address, $company, $industry, $company_position, $phone,  $image_url, $gender, $added_by, $userid, $amount_paid, $or_no) {
+		public function add_delegate($training_id, $fname, $mname, $lname, $email, $address, $company, $industry, $company_position, $phone,  $image_url, $gender, $added_by, $userid, $amount_paid, $or_no, $delegate_number) {
 			/***************   MULTIPLE INSERT***************/
 			//registration data
 			$successful = true;
@@ -51,7 +51,7 @@
 
 				$registration_id = $this->getMaxRegistrationId();
 
-				$data2 = array( 
+				$data2 = array( 'delegate_number' => $delegate_number,
 								'registration_id' => $registration_id,
 							   	'firstname' => $fname,
 							   	'middlename' => $mname,
@@ -249,6 +249,21 @@
 							  c.category_id = d.category_id and
 							  b.delegate_id = $delegate_id and
 							  a.training_id = $training_id");
+
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function check_delegate_number($number) {
+			$this->db->select('*');
+			$this->db->from('delegates as a');
+			$this->db->where("a.delegate_number = $number");
 
 			$query = $this->db->get();
 			

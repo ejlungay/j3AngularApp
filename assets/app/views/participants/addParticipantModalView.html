@@ -27,28 +27,26 @@
 							<button class="btn btn-default">Upload new picture</button>
 						</div>
 					</div><br>
+				</center>
 					<!-- TAKE -->
-					<div ng-show="takePic" id="takePicture">
+				<div ng-show="takePic" id="takePicture" style="margin-left: 12.5%">
 						<ng-camera
 							capture-message="Cheeeese!"
-							countdown="3"
-							output-height="213"
-							output-width="213"
-							viewer-height="320"
-							viewer-width="426"
-							crop-height="200"
-							crop-width="120"
-							image-format="jpeg"
-							jpeg-quality="100"
-							action-message="Take picture"
+					        countdown="3"
+					        output-height="160"
+					        output-width="213"
+					        viewer-height="320"
+					        viewer-width="426"
+					        image-format="jpeg"
+					        jpeg-quality="100"
+							action-message="Take"
 							snapshot="vm.picture"
 							flash-fallback-url="assets/libs/angular/webcamjs/webcam.swf"
 							<!--overlay-url="assets/libs/angular/ng-camera/app/overlay.png"-->
 							shutter-url="assets/libs/angular/ng-camera/app/shutter.mp3">
 						</ng-camera>
-						<button ng-click="hide()" class="btn btn-default">Hide camera</button>
-					</div>
-				</center>
+						<button style="margin-left: 44%; margin-top: -52px;" ng-click="hide()" class="btn btn-default">Hide</button>
+				</div>
 				<br>
 			<center>
 				<div class="btn-group m-b">
@@ -56,6 +54,10 @@
 					<button type="button" class="btn btn-default" ng-click="take()"><i class="fa fa-camera"></i> Take a picture</button>
 				</div>
 			</center>
+		</div>
+		<div class="form-group">
+			<label for="firstname">Delegate number</label>
+			<input type="number" id="firstname" ng-model="data.delegate_number" class="form-control"/> 
 		</div>
 		<div class="form-group">
 			<label for="firstname">First name</label>
@@ -82,7 +84,7 @@
 		</div>
 		<div class="form-group">
 			<label for="phone">Contact number</label>
-			<input type="number" id="phone" ng-model="data.phone" class="form-control" maxlength="12"/> 
+			<input type="number" ng-model="data.phone" class="form-control" maxlength="12"/> 
 		</div>
 		<div class="form-group">
 			<label for="email">Email</label>
@@ -104,7 +106,7 @@
 		<center> ------ PAYMENT DETAIL ------</center>
 		<div class="form-group">
 			<label for="company">Amount paid</label>
-			<input type="number" id="amount" ng-model="data.amount_paid" class="form-control"/> 
+			<input type="number" ng-model="data.amount_paid" class="form-control"/> 
 		</div>
 	</div>
 	<div class="modal-footer">                  

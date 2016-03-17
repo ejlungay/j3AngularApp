@@ -20,13 +20,14 @@
 					});
 				},
 				
-				updateCategory: function(name, userid) {
+				updateCategory: function(name, userid, description) {
 					return $http({
 						url: 'update_category',
 						method: 'POST',
 						data: $.param ({
 							category_name: name, 
-							category_id: userid
+							category_id: userid,
+							description: description
 							}),
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					}).success(function(response) {

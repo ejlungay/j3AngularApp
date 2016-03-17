@@ -113,6 +113,7 @@
 	$route['get_delegate_trainings']['get'] = 'delegate_controller/get_delegate_trainings';
 	$route['payment_detail']['get'] = 'delegate_controller/get_delegate_payment_details';
 	$route['delegate_transactions']['get'] = 'delegate_controller/load_delegate_transaction';
+	$route['check_delegate_number']['get'] = 'delegate_controller/check_delegate_number';
 
 	//routing categories
 	$route['add_category']['post'] = 'category_controller/add_category';
