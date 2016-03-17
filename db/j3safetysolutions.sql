@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2016 at 10:04 AM
+-- Generation Time: Mar 17, 2016 at 02:47 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.19
 
@@ -38,7 +38,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `user_id`, `date_added`) VALUES
-(1, 'BOSH', 1, '2016-03-14 14:52:11');
+(1, 'BOSH', 1, '2016-03-14 14:52:11'),
+(2, 'CBAA', 1, '2016-03-16 18:22:58');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,8 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`course_id`, `uid`, `category_id`, `course_code`, `course_name`, `date_added`) VALUES
 (1, 1, 1, 'wewe', 'dsd', '2016-03-14 14:52:19'),
-(2, 1, 1, 'fdfd', 'tae baho', '2016-03-14 14:59:22');
+(2, 1, 1, 'fdfd', 'tae baho', '2016-03-14 14:59:22'),
+(3, 1, 2, 'q22342sd-dsdsd', 'BSBA', '2016-03-16 18:24:13');
 
 -- --------------------------------------------------------
 
@@ -243,7 +245,8 @@ CREATE TABLE `trainings` (
 
 INSERT INTO `trainings` (`training_id`, `uid`, `date_added`, `course_id`, `location`, `from_date`, `to_date`, `time_start`, `time_end`, `regular_fee`, `discounted_fee`, `remarks`) VALUES
 (1, 1, '2016-03-14 14:52:41', 1, 'dsds', '2016-03-14', '2016-03-14', 'Mon Mar 14 2016 08:0', 'Mon Mar 14 2016 16:5', 4344, 123, 'ako si bofody => userid:1'),
-(3, 1, '2016-03-14 15:01:29', 2, 'amb ot', '2016-03-14', '2016-03-14', 'Mon Mar 14 2016 08:0', 'Mon Mar 14 2016 17:0', 43434, 2423, '');
+(3, 1, '2016-03-14 15:01:29', 2, 'amb ot', '2016-03-14', '2016-03-14', 'Mon Mar 14 2016 08:0', 'Mon Mar 14 2016 17:0', 43434, 2423, ''),
+(4, 1, '2016-03-16 18:24:43', 3, 'Naaan, m,is. or', '2016-03-16', '2016-03-16', 'Wed Mar 16 2016 08:0', 'Wed Mar 16 2016 17:0', 5000, 2200, '');
 
 -- --------------------------------------------------------
 
@@ -277,7 +280,15 @@ INSERT INTO `training_attended` (`ta_id`, `delegate_id`, `training_id`, `date_ad
 (12, 11, 3, '2016-03-14 09:10:17'),
 (13, 12, 3, '2016-03-14 09:16:56'),
 (14, 13, 3, '2016-03-14 09:17:35'),
-(15, 5, 1, '2016-03-15 09:02:36');
+(15, 5, 1, '2016-03-15 09:02:36'),
+(16, 9, 1, '2016-03-16 08:13:35'),
+(17, 8, 1, '2016-03-16 09:58:08'),
+(18, 6, 1, '2016-03-16 10:13:49'),
+(19, 13, 1, '2016-03-16 10:14:27'),
+(20, 8, 4, '2016-03-16 10:36:24'),
+(21, 4, 4, '2016-03-16 10:36:38'),
+(22, 9, 4, '2016-03-16 10:36:40'),
+(23, 4, 1, '2016-03-16 10:37:01');
 
 -- --------------------------------------------------------
 
@@ -343,22 +354,25 @@ CREATE TABLE `users` (
   `lastname` varchar(50) DEFAULT NULL,
   `image` text,
   `user_type` varchar(30) DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(15) NOT NULL DEFAULT 'ACTIVE'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `lastname`, `image`, `user_type`, `date_created`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej', 'Govino', 'Lungay', 'uploads/delegates/^DC7AAECCD6C9BCA1A6F2FC60BFA9DE58AB1083DB0B490D839D^pimgpsh_fullsize_distr2.jpg', 'admin', '2016-03-15 15:37:43'),
-(2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'standard-user', '2016-03-15 15:37:43'),
-(3, 'ejlungay', 'd41d8cd98f00b204e9800998ecf8427e', 'EJ', 'G', 'Lungay', NULL, 'Admin', '2016-03-15 16:29:39'),
-(4, 'username', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', NULL, 'Super Admin', '2016-03-15 16:32:54'),
-(5, 'lllll', 'd41d8cd98f00b204e9800998ecf8427e', 'llll', 'llll', 'llll', NULL, 'Admin', '2016-03-15 16:33:29'),
-(6, 'oooo', 'd41d8cd98f00b204e9800998ecf8427e', 'ooooo', 'ooooo', 'ooooo', NULL, 'Standard User', '2016-03-15 16:35:12'),
-(7, 'qwerty', 'd41d8cd98f00b204e9800998ecf8427e', 'ooooo', 'ooooo', 'ooooo', NULL, 'Standard User', '2016-03-15 16:38:13'),
-(8, 'username1', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', NULL, 'Super Admin', '2016-03-15 16:39:19');
+INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `lastname`, `image`, `user_type`, `date_created`, `status`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej mo', 'Govino', 'Lungay', 'uploads/users/we1.jpg', 'Super Admin', '2016-03-15 15:37:43', 'ACTIVE'),
+(2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'Standard User', '2016-03-15 15:37:43', 'INACTIVE'),
+(3, 'ejlungay', 'd41d8cd98f00b204e9800998ecf8427e', 'EJ', 'G', 'Lungay', NULL, 'Standard User', '2016-03-15 16:29:39', 'ACTIVE'),
+(4, 'username', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', NULL, 'Super Admin', '2016-03-15 16:32:54', 'INACTIVE'),
+(5, 'lllll', 'd41d8cd98f00b204e9800998ecf8427e', 'llll', 'llll', 'llll', NULL, 'Admin', '2016-03-15 16:33:29', 'ACTIVE'),
+(6, 'oooo', 'd41d8cd98f00b204e9800998ecf8427e', 'ooooo', 'ooooo', 'ooooo', NULL, 'Standard User', '2016-03-15 16:35:12', 'ACTIVE'),
+(7, 'qwerty', 'd41d8cd98f00b204e9800998ecf8427e', 'ooooo', 'ooooo', 'ooooo', NULL, 'Standard User', '2016-03-15 16:38:13', 'ACTIVE'),
+(9, 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'superadmin', 'superadmin', 'superadmin', NULL, 'Super Admin', '2016-03-15 17:40:41', 'ACTIVE'),
+(11, 'username1', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', 'uploads/users/w2.png', 'Super Admin', '2016-03-16 09:47:07', 'ACTIVE'),
+(12, 'standard', 'd41d8cd98f00b204e9800998ecf8427e', 'standard', 'standard', 'standard', 'uploads/users/di9rRRGjT.png', 'Standard User', '2016-03-16 09:51:34', 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -460,12 +474,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `delegates`
 --
@@ -495,12 +509,12 @@ ALTER TABLE `speakers`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `training_attended`
 --
 ALTER TABLE `training_attended`
-  MODIFY `ta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `training_expenses`
 --
@@ -515,7 +529,7 @@ ALTER TABLE `training_signatories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
