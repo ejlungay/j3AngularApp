@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2016 at 08:00 AM
+-- Generation Time: Mar 18, 2016 at 11:22 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -34,17 +34,18 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `description` mediumtext NOT NULL,
   PRIMARY KEY (`category_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `user_id`, `date_added`, `description`) VALUES
-(1, 'BOSH', 1, '2016-03-14 14:52:11', ''),
-(2, 'CBAA', 1, '2016-03-16 18:22:58', ''),
+(1, 'BOSH', 1, '2016-03-14 14:52:11', 'bosh description'),
+(2, 'CBAA', 1, '2016-03-16 18:22:58', '&nbsp;in accordance with the requirement of PD 422 (Labor Code of the Philippines) as amended; Occupational Safety and Health Standards as amended and the course guideline prescribed by the Occupational Safety & Health Center Department of Labor and Employment, Republic of the Philippines. <i class="fa fa-print"></i>'),
 (3, 'test', 1, '2016-03-17 14:51:34', ''),
-(4, 'cat name', 1, '2016-03-17 14:59:19', 'desc');
+(4, 'cat name', 1, '2016-03-17 14:59:19', 'desc'),
+(5, 'name', 1, '2016-03-17 15:04:13', 'name');
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   PRIMARY KEY (`course_id`),
   KEY `fk_course_to_user_id_idx` (`uid`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `course`
@@ -71,7 +72,10 @@ CREATE TABLE IF NOT EXISTS `course` (
 INSERT INTO `course` (`course_id`, `uid`, `category_id`, `course_code`, `course_name`, `date_added`) VALUES
 (1, 1, 1, 'wewe', 'dsd', '2016-03-14 14:52:19'),
 (2, 1, 1, 'fdfd', 'tae baho', '2016-03-14 14:59:22'),
-(3, 1, 2, 'q22342sd-dsdsd', 'BSBA', '2016-03-16 18:24:13');
+(3, 1, 2, 'q22342sd-dsdsd', 'BSBA', '2016-03-16 18:24:13'),
+(6, NULL, 1, 'tae', 'tae', '2016-03-18 10:35:35'),
+(7, 1, 1, 'tae', 'tae', '2016-03-18 10:36:00'),
+(9, 1, 2, 'BSC-SO-02', 'Safety Officer Development Training', '2016-03-18 10:39:58');
 
 -- --------------------------------------------------------
 
@@ -96,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `delegates` (
   `gender` varchar(20) NOT NULL,
   PRIMARY KEY (`delegate_id`),
   KEY `registration_id` (`registration_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `delegates`
@@ -115,7 +119,18 @@ INSERT INTO `delegates` (`delegate_id`, `delegate_number`, `registration_id`, `f
 (10, 0, 10, 'fname', 'jdfslkj', 'iui', 'dsoiudo', '45746', 'idfosidfo', 'sdpoifop', 'uploads/delegates/Gear_icon.svg.png', 'dsjhk', 'udfoio', 'Female'),
 (11, 0, 11, 'opop', 'opopsy', 'gygs', 'ufsiuf9i', '456768', 'iufweoiu', 'feiu', 'uploads/delegates/pie-chart-1.png', 'jdfsij', 'odio', 'Female'),
 (12, 0, 12, 'ty', 'tyt', 'y', 'yuyu', '665', 'hg', 'ds', 'uploads/delegates/icon_1690.png', 'ytu', 'shuih', 'Male'),
-(13, 0, 13, 'dsd', 'dhgjhg', 'jhgdhs', 'dsd', '788', 'dsd', 'dasd', 'uploads/delegates/we1.jpg', 'dsjh', 'dsd', 'Male');
+(13, 0, 13, 'dsd', 'dhgjhg', 'jhgdhs', 'dsd', '788', 'dsd', 'dasd', 'uploads/delegates/we1.jpg', 'dsjh', 'dsd', 'Male'),
+(14, 15140, 14, 'bugni', 'nugni', 'sungi', 'dmdkdjkfhj@jfdkh.com', '6353236', 'fdfjk', 'fkefjk', 'uploads/delegates/12743566_786394354826198_6208093201374157098_n.jpg', 'don no', 'dfjhefujehn', 'Male'),
+(15, 12, 15, 'su ang', 'su ang', 'mo an', 'secret@secre.com', '254845', 'no tnx', ':D:D:DD', 'uploads/delegates/41082_144777305558405_836626_n7.jpg', 'mo ang', ':D:D:D', 'Male'),
+(16, 152, 16, 'ako', 'kao', 'ksj', 'd;sikdok@jfkd.cm', '545', 'kljkj', 'jdjk', 'uploads/delegates/423702_184310948346160_1051673458_n.jpg', 'jkl', 'jkjdk', 'Male'),
+(17, 1514, 17, 'test', 'test', 'test', 'test@test.com', '3378', 'test', 'test', 'uploads/delegates/12743566_786394354826198_6208093201374157098_n1.jpg', 'test', 'rest', 'Female'),
+(18, 5656, 18, 'khjdkjsh', 'jhsdjh', 'hsjh', 'djkfjk@fdj.com', '9004390', 'ff', 'fefef', 'uploads/delegates/avatar3.jpg', 'jjik', 'fefef', 'Male'),
+(19, 12345, 19, 'ej', 'kotohon', 'lungay', 'kotohon@koto.com', '259265', 'koto kuyamads company', 'standing', 'uploads/delegates/kotohon@koto.com-ej-lungay.jpg', 'kotohon village', 'hugaw sa ulo', 'Female'),
+(20, 521, 20, 'Lucky', 'Boy', 'Ramos', 'luck@gmail.com', '931552545', '4loop', 'OJT', 'uploads/delegates/luck@gmail.com-Lucky-Ramos.jpg', 'Initao, MIs. Or', 'ip company', 'Male'),
+(21, 1515, 21, 'Boyaks', 'for', 'Short', 'boyaks@gmail.com', '62444811', 'boyaks groups of company', 'Standing', 'uploads/delegates/541010_199061093537812_1654654225_n.jpg', 'Linangkayan, Naawan, Mis. Or', 'tinae', 'Male'),
+(22, 120, 22, 'John', 'D', 'Doe', 'john@doe.com', '871626252', 'Doe Groups of COmpany', 'Bun-docks', 'uploads/delegates/john@doe.com-John-Doe.jpg', 'Califotnia, USA', 'Doe-nuts', 'Male'),
+(23, 123, 23, 'Borjie', 'B', 'Bords', 'amobt@amob.com', '5465656', 'djwdkj', 'jskjk', 'uploads/delegates/amobt@amob.com-Borjie-Bords.jpg', 'Dont know!', 'jsckjdk', 'Female'),
+(24, 1247, 24, 'ako', 'si', 'ako', 'dskjsdkjk', '909089', 'fmkjk', 'dfdf', 'uploads/delegates/dskjsdkjk-ako-ako.jpg', 'ak', 'jjh', 'Male');
 
 -- --------------------------------------------------------
 
@@ -131,9 +146,9 @@ CREATE TABLE IF NOT EXISTS `delegate_accounts` (
   `date_paid` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `training_attended_id` int(11) NOT NULL,
   PRIMARY KEY (`account_id`),
-  UNIQUE KEY `delegate_id` (`delegate_id`),
-  KEY `training_attended_id` (`training_attended_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  KEY `training_attended_id` (`training_attended_id`),
+  KEY `delegate_id_2` (`delegate_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `delegate_accounts`
@@ -152,7 +167,22 @@ INSERT INTO `delegate_accounts` (`account_id`, `delegate_id`, `amount_paid`, `or
 (10, 10, 8543, '123456', '2016-03-14 17:09:24', 11),
 (11, 11, 543, '123456', '2016-03-14 17:10:17', 12),
 (12, 12, 77, '123456', '2016-03-14 17:16:56', 13),
-(13, 13, 87, '123456', '2016-03-14 17:17:35', 14);
+(13, 13, 87, '123456', '2016-03-14 17:17:35', 14),
+(14, 14, 5621, '123456', '2016-03-17 15:49:28', 26),
+(15, 15, 1545, '123456', '2016-03-17 15:54:22', 27),
+(16, 16, 23656, '123456', '2016-03-17 15:56:27', 28),
+(17, 17, 2355, '123456', '2016-03-17 15:59:51', 29),
+(18, 18, 5656, '123456', '2016-03-17 16:02:41', 30),
+(19, 19, 2545, '123456', '2016-03-17 16:47:43', 31),
+(20, 20, 500, '123456', '2016-03-18 10:42:38', 32),
+(21, 21, 1500, '123456', '2016-03-18 16:11:16', 33),
+(22, 22, 5000, '123456', '2016-03-18 16:28:50', 34),
+(23, 23, 2500, '123457', '2016-03-18 16:33:10', 35),
+(24, NULL, 500, '123458', '2016-03-18 17:18:46', 36),
+(32, 1, 1400, '45115', '2016-03-18 17:43:51', 45),
+(33, 8, 1741, '123458', '2016-03-18 17:50:04', 46),
+(34, 24, 4512, '123459', '2016-03-18 17:52:33', 47),
+(35, 14, 456, '123460', '2016-03-18 18:02:01', 48);
 
 -- --------------------------------------------------------
 
@@ -166,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `registration` (
   `date_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`registration_id`),
   KEY `userid` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `registration`
@@ -185,7 +215,18 @@ INSERT INTO `registration` (`registration_id`, `userid`, `date_registered`) VALU
 (10, 1, '2016-03-14 17:09:24'),
 (11, 1, '2016-03-14 17:10:17'),
 (12, 1, '2016-03-14 17:16:56'),
-(13, 1, '2016-03-14 17:17:35');
+(13, 1, '2016-03-14 17:17:35'),
+(14, 1, '2016-03-17 15:49:27'),
+(15, 1, '2016-03-17 15:54:22'),
+(16, 1, '2016-03-17 15:56:27'),
+(17, 1, '2016-03-17 15:59:51'),
+(18, 1, '2016-03-17 16:02:40'),
+(19, 1, '2016-03-17 16:47:43'),
+(20, 1, '2016-03-18 10:42:38'),
+(21, 1, '2016-03-18 16:11:13'),
+(22, 1, '2016-03-18 16:28:50'),
+(23, 1, '2016-03-18 16:33:10'),
+(24, 1, '2016-03-18 17:52:33');
 
 -- --------------------------------------------------------
 
@@ -259,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `trainings` (
   PRIMARY KEY (`training_id`),
   KEY `fk_trainings_course_id_idx` (`course_id`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `trainings`
@@ -268,7 +309,8 @@ CREATE TABLE IF NOT EXISTS `trainings` (
 INSERT INTO `trainings` (`training_id`, `uid`, `date_added`, `course_id`, `location`, `from_date`, `to_date`, `time_start`, `time_end`, `regular_fee`, `discounted_fee`, `remarks`) VALUES
 (1, 1, '2016-03-14 14:52:41', 1, 'dsds', '2016-03-14', '2016-03-14', 'Mon Mar 14 2016 08:0', 'Mon Mar 14 2016 16:5', 4344, 123, 'ako si bofody => userid:1'),
 (3, 1, '2016-03-14 15:01:29', 2, 'amb ot', '2016-03-14', '2016-03-14', 'Mon Mar 14 2016 08:0', 'Mon Mar 14 2016 17:0', 43434, 2423, ''),
-(4, 1, '2016-03-16 18:24:43', 3, 'Naaan, m,is. or', '2016-03-16', '2016-03-16', 'Wed Mar 16 2016 08:0', 'Wed Mar 16 2016 17:0', 5000, 2200, '');
+(4, 1, '2016-03-16 18:24:43', 3, 'Naaan, m,is. or', '2016-03-16', '2016-03-16', 'Wed Mar 16 2016 08:0', 'Wed Mar 16 2016 17:0', 5000, 2200, ''),
+(5, 1, '2016-03-18 10:40:36', 9, 'Manila, Philippines', '2016-03-18', '2016-03-18', 'Fri Mar 18 2016 08:0', 'Fri Mar 18 2016 17:0', 5000, 4500, '');
 
 -- --------------------------------------------------------
 
@@ -284,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `training_attended` (
   PRIMARY KEY (`ta_id`),
   KEY `delegate_id` (`delegate_id`),
   KEY `training_id` (`training_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `training_attended`
@@ -314,7 +356,30 @@ INSERT INTO `training_attended` (`ta_id`, `delegate_id`, `training_id`, `date_ad
 (21, 4, 4, '2016-03-16 10:36:38'),
 (22, 9, 4, '2016-03-16 10:36:40'),
 (23, 4, 1, '2016-03-16 10:37:01'),
-(24, 2, 1, '2016-03-17 02:40:41');
+(24, 2, 1, '2016-03-17 02:40:41'),
+(25, 1, 4, '2016-03-17 07:11:31'),
+(26, 14, 1, '2016-03-17 07:49:28'),
+(27, 15, 4, '2016-03-17 07:54:22'),
+(28, 16, 4, '2016-03-17 07:56:27'),
+(29, 17, 4, '2016-03-17 07:59:51'),
+(30, 18, 4, '2016-03-17 08:02:41'),
+(31, 19, 4, '2016-03-17 08:47:43'),
+(32, 20, 5, '2016-03-18 02:42:38'),
+(33, 21, 5, '2016-03-18 08:11:16'),
+(34, 22, 5, '2016-03-18 08:28:50'),
+(35, 23, 5, '2016-03-18 08:33:10'),
+(36, 16, 5, '2016-03-18 09:18:46'),
+(37, 10, 5, '2016-03-18 09:26:29'),
+(38, 4, 5, '2016-03-18 09:30:31'),
+(39, 1, 5, '2016-03-18 09:32:29'),
+(40, 1, 5, '2016-03-18 09:33:53'),
+(41, 1, 5, '2016-03-18 09:37:54'),
+(43, 1, 5, '2016-03-18 09:38:20'),
+(44, 1, 5, '2016-03-18 09:41:02'),
+(45, 1, 5, '2016-03-18 09:43:51'),
+(46, 8, 5, '2016-03-18 09:50:04'),
+(47, 24, 5, '2016-03-18 09:52:33'),
+(48, 14, 5, '2016-03-18 10:02:01');
 
 -- --------------------------------------------------------
 
@@ -331,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `training_expenses` (
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`expense_id`),
   KEY `training_id` (`training_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `training_expenses`
@@ -341,7 +406,9 @@ INSERT INTO `training_expenses` (`expense_id`, `training_id`, `expense_name`, `a
 (9, 3, 'tesat', 44, '2323', '2016-03-15 09:46:08'),
 (10, 3, 'snack', 1345, '43434', '2016-03-15 09:46:16'),
 (11, 3, 'snack again', 1351, '3342', '2016-03-15 09:48:46'),
-(12, 3, 'snacj', 500, '1344', '2016-03-15 09:50:03');
+(12, 3, 'snacj', 500, '1344', '2016-03-15 09:50:03'),
+(13, 5, 'Tong 8s', 5000, '1234565', '2016-03-18 16:34:03'),
+(14, 5, 'ligo sapa', 1500, '56556445', '2016-03-18 17:54:37');
 
 -- --------------------------------------------------------
 
@@ -395,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `middlename`, `lastname`, `image`, `user_type`, `date_created`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Elton Jon', 'Govino', 'Lungay', 'uploads/users/avatar.jpg', 'Super Admin', '2016-03-15 15:37:43', 'ACTIVE'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Ej', 'Govino', 'Lungay', 'uploads/users/avatar.jpg', 'Super Admin', '2016-03-15 15:37:43', 'ACTIVE'),
 (2, 'test', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'test', 'uploads/12743566_786394354826198_6208093201374157098_n.jpg', 'Standard User', '2016-03-15 15:37:43', 'INACTIVE'),
 (3, 'ejlungay', 'd41d8cd98f00b204e9800998ecf8427e', 'EJ', 'G', 'Lungay', NULL, 'Standard User', '2016-03-15 16:29:39', 'ACTIVE'),
 (4, 'username', '5f4dcc3b5aa765d61d8327deb882cf99', 'firstname', 'middlename', 'lastname', NULL, 'Super Admin', '2016-03-15 16:32:54', 'INACTIVE'),
@@ -433,8 +500,8 @@ ALTER TABLE `delegates`
 -- Constraints for table `delegate_accounts`
 --
 ALTER TABLE `delegate_accounts`
-  ADD CONSTRAINT `delegate_accounts_ibfk_1` FOREIGN KEY (`training_attended_id`) REFERENCES `training_attended` (`ta_id`),
-  ADD CONSTRAINT `delegate_id_to_delegates_table` FOREIGN KEY (`delegate_id`) REFERENCES `delegates` (`delegate_id`);
+  ADD CONSTRAINT `delegate_accounts_ibfk_1` FOREIGN KEY (`training_attended_id`) REFERENCES `training_attended` (`ta_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `delegate_id_to_delegates_table` FOREIGN KEY (`delegate_id`) REFERENCES `delegates` (`delegate_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `registration`
