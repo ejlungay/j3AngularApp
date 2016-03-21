@@ -8,7 +8,7 @@
  * Config for the router
  */
 angular.module('app')
-  .run(['$rootScope', '$state', '$stateParams', 'userFactory', function ( $rootScope, $state, $stateParams, userFactory) {
+  .run(['$rootScope', '$state', '$stateParams', 'userFactory', '$location', function ( $rootScope, $state, $stateParams, userFactory, $location) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
@@ -25,17 +25,20 @@ angular.module('app')
             if (username[1] != '') {
               userFactory.isLoggedIn(username[1]).then(function(response) {
                 if (response.data.returnValue == 'FALSE') {
+                  document.cookie = "previous_url=" + $location.path();
                   event.preventDefault();
                   window.location.href="index.php";
                 }
               });
             }
             else {
+              document.cookie = "previous_url=" + $location.path();
               window.location.href="index.php";
             }
           }
           else {
             alert('You are not logged in! Please login to continue.');
+              document.cookie = "previous_url=" + $location.path();
               window.location.href="index.php";
           }
         });
@@ -49,7 +52,7 @@ angular.module('app')
           .otherwise('/app/dashboard');
         $stateProvider
           .state('app', {
-			abstract: true,
+			     abstract: true,
             url: '/app',
             views: {
               '': {
@@ -67,7 +70,7 @@ angular.module('app')
              url: '/dashboard',
              templateUrl: 'assets/app/views/dashboard/dashboardView.html',
              data : { title: 'Dashboard' },
-			 controller: 'dashboardController'
+			       controller: 'dashboardController'
            })
           .state('app.timeline', {
             url: '/timeline',
@@ -78,7 +81,7 @@ angular.module('app')
              url: '/courselist',
              templateUrl: 'assets/app/views/course/courseListView.html',
              data : { title: 'J3 Course List' },
-			 controller: 'courseController'
+			       controller: 'courseController'
            })
 		  .state('app.trainings', {
              url: '/trainings',
@@ -123,7 +126,7 @@ angular.module('app')
       .state('app.delegate-certificates', {
              url: '/certificates/delegate-certificates/:id',
              templateUrl: 'assets/app/views/reports/certificateLayoutView.html',
-             data : { title: 'Participant Certificate' }
+             data : { title: 'Certificate View' }
            })
 		  .state('app.directory', {
              url: '/directory',
@@ -150,12 +153,11 @@ angular.module('app')
              templateUrl: 'assets/app/views/user-management/userProfileView.html',
              data : { title: 'My Profile' }
         })
-		   .state('app.error', {
+		  .state('app.error', {
              url: '/404',
              templateUrl: 'assets/app/views/404/pageErrorView.html',
              data : { title: 'Users' }
-           })
-          ;
+      });
 
 
           function load(srcs, callback) {

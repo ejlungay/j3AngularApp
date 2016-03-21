@@ -1,5 +1,5 @@
 	
-	angular.module('app').controller('financialController', function($scope, $state, $modal, $stateParams, delegateFactory, trainingFactory, ReportingService) {
+	angular.module('app').controller('financialController', function($scope, $state, $modal, $stateParams, userFactory, delegateFactory, trainingFactory, ReportingService) {
 		//alert($stateParams.training_id);
 		$scope.isEditable = false;
 
@@ -95,4 +95,21 @@
 		$scope.print = function(){
 			ReportingService.printData(document.getElementById('printMe'));
 		}
+
+		$scope.user_detail = [];
+		//get the current logged on user
+		var temp = document.cookie.split(';');
+		var username = '';
+		var userid = '';
+		if (temp != null) {
+			for (var i = 0; i < temp.length; i++) {
+				if (temp[i].indexOf("username") > -1) {
+					username = temp[i].split('=');
+				}
+			}
+		}
+		//get user detail from db
+		userFactory.getUserDetail(username[1]).then(function(response) {
+			$scope.user_detail = response.data;
+		});
 	});

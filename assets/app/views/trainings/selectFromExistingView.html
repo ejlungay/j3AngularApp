@@ -23,7 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="delegate in delegateList | filter: searchKeyword">
+			<tr ng-repeat="delegate in delegateList | filter: searchKeyword  | orderBy: 'firstname'">
 				<td>{{$index + 1}}</td>
 				<td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
 				<td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>

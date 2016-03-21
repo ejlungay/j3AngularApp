@@ -5,7 +5,7 @@ angular.module('app')
         return {
             upcomingTrainings: function() {
                 return $http({
-                    url: 'trainings',
+                    url: 'upcoming_trainings',
                     method: 'GET'
                 }).success(function(res) {
                     return res.data;

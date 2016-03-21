@@ -1,22 +1,26 @@
-	 
-	<div ng-controller="certificateController"> 
-		<div class="pull-right">
-			<button class="btn btn-success pull-right" ng-click="printAll()"><i class="fa fa-print"></i></button>
-			<button class="btn btn-warning pull-right" ng-click="editTrainingDetail()" ng-disabled="!editMode"><i class="fa fa-edit"></i></button>
-		</div>
-		<div class="pull-right" style="width: 150px; margin-right: 3px;">
-			<select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
-				<option ng-repeat="training in trainingList track by $index" value="{{training.training_id}}">{{training.course_name}}</option>
-			</select>
-		</div>
-		<div id="printMe">
-			<h5>Training title: <b>{{training_name}}</b></h5>
+
+
+	<div class="panel panel-default" ng-controller="certificateController">
+	    <div class="panel-heading">
+	    	<h5>Training title: <b>{{training_name}}</b></h5>
+	      	<div class="pull-right">
+				<button type="button" class="btn btn-stroke btn-warning" ng-click="editTrainingDetail()" ng-disabled="!editMode"><i class="fa fa-edit"></i> Edit</button>
+	       		<!--<button type="button" class="btn btn-stroke btn-success" ng-click="printCertificate('all')"><i class="fa fa-print"></i> Print all</button>-->
+			</div>
+			<div class="pull-right" style="width: 200px; margin-right: 3px;">
+				<select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
+					<option ng-repeat="training in trainingList track by $index" value="{{training.training_id}}">{{training.course_name}}</option>
+				</select>
+			</div>
 			<h5>Date: {{training_date}}</h5>
 			<h5>Location: {{training_location}}</h5>
-			<table class="table table-bordered table-hover bg-white">
+	    </div>
+	    <div class="table-responsive">
+	      	<table class="table table-bordered table-hover bg-white">
 				<thead>
 					<tr>
 						<th width="5%"><center>#</center></th>
+						<th>Image</th>
 						<th>Participant name</th>
 						<th>Participant no</th>
 						<th>Email</th>
@@ -24,16 +28,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="delegate in delegateList track by $index">
+					<tr ng-repeat="delegate in delegateList | orderBy: 'firstname' track by $index">
 						<td>{{$index + 1}}</td>
+						<td><img class="img img-circle" src="{{delegate.image}}" alt="Delegate photo" height="30" width="30"></td>
 						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
 						<td>{{delegate.delegate_number}}</td>
 						<td>{{delegate.email}}</td>
-						<td><a target="_blank" ng-href='#/app/certificates/delegate-certificates/{{delegate.delegate_id}}:{{tid}}'><i class="fa fa-print"></i></a></td>
+						<td><a href ng-click="printCertificate(delegate.delegate_id)"><i class="fa fa-print"></i></a></td>
 					</tr>
 				</tbody>
 		  </table>
-		</div>
-	</div>
+	    </div>
+    </div>
+
 
 	  

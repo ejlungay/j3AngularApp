@@ -46,6 +46,17 @@
 					}).error(function(response) {
 						toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator. : ' + response, 'ERROR');
 					});
+				},
+
+				getCategoryById: function(id) {
+					return $http({
+						url: 'get_category?category_id=' + id,
+						method: 'GET'
+					}).success(function(response) {
+						return response.data;
+					}).error(function(response) {
+						toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator. : ' + response, 'ERROR');
+					});
 				}
 			};
 		});

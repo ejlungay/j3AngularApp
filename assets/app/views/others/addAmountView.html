@@ -1,0 +1,18 @@
+	
+	<div class="modal-header">
+	    <h3 class="modal-title">Please Enter Amount Paid</h3>
+	</div>
+	<div class="modal-body">
+	    <div class="form-group">
+	    	<label>Amount Paid</label>
+	    	<input class="form-control" ng-model="paymentData.amount_paid">
+	    </div>
+	    <div class="form-group">
+	    	<label>OR No.</label>
+	    	<input class="form-control" ng-model="paymentData.or_no">
+	    </div>
+	</div>
+	<div class="modal-footer">                  
+	    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-success" ng-click="ok()">OK</button>
+	</div>

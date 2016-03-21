@@ -1,46 +1,66 @@
   
-	<div ng-controller="participantController"> 
-		<div class="col-sm-3" style="margin-left: -13px;">
-		  <select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
-			<option ng-repeat="item in trainingList track by $index" value="{{item.training_id}}">{{item.course_name}}</option>
-		  </select>
+	<div ng-controller="participantController" class="panel panel-default"> 
+		<div class="panel-heading">
+			<div class="col-sm-3" style="margin-left: -13px;">
+			  	<select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()">
+					<option ng-repeat="item in trainingList track by $index" value="{{item.training_id}}">{{item.course_name}}</option>
+			  	</select>
+			</div>
+			<div class="pull-right">
+				<button md-ink-ripple class="md-btn md-raised m-b" ng-click="add()" style="background-color: #043E91; color: white;"><i class="fa fa-plus"></i> Participant</button>
+			</div>
+			<div class="input-group pull-right" style="width: 200px; margin-right: 3px;">
+		        <input class="form-control" ng-model="searchKeyword" placeholder="Search" type="search" ng-change="search()" /> 
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</span>
+		    </div>
+		 	<button style="margin-left: -3px;" md-ink-ripple class="btn btn-default"><i class="fa fa-refresh" ng-click="loadTrainingDelegates()"></i></button>
 		</div>
-	 <div class="pull-right">
-		 <button md-ink-ripple class="md-btn md-raised m-b pink" ng-click="add()"><i class="fa fa-plus"></i> Participant</button>
-	 </div>
-	  <div class="input-group pull-right" style="width: 200px; margin-right: 3px;">
-            <input class="form-control" ng-model="searchKeyword" placeholder="Search" type="search" ng-change="search()" /> 
-			<span class="input-group-addon">
-				<span class="glyphicon glyphicon-search"></span>
-			</span>
-       </div>
-	 <button style="margin-left: -3px;" md-ink-ripple class="btn btn-default"><i class="fa fa-refresh" ng-click="loadTrainingDelegates()"></i></button>
-	 <div id="printMe">
-	  <table class="table table-bordered table-hover bg-white">
-		 <thead>
-          <tr>
-            <th  style="width:3%">#</th>
-            <th  style="width:3%">Image</th>
-            <th  style="width:25%">Full name</th>
-            <th><center>Participant No.</center></th>
-            <th  style="width:25%">Phone</th>
-            <th  style="width:25%">Email</th>
-            <th  style="width:3%"></th>
-          </tr>
-        </thead>
-		 <tbody>
-		  <tr ng-repeat="delegate in delegateList | filter: searchKeyword track by $index">
-            <td>{{$index + 1}}</td>
-            <td><img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/></td>
-            <td>{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}</td>
-            <td>{{delegate.delegate_number}}</td>
-            <td>{{delegate.phone}}</td>
-            <td>{{delegate.email}}</td>
-            <td><a href ng-click="showParticipantProfile(delegate.delegate_id)"><i class="icon mdi-action-perm-identity"></i></a></td>
-          </tr>
-        </tbody>
-	  </table>
-	 </div>
+
+		<div id="printMe">
+		  	<table class="table table-bordered table-hover bg-white">
+			 	<thead>
+		          	<tr>
+			            <th  style="width:3%">#</th>
+			            <th  style="width:3%">Image</th>
+			            <th>Full name</th>
+			            <th><center>Participant No.</center></th>
+			            <th>Phone</th>
+			            <th>Email</th>
+			            <th  style="width:8%"></th>
+		          	</tr>
+	        	</thead>
+				<tbody>
+				  	<tr ng-repeat="delegate in delegateList | orderBy:'firstname' | filter: searchKeyword">
+			            <td>{{$index + 1}}</td>
+			            <td>
+			            	<img height="30" width="30" class="img img-circle" ng-src="{{delegate.image}}"/>
+			            </td>
+			            <td>
+			            	{{delegate.firstname}} {{delegate.middlename}} . {{delegate.lastname}}
+			            </td>
+			            <td>
+			            	{{delegate.delegate_number}}
+			            </td>
+			            <td>
+			            	{{delegate.phone}}
+			            </td>
+			            <td>
+			            	{{delegate.email}}
+			            </td>
+			            <td>
+			            	<a href ng-click="showParticipantProfile(delegate.delegate_id)">
+			            		<i class="icon mdi-action-perm-identity" popover="Participant profile" popover-trigger="mouseenter"></i>
+			            	</a>
+			            	<a href ng-click="printForm(delegate.delegate_id)" popover="Print registration form" popover-trigger="mouseenter" ng-hide="training_id == null">
+			            		<i class="fa fa-print"></i>
+			            	</a>
+			            </td>
+		          	</tr>
+		        </tbody>
+		  	</table>
+		</div>
 	</div>
 
 	  

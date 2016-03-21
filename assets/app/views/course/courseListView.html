@@ -1,36 +1,36 @@
  
-   <div class="row" ng-controller="courseController">
+  <div class="row" ng-controller="courseController">
     <div class="col-md-8">
 	 <div class="panel panel-default">
      <div class="panel-heading">
       <b>J3 Categories</b>
      </div>
      <div class="table-responsive">
-      <table ui-jp="dataTable" class="table table-hover b-t b-b" id="courseList">
-        <thead>
-          <tr>
-            <th>Category Name</th>
-            <th>Date Added</th>
-            <th>Added by</th>
-            <th width="2%"></th>
-          </tr>
-        </thead>
-        <tbody>
-		  <tr ng-repeat="item in categories track by $index">
-		   <td>{{item.category_name}}</td>
-		   <td>{{item.date_added}}</td>
-		   <td>{{item.added_by}}</td>
-		   <td ng-click="editCategory(item.category_id, item.category_name, item.description)">
-		     <a href="">
-			   <center><i class="glyphicon glyphicon-edit"></i></center>
-			 </a>
-		   </td>
-		  </tr>
-        </tbody>
+        <table class="table table-bordered table-hover bg-white">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Category Name</th>
+              <th>Date Added</th>
+              <th>Added by</th>
+              <th width="2%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in categories | orderBy: 'category_name' track by $index">
+              <td>{{$index + 1}}</td>
+              <td>{{item.category_name}}</td>
+              <td>{{item.date_added}}</td>
+              <td>{{item.added_by}}</td>
+              <td ng-click="editCategory(item.category_id, item.category_name, item.description)">
+                <a href><center><i class="glyphicon glyphicon-edit"></i></center></a>
+              </td>
+            </tr>
+          </tbody>
       </table>
+      </div>
      </div>
-     </div>
-	</div>
+	  </div>
     <div class="col-md-4">
 	  <div class="panel panel-default">
         <div class="panel-heading bg-white">

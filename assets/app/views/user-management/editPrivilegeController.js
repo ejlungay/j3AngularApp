@@ -4,7 +4,7 @@
 
 		$scope.editData = {};
 		$scope.editData.userid = userId;
-		$scope.editData.new_status = '';
+		//$scope.editData.new_status = '';
 
 		$scope.userDetail = [];
 		$scope.btnDisplay = '';
@@ -36,6 +36,7 @@
 		$scope.ok = function () {
 			//check for both
 			if ($scope.editData.new_status != undefined && $scope.editData.new_type != undefined) {
+				//alert('all');
 				userFactory.updateUserType($scope.editData).then(function(response) {
 					userFactory.updateUserStatus($scope.editData).then(function(response) {
 						if (response.data.returnValue == 'SUCCESS') {
@@ -51,6 +52,7 @@
 			//change user type
 			else {
 				if ($scope.editData.new_status != undefined) {
+					//alert('status');
 					userFactory.updateUserStatus($scope.editData).then(function(response) {
 						if (response.data.returnValue == 'SUCCESS') {
 							toastr.success('Successfully changed.');
@@ -63,6 +65,7 @@
 				}
 
 				if ($scope.editData.new_type != undefined) {
+					//alert('type');
 					userFactory.updateUserType($scope.editData).then(function(response) {
 						if (response.data.returnValue == 'SUCCESS') {
 							toastr.success('Successfully changed.');

@@ -1,0 +1,76 @@
+	
+	<div class="modal-header">
+	    <h3 class="modal-title">Participant Form</h3>
+	</div>
+	<div class="modal-body" id="form">
+		<div style="border: 1px solid black; height: 531px; width: 792px; margin-left: 5px;" ng-repeat="item in delegateDetails">
+			<center>
+				<div>
+					<h3 style="font-family: serif;">{{course_name}}</h3>
+					<p style="font-family: serif;">{{training_date}} | {{location}}</p>
+				</div>
+
+				<div class="pull-left" style="position: absolute; top: 20px;">
+					<img src="assets/img/j3newlogo.png" style="height: 96px; width: 96px;">
+				</div>
+
+				<div style="left: 710px; top: 20px; position: absolute;">
+					<img src="{{item.image}}" style="height: 96px; width: 96px;">
+				</div>
+			</center>
+			<div style="top: 120px; position: absolute;"> 
+				<img src="assets/img/black.png" height="50" width="790">
+				<p style="position: absolute; top: 1px; font-size: 40px; color: white; left: 200px;"><b>REGISTRATION FORM</b></p>
+			</div>
+
+			<div style="top: 200px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Last Name: <u>{{item.lastname}}</u></label>
+			</div>
+			<div style="left: 320px; top: 200px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">First Name: <u>{{item.firstname}} </u></label>
+			</div>
+			<div style="left: 600px; top: 200px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Middle Name: <u>{{item.middlename}}</u></label>
+			</div>
+
+			<div style="top: 230px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Gender: <u>{{item.gender}}</u></label>
+			</div>
+			<div style="left: 210px; top: 230px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Address: <u>{{item.address}}</u></label>
+			</div>
+
+			<div style="top: 260px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Contact No.: <u>{{item.phone}}</u></label>
+			</div>
+			<div style="left:300px; top: 260px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Email: <u>{{item.email}}</u></label>
+			</div>
+
+			<div style="top: 290px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Company Name: <u>{{item.company}}</u></label>
+			</div>
+			<div style="top: 320px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Industry: <u>{{item.industry}}</u></label>
+			</div>
+			<div style="left: 500px; top: 320px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Position: <u>{{item.company_position}}</u></label>
+			</div>
+
+			<div style="left: 100px; top: 430px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">Amount Paid (₱): <u>{{amount_paid}}</u></label>
+			</div>
+			<div style="left: 100px; top: 460px; position: absolute;"> 
+				<label style="font-size: 20px; font-family: serif;">OR No.: <u>{{or_no}}</u></label>
+			</div>
+
+			<div style="top: 510px; position: absolute;"> 
+				<label style="font-size: 18px; font-family: serif;">J3 Trainers and Consultant</label>
+			</div>
+
+		</div>
+	</div>
+	<div class="modal-footer">                  
+	    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-success" ng-click="ok()"><i class="fa fa-print"></i> Print</button>
+	</div>

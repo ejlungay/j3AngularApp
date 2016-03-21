@@ -6,17 +6,18 @@
     
     <li ui-sref-active="active">
       <a md-ink-ripple ui-sref="app.dashboard">
+        <i class="pull-right up"><b class="badge bg-info" ng-show="trainingCounts > 0">{{trainingCounts}}</b></i>
         <i class="icon mdi-action-settings-input-svideo i-20"></i>
         <span class="font-normal">Dashboard</span>
       </a>
   </li>
-	<li ui-sref-active="active">
+	<li ui-sref-active="active" ng-hide="item.user_type == 'Standard User'">
       <a md-ink-ripple ui-sref="app.courselist">
         <i class="icon fa fa-calendar-o"></i>
         <span class="font-normal">Categories</span>
       </a>
   </li>
-	 <li ui-sref-active="active">
+	 <li ui-sref-active="active" ng-hide="item.user_type == 'Standard User'">
       <a md-ink-ripple ui-sref="app.trainings">
         <i class="icon mdi-action-settings i-20"></i></i>
         <span class="font-normal">Trainings</span>
@@ -39,16 +40,16 @@
       </a>
       <ul class="nav nav-sub">
         <li ui-sref-active="active">
-          <a md-ink-ripple ui-sref="app.attendance"><i class="fa fa-check-circle"></i> Attendance</a>
+          <a md-ink-ripple ui-sref="app.attendance">Attendance</a>
         </li>
         <li ui-sref-active="active">
-          <a md-ink-ripple ui-sref="app.certificates"><i class="glyphicon glyphicon-certificate"></i> Certificate</a>
+          <a md-ink-ripple ui-sref="app.certificates">Certificate</a>
         </li>
         <li ui-sref-active="active">
-          <a md-ink-ripple ui-sref="app.directory"><i class="glyphicon glyphicon-floppy-saved"></i> Directory</a>
+          <a md-ink-ripple ui-sref="app.directory">Directory</a>
         </li>
 		      <li ui-sref-active="active">
-          <a md-ink-ripple ui-sref="app.financial"><i class="fa fa-dollar"></i> Financial</a>
+          <a md-ink-ripple ui-sref="app.financial"> Financial</a>
         </li>
       </ul>
     </li>

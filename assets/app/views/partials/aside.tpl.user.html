@@ -1,22 +1,26 @@
-  <div class="box" ng-controller="notificationController">
-    <div class="p p-h-md">
-      <a data-dismiss="modal" class="pull-right text-muted-lt text-2x m-t-n inline p-sm">&times;</a>
-      <strong>Training Notifications</strong>
-    </div>
-    <div class="box-row">
-      <div class="box-cell">
-        <div class="box-inner">
-          <div class="list-group no-radius no-borders">
-			<div class="md-list-item" ng-repeat="t in trainings track by $index">
-			  <div class="md-list-item-left circle green">A</div>
-			   <div class="md-list-item-content">
-				<h3 class="text-md">{{t.training_name}}</h3>
-				<small class="font-thin">Start date: {{t.from_date}}</small><br>
-				<small class="font-thin">End date: {{t.to_date}}</small>
-			  </div>
-			</div>
+    
+    <div class="box" ng-controller="notificationController">
+      <div class="p p-h-md">
+        <a data-dismiss="modal" class="pull-right text-muted-lt text-2x m-t-n inline p-sm">&times;</a>
+        <strong>Training Notifications</strong>
+      </div>
+      <div class="box-row">
+        <div class="box-cell">
+          <div class="box-inner">
+            <div class="list-group no-radius no-borders">
+        			<div class="md-list-item" ng-repeat="t in trainings track by $index">
+                <div ng-show="ifIsToday(t.from_date)">
+          			   <div class="md-list-item-left circle green">{{t.course_name.charAt(0)}}</div>
+          			   <div class="md-list-item-content">
+          				    <h3 class="text-md">{{t.course_name}}</h3>
+                      <small class="font-thin">Location: {{t.location}}</small><br>
+          				    <small class="font-thin">Start date: {{t.from_date}}</small><br>
+          				    <small class="font-thin" ng-show="t.from_date != t.to_date">End date: {{t.to_date}}</small><br>
+          			    </div>
+                  </div>
+        			</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>

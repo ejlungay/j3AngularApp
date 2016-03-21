@@ -16,6 +16,7 @@
 		
 		$scope.exit = function() {
 			document.cookie = 'username=';
+			document.cookie = 'previous_url=';
 			window.location="index.php";
 		}
 	});

@@ -67,7 +67,43 @@
 		}
 
 		$scope.printCertificate = function(del_id) {
-			$window.open('#/app/certificates/delegate-certificates/---' + del_id + ':' + $scope.training_id, '_blank');
+			//$window.open('#/app/certificates/delegate-certificates/---' + del_id + ':' + $scope.training_id, '_blank');
+			if (del_id === 'all') {
+				var modalInstance = $modal.open({
+					templateUrl: 'assets/app/views/reports/certificateModalView.html',
+					controller: 'certificateModalController',
+					size: 'lg',
+					resolve: {
+						  delegateId: function () {
+							return del_id;
+						  },
+						  trainingId: function () {
+							return $scope.training_id;
+						  },
+						  whatToPrint: function () {
+							return 'all';
+						 }
+					}
+				});
+			}
+			else {
+				var modalInstance = $modal.open({
+					templateUrl: 'assets/app/views/reports/certificateModalView.html',
+					controller: 'certificateModalController',
+					size: 'lg',
+					resolve: {
+						  delegateId: function () {
+							return del_id;
+						  },
+						  trainingId: function () {
+							return $scope.training_id;
+						  },
+						  whatToPrint: function () {
+							return 'byDelegates';
+						 }
+					}
+				});
+			}
 		}
 
 		$scope.editTrainingDetail = function() {

@@ -3,44 +3,81 @@
 	    <h3 class="modal-title">Certificate View</h3>
 	</div>
 	<div class="modal-body">
-	    <div id="printDiv">
-			<div style="HEIGHT: auto; WIDTH: 816px" ng-repeat="item in delegateDetail track by $index">
+	    <div ng-repeat="item in delegateDetail track by $index">
+	    	<div>
+				<img src="assets/img/testbg4.png" width="850" height="1109">
 
-				<img src="assets/img/bg1.png">
-
-				<div style="width: 390px; position: absolute; visibility: visible; left: 218px; top: 360px; z-index: 200;">
-					<p style="color: #00327D; font-family: name; font-size: 40px;">{{item.firstname}} {{item.middlename}}. {{item.lastname}}</p>
+				<div style="width: 450px; position: absolute; visibility: visible; left: 205px; top: {{name_tops[$index]}}px; z-index: 200;">
+					<p style="color: #00327D; font-family: name; font-size: 44px;">{{item.firstname}} {{item.middlename}}. {{item.lastname}}</p>
 				</div>
 
 				<!-- PArticipant PRofile Picture -->
-				<div style="position: absolute; visibility: visible; left: 630px; top: 270px;">
+				<div style="position: absolute; visibility: visible; left: 690px; top: {{img_tops[$index]}}px;">
 					<img width="150" height="188" src="{{item.image}}">
 				</div>
 
 				<!-- Managing Partner-->
-				<div style="width: 430px; position: absolute; visibility: visible; left: 400px;top: 800px; z-index: 200;">
+				<div style="width: 430px; position: absolute; visibility: visible; left: 420px; top: {{managing_name_tops[$index]}}px; z-index: 200;">
 					<p style="color: #2a2a2a; font-family: june-regular; font-size: 15px;">ENGR. JOEL B. ORTIZ</p>
 				</div>
-				<div style="width: 430px; position: absolute; visibility: visible; left: 420px;top: 820px; z-index: 200;">
+				<div style="width: 430px; position: absolute; visibility: visible; left: 440px;top: {{managing_partner_tops[$index]}}px; z-index: 200;">
 					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Managing Partner</p>
 				</div>
-				<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: 840px; z-index: 200;">
+				<div style="width: 430px; position: absolute; visibility: visible; left: 375px;top: {{accreditation_tops[$index]}}px; z-index: 200;">
 					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Accreditation No.1033-140217-K-0083</p>
 				</div>
 				<!-------------------------------------------------------------------------------- -->
-				<div style="width: 580px;position: absolute; visibility: visible; left: 218px; top: 500px;">
-					<strong style="font-family: Arial; font-size: 30px;">Safety Officer Development Training</strong>
-					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">
-						&nbsp;in accordance with the requirement of PD 422 (Labor Code of the Philippines) as amended; Occupational Safety and Health Standards as amended and the course guideline prescribed by the Occupational Safety & Health Center Department of Labor and Employment, Republic of the Philippines.
-					</p>
+				<div style="width: 650px;position: absolute; visibility: visible; left: 205px; top: {{course_tops[$index]}}px;">
+					<strong style="font-family: Arial; font-size: 30px;">{{courseName}}</strong>
+					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">&nbsp;{{categoryDescription}}</p>
 				</div>
 				<!------------------------------------------------------------------------------- -->
-				<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: 670px; z-index: 200;">
+				<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: {{certificate_tops[$index]}}px; z-index: 200;">
 					<p style="color: #2a2a2a; font-family: MKSDsynapseAI; font-size: 13px; font-weight: bold;">
-						BSC-SO-02-1844-1S
+						{{courseCode}}-{{item.delegate_number}}-{{lastTwoDigitsOfTheYear}}
 					</p>
 				</div>
 			</div>
+			<!-----------------------------------------------------    -- -- - - - - -- ---- - -- - - - -->
+			<!-- to be printed -->
+			<div style="visibility: hidden; display: none;">
+				<div id="printDiv">
+					<img src="assets/img/testbg4.png" width="850" height="1109">
+
+					<!-- Name top -->
+					<div style="width: 450px; position: absolute; visibility: visible; left: 205px; top: 350px; z-index: 200;">
+						<p style="color: #00327D; font-family: name; font-size: 44px;">{{item.firstname}} {{item.middlename}}. {{item.lastname}}</p>
+					</div>
+
+					<!-- PArticipant PRofile Picture -->
+					<div style="position: absolute; visibility: visible; left: 690px; top: 270px;">
+						<img width="150" height="188" src="{{item.image}}">
+					</div>
+
+					<!-- Managing Partner-->
+					<div style="width: 430px; position: absolute; visibility: visible; left: 420px;top: 850px; z-index: 200;">
+						<p style="color: #2a2a2a; font-family: june-regular; font-size: 15px;">ENGR. JOEL B. ORTIZ</p>
+					</div>
+					<div style="width: 430px; position: absolute; visibility: visible; left: 440px;top: 870px; z-index: 200;">
+						<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Managing Partner</p>
+					</div>
+					<div style="width: 430px; position: absolute; visibility: visible; left: 375px;top: 890px; z-index: 200;">
+						<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Accreditation No.1033-140217-K-0083</p>
+					</div>
+					<!-------------------------------------------------------------------------------- -->
+					<div style="width: 650px;position: absolute; visibility: visible; left: 205px; top: 510px;">
+						<strong style="font-family: Arial; font-size: 30px;">{{courseName}}</strong>
+						<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">&nbsp;{{categoryDescription}}</p>
+					</div>
+					<!------------------------------------------------------------------------------- -->
+					<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: 710px; z-index: 200;">
+						<p style="color: #2a2a2a; font-family: MKSDsynapseAI; font-size: 13px; font-weight: bold;">
+							{{courseCode}}-{{item.delegate_number}}-{{lastTwoDigitsOfTheYear}}
+						</p>
+					</div>
+				</div>
+			</div>
+			</br>
 		</div>
 	</div>
 	<div class="modal-footer">                  

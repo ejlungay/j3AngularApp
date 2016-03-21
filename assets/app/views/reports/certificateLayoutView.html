@@ -11,12 +11,42 @@
 		}
 	</style>
 	<div ng-controller='certificateLayoutController'>
-		<button class="btn btn-success" ng-click="print()"><i class="fa fa-print"> Print</i></button>
-		<div id="printMe">
+		<nav mfb-menu position="br" effect="zoomin" active-icon="mdi-action-print" resting-icon="mdi-action-print" toggling-method="click" ng-click="print()" popover="Print certificate" popover-trigger="mouseenter">
+		</nav>
+		<div id="printMe" ng-repeat="item in delegateDetail track by $index">
 			<div style="HEIGHT: auto; WIDTH: 816px">
+
 				<img src="assets/img/bg1.png">
-				<div style="position: absolute; visibility: visible; left: 58.5%; top: 59%; z-index: 200;">
-					<img width="150" height="170" style="border: solid 1px black;" src="assets/img/user2-160x160.jpg">
+
+				<div style="width: 390px; position: absolute; visibility: visible; left: 218px; top: 360px; z-index: 200;">
+					<p style="color: #00327D; font-family: name; font-size: 40px;">{{item.firstname}} {{item.middlename}}. {{item.lastname}}</p>
+				</div>
+
+				<!-- PArticipant PRofile Picture -->
+				<div style="position: absolute; visibility: visible; left: 630px; top: 270px;">
+					<img width="150" height="188" src="{{item.image}}">
+				</div>
+
+				<!-- Managing Partner-->
+				<div style="width: 430px; position: absolute; visibility: visible; left: 400px;top: 800px; z-index: 200;">
+					<p style="color: #2a2a2a; font-family: june-regular; font-size: 15px;">ENGR. JOEL B. ORTIZ</p>
+				</div>
+				<div style="width: 430px; position: absolute; visibility: visible; left: 420px;top: 820px; z-index: 200;">
+					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Managing Partner</p>
+				</div>
+				<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: 840px; z-index: 200;">
+					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">Accreditation No.1033-140217-K-0083</p>
+				</div>
+				<!-------------------------------------------------------------------------------- -->
+				<div style="width: 580px;position: absolute; visibility: visible; left: 218px; top: 500px;">
+					<strong style="font-family: Arial; font-size: 30px;">{{courseName}}</strong>
+					<p style="color: #2a2a2a; font-family: june-regular; font-size: 13px;">&nbsp;{{categoryDescription}}</p>
+				</div>
+				<!------------------------------------------------------------------------------- -->
+				<div style="width: 430px; position: absolute; visibility: visible; left: 355px;top: 670px; z-index: 200;">
+					<p style="color: #2a2a2a; font-family: MKSDsynapseAI; font-size: 13px; font-weight: bold;">
+						{{courseCode}}-{{item.delegate_number}}-{{lastTwoDigitsOfTheYear}}
+					</p>
 				</div>
 			</div>
 			</br>

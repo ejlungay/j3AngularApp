@@ -16,12 +16,17 @@
 
 		$scope.delegateList = [];
 		$scope.loadTrainingDelegates = function() {
-			if ($scope.training_id == null) return;
 			
-			if ($scope.training_id == 0) {
+			if ($scope.training_id == 0 || $scope.training_id == null) {
 				delegateFactory.showAllDelegates().then(function(response) {
 					if (response.data.returnValue == null || response.data.returnValue == undefined) {
-						$scope.delegateList = response.data;
+						if (response.data.length > 0) {
+							$scope.delegateList = response.data;
+						}
+						else {
+							$scope.delegateList = [];
+						}
+						
 					}
 					else {
 						$scope.delegateList = [];
@@ -31,7 +36,12 @@
 			else {
 				delegateFactory.getTrainingDelegatesUsingTrainingId($scope.training_id).then(function(response) {
 					if (response.data.returnValue == null || response.data.returnValue == undefined) {
-						$scope.delegateList = response.data;
+						if (response.data.length > 0) {
+							$scope.delegateList = response.data;
+						}
+						else {
+							$scope.delegateList = [];
+						}
 					}
 					else {
 						$scope.delegateList = [];
@@ -39,6 +49,7 @@
 				});
 			}
 		}
+		$scope.loadTrainingDelegates();
 
 		$scope.add = function() {
 			var modalInstance = $modal.open({
@@ -55,14 +66,30 @@
 		
 		$scope.showParticipantProfile = function(delegateId) {
 			var modalInstance = $modal.open({
-			templateUrl: 'assets/app/views/participants/delegateProfileModalView.html',
-			controller: 'delegateProfileModalController',
-			size: 'lg',
-			resolve: {
-			  delegateId: function () {
-				return delegateId;
-			  }
-			}
+				templateUrl: 'assets/app/views/participants/delegateProfileModalView.html',
+				controller: 'delegateProfileModalController',
+				size: 'lg',
+				resolve: {
+				  delegateId: function () {
+					return delegateId;
+				  }
+				}
+			});
+		}
+
+		$scope.printForm = function(delegateId) {
+			var modalInstance = $modal.open({
+				templateUrl: 'assets/app/views/participants/printParticipantFormView.html',
+				controller: 'printParticipantFormController',
+				size: 'lg',
+				resolve: {
+				  delegateId: function () {
+					return delegateId;
+				  },
+				  trainingId: function () {
+					return $scope.training_id;
+				  }
+				}
 			});
 		}
 	

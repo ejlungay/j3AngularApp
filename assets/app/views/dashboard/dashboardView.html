@@ -5,9 +5,9 @@
 		<br class="visible-xs visible-sm">
 		<div class="pull-right">
 			<div class="btn-group">
-				<button md-ink-ripple class="md-btn md-raised m-b  pink" mwl-date-modifier date="vm.viewDate" decrement="vm.calendarView">Prev</button>
+				<button md-ink-ripple class="md-btn md-raised m-b" mwl-date-modifier date="vm.viewDate" decrement="vm.calendarView" style="background-color: #043E91; color: white;">Prev</button>
 				<button md-ink-ripple class="md-btn md-raised m-b bg-white" mwl-date-modifier date="vm.viewDate" set-to-today>Today</button>
-				<button md-ink-ripple class="md-btn md-raised m-b pink" mwl-date-modifier date="vm.viewDate" increment="vm.calendarView">Next</button>
+				<button md-ink-ripple class="md-btn md-raised m-b" mwl-date-modifier date="vm.viewDate" increment="vm.calendarView" style="background-color: #043E91; color: white;">Next</button>
 		  </div>
 		</div>
 	  </div>
@@ -23,8 +23,6 @@
 		on-edit-event-click="vm.eventEdited(calendarEvent)"
 		on-delete-event-click="vm.eventDeleted(calendarEvent)"
 		cell-is-open="vm.isCellOpen"
-		day-view-start=""
-		day-view-end=""
 		day-view-split="30"
 		cell-modifier="vm.modifyCell(calendarCell)">
 	  </mwl-calendar>

@@ -1,8 +1,9 @@
 
-	angular.module('app').controller('addParticipantModalController', function($scope, $modalInstance, categoryFactory, courseFactory, delegateFactory, trainingFactory, userFactory, toastr, trainingId) {
+	angular.module('app').controller('addParticipantModalController', function($scope, $modal, $modalInstance, categoryFactory, courseFactory, delegateFactory, trainingFactory, userFactory, toastr, trainingId) {
 		$scope.takePic = false;
 		$scope.data = {};
 		$scope.data.amount_paid = 0;
+		$scope.data.or_no = 0;
 
 		$scope.courses = [];
 		$scope.loadCourses = function() {
@@ -40,7 +41,6 @@
 			var temp = document.cookie.split(';');
 			var username = '';
 			var userid = '';
-			var or_no = 123456;
 
 			if (temp != null) {
 				for (var i = 0; i < temp.length; i++) {
@@ -64,7 +64,6 @@
 				}
 
 				if ($scope.takePic) {
-					$scope.data.or_no = or_no;
 					$scope.data.picture_mode = 'take';
 					$scope.data.user_id = userid;
 
@@ -87,6 +86,9 @@
 									delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
 										if (response.data.returnValue == 'SUCCESS') {
 											toastr.success(response.data.returnMessage);
+											$scope.data.or_no = parseInt($scope.data.or_no) + 1;
+											document.cookie = 'or_no=' + $scope.data.or_no;
+
 											$modalInstance.close();
 										}
 										else {
@@ -99,6 +101,9 @@
 								delegateFactory.addDelegate_take($scope.data, $scope.vm.picture).then(function(response) {
 										if (response.data.returnValue == 'SUCCESS') {
 											toastr.success(response.data.returnMessage);
+											$scope.data.or_no = parseInt($scope.data.or_no) + 1;
+											document.cookie = 'or_no=' + $scope.data.or_no;
+
 											$modalInstance.close();
 										}
 										else {
@@ -110,7 +115,6 @@
 					});
 				}
 				else {
-					$scope.data.or_no = or_no;
 					$scope.data.picture_mode = 'upload';
 					$scope.data.user_id = userid;
 
@@ -133,6 +137,9 @@
 									delegateFactory.addDelegate($scope.data, file).then(function(response) {
 										if (response.data.returnValue == 'SUCCESS') {
 											toastr.success(response.data.returnMessage);
+											$scope.data.or_no = parseInt($scope.data.or_no) + 1;
+											document.cookie = 'or_no=' + $scope.data.or_no;
+
 											$modalInstance.close();
 										}
 										else {
@@ -145,6 +152,9 @@
 								delegateFactory.addDelegate($scope.data, file).then(function(response) {
 										if (response.data.returnValue == 'SUCCESS') {
 											toastr.success(response.data.returnMessage);
+											$scope.data.or_no = parseInt($scope.data.or_no) + 1;
+											document.cookie = 'or_no=' + $scope.data.or_no;
+
 											$modalInstance.close();
 										}
 										else {
@@ -166,5 +176,36 @@
 		$scope.hide = function() {
 			$('#takePicture').hide();
 		}
+
+		//check for OR NO.
+		$scope.checkOR = function() {
+			var cookies = document.cookie.split(';')
+			if (cookies != null) {
+				var t = '';
+				for (var i = 0; i < cookies.length; i++) {
+					if (cookies[i].indexOf("or_no") > -1) {
+						t = cookies[i].split('=');
+						$scope.data.or_no = parseInt(t[1]);
+						if ($scope.data.or_no <= 0) {
+							var modalInstance = $modal.open({
+								templateUrl: 'assets/app/views/others/setOrNoView.html',
+								controller: 'setOrNoController',
+								size: 'sm'/*,
+								resolve: {
+									  trainingId: function () {
+										return $scope.training_id;
+									}
+								}*/
+							});
+
+							modalInstance.result.then(function(result) {
+							$scope.checkOR();
+							});
+						}
+					}
+				}
+			}
+		}
+		$scope.checkOR();
 
 	});

@@ -72,7 +72,7 @@ angular.module('app')
                 }).success(function(response) {
                     return response.data;
                 }).error(function(response) {
-                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.  => ', 'ERROR');
                 	console.log(response);
                 });
             },
@@ -132,7 +132,9 @@ angular.module('app')
                     method: 'POST',
 					data: $.param ({
 						training_id: data.training_id, 
-						delegate_id: data.delegate_id
+						delegate_id: data.delegate_id,
+                        amount_paid: data.amount_paid,
+                        or_no: data.or_no
 						}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(response) {
@@ -207,6 +209,30 @@ angular.module('app')
             check_delegate_number: function(number) {
                 return $http({
                     url: 'check_delegate_number?delegate_number=' + number,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
+            },
+
+            get_delegate_payment: function(delegateId, trainingId) {
+                return $http({
+                    url: 'delegate_payments?delegate_id=' + delegateId +'&training_id=' + trainingId,
+                    method: 'GET'
+                }).success(function(response) {
+                    return response.data;
+                }).error(function(response) {
+                    toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
+                    console.log(response);
+                });
+            },
+            
+            getMaxOrNo: function() {
+                return $http({
+                    url: 'get_max_or_no',
                     method: 'GET'
                 }).success(function(response) {
                     return response.data;

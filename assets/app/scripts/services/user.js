@@ -56,7 +56,7 @@ angular.module('app')
                         middlename: data.middlename, 
                         lastname: data.lastname, 
                         username: data.username,
-                        password: data.password,
+                        password: data.password1,
                         user_type: data.user_type
                      },
                 }).success( function(response) {

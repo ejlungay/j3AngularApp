@@ -1,44 +1,46 @@
 
-	<div ng-controller="trainingsController"> 
-	 <div class="pull-right">
-		 <button md-ink-ripple class="md-btn md-raised m-b pink" ng-click="openAddTrainingModal()"><i class="fa fa-plus"></i> Training</button>
-	 </div>
-	  <div class="input-group pull-right" style="width: 200px; margin-right: 1%;">
-            <input class="form-control" ng-model="searchKeyword" placeholder="Search" type="search" ng-change="search()" /> 
-			<span class="input-group-addon">
-				<span class="glyphicon glyphicon-search"></span>
-			</span>
-       </div>
-	 <div id="printMe">
-	  <h4><b>J3 Training List</b></h4>
-	  <table class="table table-bordered table-hover bg-white">
-		 <thead>
-			<tr>
-				<th style="width:2%">#</th>
-				<th style="width:auto">Training title</th>
-				<th style="width:auto">Training Date</th>
-				<th style="width:auto">Venue</th>
-				<th style="width:auto">Created By</th>
-				<th style="width:8%"></th>
-			</tr>
-        </thead>
-		 <tbody>
-			<tr ng-repeat="training in trainingList | filter: searchKeyword">
-				<td>{{$index + 1}}</td>
-				<td>{{training.course_name}}</td>
-				<td>{{training.from_date}} - {{training.to_date}}</td>
-				<td>{{training.location}}</td>
-				<td>{{training.added_by}}</td>
-				<td>
-					<center>
-						<a href popover="Edit" popover-trigger="mouseenter" ng-click="edit(training.training_id)"><i class="fa fa-edit"></i></a>
-						<a href popover="More detail" popover-trigger="mouseenter" ng-click="about(training.training_id)"><i class="fa fa-info-circle"></i></a>
-					</center>
-				</td>
-			</tr>
-        </tbody>
-	  </table>
-	 </div>
+	<div ng-controller="trainingsController" class="panel panel-default"> 
+		<div class="panel panel-heading">
+		 	<div class="pull-right">
+			 	<button md-ink-ripple class="md-btn md-raised m-b" style="background-color: #043E91; color: white;" ng-click="openAddTrainingModal()"><i class="fa fa-plus"></i> Training</button>
+		 	</div>
+		  	<div class="input-group pull-right" style="width: 200px; margin-right: 1%;">
+	            <input class="form-control" ng-model="searchKeyword" placeholder="Search" type="search" ng-change="search()" /> 
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</span>
+	       	</div>
+		  	<h4><b>J3 Training List</b></h4>
+	  	</div>
+	  	<div class="table-responsive">
+		  	<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th style="width:2%">#</th>
+						<th style="width:auto">Training title</th>
+						<th style="width:auto">Training Date</th>
+						<th style="width:auto">Venue</th>
+						<th style="width:auto">Created By</th>
+						<th style="width:8%"></th>
+					</tr>
+		        </thead>
+				 <tbody>
+					<tr ng-repeat="training in trainingList | filter: searchKeyword">
+						<td>{{$index + 1}}</td>
+						<td>{{training.course_name}}</td>
+						<td>{{training.from_date}} - {{training.to_date}}</td>
+						<td>{{training.location}}</td>
+						<td>{{training.added_by}}</td>
+						<td>
+							<center>
+								<a href popover="Edit" popover-trigger="mouseenter" ng-click="edit(training.training_id)"><i class="fa fa-edit"></i></a>
+								<a href popover="More detail" popover-trigger="mouseenter" ng-click="about(training.training_id)"><i class="fa fa-info-circle"></i></a>
+							</center>
+						</td>
+					</tr>
+		        </tbody>
+		  	</table>
+	  	</div>
 	</div>
 
 	  

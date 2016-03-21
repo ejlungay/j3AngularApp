@@ -46,26 +46,34 @@
 		
 		$scope.add = function() {
 			var modalInstance = $modal.open({
-			templateUrl: 'assets/app/views/participants/addParticipantModalView.html',
-			controller: 'addParticipantModalController',
-			size: '',
-			resolve: {
-			  	trainingId: function () {
-					return training_id[1];
-			 	 }
+				templateUrl: 'assets/app/views/participants/addParticipantModalView.html',
+				controller: 'addParticipantModalController',
+				size: '',
+				resolve: {
+				  	trainingId: function () {
+						return training_id[1];
+				 	 }
 				}
+			});
+
+			modalInstance.result.then(function(result) {
+				$scope.loadTrainingDelegates();
 			});
 		}
 		$scope.existing = function() {
 			var modalInstance = $modal.open({
-			templateUrl: 'assets/app/views/trainings/selectFromExistingView.html',
-			controller: 'selectFromExistingController',
-			size: 'lg',
-			resolve: {
-			  		trainingId: function () {
-					return training_id[1];
-			 	}
-			}
+				templateUrl: 'assets/app/views/trainings/selectFromExistingView.html',
+				controller: 'selectFromExistingController',
+				size: 'lg',
+				resolve: {
+				  		trainingId: function () {
+						return training_id[1];
+				 	}
+				}
+			});
+
+			modalInstance.result.then(function(result) {
+				$scope.loadTrainingDelegates();
 			});
 		}
 

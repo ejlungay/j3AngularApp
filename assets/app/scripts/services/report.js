@@ -58,11 +58,31 @@ angular.module('app')
                         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">\
                         <link rel="stylesheet"  href="assets/app/styles/myfont.css">\
                         <style type="text/css" media="screen">body {padding-top: 50px; } .text-wrap-left {float: left;margin: 10px;}</style>\
+                        <style type="text/css">@media print { @page { margin: 0; } }</style>\
                     </head>\
-                    <body>\
+                    <body onload="window.print()">\
                     <div class="container" style="magrin: 3%;">\
                         <div class="col-lg-12"> ' + divToPrint.innerHTML + '</div>\
                     </div>\
+                    </body>\
+                    </html>';
+
+
+                newWin.document.open();
+                newWin.document.write(content);
+                newWin.document.close();
+            },
+
+            printCertificate: function(divToPrint) {
+                var newWin = window.open('', 'Print-Window', 'width=920,height=600, resizable=0');
+
+                var content = '<!DOCTYPE html>\
+                    <head>\
+                        <link rel="stylesheet"  href="assets/app/styles/myfont.css">\
+                        <style type="text/css">@media print { @page { margin: 0; width:100%; height:100%; page-break-after:always } }</style>\
+                    </head>\
+                    <body onload="window.print()">\
+                        <div> ' + divToPrint.innerHTML + '</div>\
                     </body>\
                     </html>';
 

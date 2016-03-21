@@ -1,5 +1,5 @@
 	
-	angular.module('app').controller('selectFromExistingController', function($scope, $modalInstance, trainingId, delegateFactory, toastr) {
+	angular.module('app').controller('selectFromExistingController', function($scope, $modal, $modalInstance, trainingId, delegateFactory, toastr) {
 		
 		$scope.data = {};
 
@@ -17,20 +17,28 @@
 			$scope.data.delegate_id = delegate_id;
 			$scope.data.training_id = trainingId;
 
+			//alert('del id:' + $scope.data.delegate_id + ' tid: ' + $scope.data.training_id);
+
 			delegateFactory.checkDelegate($scope.data).then(function(response) {
 				if (parseInt(response.data.total) <= 0 ) {
-					delegateFactory.addDelegateToTraining($scope.data).then(function(response) {
-						if (response.data.returnValue == 'SUCCESS') {
-							toastr.success(response.data.returnMessage);
-							$scope.delegateList.splice(index, 1);
+					var modalInstance = $modal.open({
+						templateUrl: 'assets/app/views/others/addAmountView.html',
+						controller: 'addAmountController',
+						size: 'sm',
+						resolve: {
+						  data: function () {
+							return $scope.data;
+						  }
 						}
-						else {
-							toastr.error(response.data.returnMessage);
-						}
+					});
+
+					modalInstance.result.then(function(result) {
+						$scope.delegateList.splice(index, 1);
 					});
 				}
 				else {
 					toastr.error('Participant is existing to this training. No need to add.');
+					$scope.delegateList.splice(index, 1);
 				}
 			});
 		}

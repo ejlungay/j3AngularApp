@@ -30,5 +30,6 @@ angular.module('app', [
 	'toastr',
 	'mwl.calendar',
 	'camera',
-	'ngFileUpload'
+	'ngFileUpload',
+    'ng-mfb'
   ]);

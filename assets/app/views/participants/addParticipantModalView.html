@@ -31,10 +31,8 @@
 					<!-- TAKE -->
 				<div ng-show="takePic" id="takePicture" style="margin-left: 12.5%">
 						<ng-camera
-							capture-message="Cheeeese!"
+							capture-message="Cheeese!"
 					        countdown="3"
-					        output-height="160"
-					        output-width="213"
 					        viewer-height="320"
 					        viewer-width="426"
 					        image-format="jpeg"
@@ -107,6 +105,10 @@
 		<div class="form-group">
 			<label for="company">Amount paid</label>
 			<input type="number" ng-model="data.amount_paid" class="form-control"/> 
+		</div>
+		<div class="form-group">
+			<label for="company">OR No.</label>
+			<input type="number" ng-model="data.or_no" class="form-control"/> 
 		</div>
 	</div>
 	<div class="modal-footer">                  

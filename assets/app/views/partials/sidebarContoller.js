@@ -1,5 +1,5 @@
 	
-	angular.module('app').controller('sidebarController', function($scope, userFactory) {
+	angular.module('app').controller('sidebarController', function($scope, userFactory, contentFactory, toastr) {
 		
 		$scope.showUserManagement = false;
 		
@@ -18,7 +18,19 @@
 		}
 		//get user detail from db
 		userFactory.getUserDetail(username[1]).then(function(response) {
-			console.log(response.data);
 			$scope.user_detail = response.data;
+		});
+
+		$scope.trainingCounts = '';
+		/*************  DATABASE QUERY ****************/
+		contentFactory.todaysTrainings().then(function(response) {
+			for(var i=0;i<response.data.length;i++){
+				var obj = response.data[i];
+				for(var key in obj){
+					var attrName = key;
+					var attrValue = obj[key];
+					$scope.trainingCounts = attrValue; 
+				}
+			}
 		});
 	}); 

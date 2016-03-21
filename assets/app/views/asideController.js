@@ -21,6 +21,7 @@
 
 		$scope.logout = function() {
 			userFactory.logout(username[1]).then(function(response) {
+				document.cookie = 'previous_url=';
 				window.location = 'index.php';
 			});
 		}

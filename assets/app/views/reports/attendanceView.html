@@ -18,30 +18,33 @@
 			margin: 0;  /* this affects the margin in the printer settings */
 		}
 	</style>
-	<div ng-controller="attendanceController">
-		<div class="pull-right">
-			<div class="btn-group">
-				<button type="button" class="btn btn-default pull-right" ng-click="print()"><i class="fa fa-print"></i> Print</button>
+	<div ng-controller="attendanceController" class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pull-right">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default pull-right" ng-click="print()"><i class="fa fa-print"></i> Print</button>
+				</div>
 			</div>
-		</div>
-		<div class="pull-right" style="width: 150px; margin-right: 3px;">
-			<select ng-model="training_id" ng-change="loadTrainingDelegates()" class="form-control">
-				<option ng-repeat="training in trainingList track by $index" value="{{training.training_id}}">{{training.course_name}}</option>
-			</select>
-		</div>
-		<div class="pull-right" style="margin-right: 3px;">
-			<button ng-disabled="!isSearchEnabled" ng-click="loadTrainingDelegates()" class="btn btn-default"><i class="fa fa-refresh"></i></button>
-		</div>
-		<div>
+			<div class="pull-right" style="width: 150px; margin-right: 3px;">
+				<select ng-model="training_id" ng-change="loadTrainingDelegates()" class="form-control">
+					<option ng-repeat="training in trainingList track by $index" value="{{training.training_id}}">{{training.course_name}}</option>
+				</select>
+			</div>
+			<div class="pull-right" style="margin-right: 3px;">
+				<button ng-disabled="!isSearchEnabled" ng-click="loadTrainingDelegates()" class="btn btn-default"><i class="fa fa-refresh"></i></button>
+			</div>
 			<h5>Training title: <b>{{training_name}}</b></h5>
 			<h5>Date: {{training_date}}</h5>
 			<h5>Location: {{training_location}}</h5>
+			<!--<br><br>-->
+		</div>
+		<div class="table-responsive">
 			<table class="table table-bordered table-hover bg-white">
 				<thead>
 					<tr>
 						<th width="5%"></th>
 						<th></th>
-						<th colspan="2"><center>Signature</center></th>
+						<th colspan="3"><center>Signature</center></th>
 					</tr>
 					<tr>
 						<th width="5%"><center>#</center></th>
@@ -52,7 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="delegate in delegateList track by $index">
+					<tr ng-repeat="delegate in delegateList | orderBy: 'firstname' track by $index">
 						<td>{{$index + 1}}</td>
 						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
 						<td></td>

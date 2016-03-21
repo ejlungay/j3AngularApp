@@ -16,8 +16,8 @@ angular.module('app')
                 }).success(function(response) {
                     return response;
                 }).error(function(response) {
+                    console.error(response);
                     toastr.error('An error occured. The server is not responding to the sent request. Please contact the system administrator.', 'ERROR');
-					console.error(response);
 				});
             },
 			

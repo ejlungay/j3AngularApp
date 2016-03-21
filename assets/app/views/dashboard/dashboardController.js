@@ -1,5 +1,5 @@
 	
-	angular.module('app').controller('dashboardController', function($scope, $http, dashboardFactory, moment, toastr, $modal) {
+	angular.module('app').controller('dashboardController', function($scope, $http, dashboardFactory, trainingFactory, moment, toastr, $modal) {
 		$scope.id = 0;
 		/************  CALENDAR PART   ***************/
 		var vm = this;
@@ -8,13 +8,15 @@
 		vm.events = [];
 		/*************  DATABASE QUERY ****************/
 		$scope.trainings = [];
-		dashboardFactory.upcomingTrainings().then(function(response) {
+		trainingFactory.getTrainings().then(function(response) {
+			console.log(response.data);
 			if (response.data.length > 0) {
 				$scope.trainings = response.data;
 				var trainingID_values = [];
 				var trainingTitles_values = [];
 				var fromDate_values = [];
 				var toDate_values = [];
+				var locations = [];
 
 				for(var i=0;i<$scope.trainings.length;i++) {
 					var obj = $scope.trainings[i];
@@ -25,14 +27,15 @@
 						if (attrName == 'course_name') trainingTitles_values.push(attrValue); 
 						if (attrName == 'from_date') fromDate_values.push(attrValue);
 						if (attrName == 'to_date') toDate_values.push(attrValue);
+						if (attrName == 'location') locations.push(attrValue);
 					}
 				}
 				//adding custom events from the database into the calendar :D
 				for (var i = 0; i < response.data.length; i++) {
 					vm.events.push({
 						id: trainingID_values[i],
-						title: trainingTitles_values[i],
-						type: 'success',
+						title: trainingTitles_values[i] + ' @' + locations[i],
+						type: 'info',
 						startsAt: new Date(fromDate_values[i]),
 						endsAt: new Date(toDate_values[i]),
 						draggable: true,
@@ -98,14 +101,14 @@
 		//function to open modal
 		$scope.openEventInfoModal = function() {
 			var modalInstance = $modal.open({
-			templateUrl: 'assets/app/views/dashboard/eventInfoModalView.html',
-			controller: 'eventInfoModalController',
-			size: 'lg',
-			resolve: {
-			  id: function () {
-				return $scope.id;
-			  }
-			}
+				templateUrl: 'assets/app/views/dashboard/eventInfoModalView.html',
+				controller: 'eventInfoModalController',
+				size: 'lg',
+				resolve: {
+				  id: function () {
+					return $scope.id;
+				  }
+				}
 			});
 			/*************   END OF OPEN EVENT INFO MODAL  **************/
 		
