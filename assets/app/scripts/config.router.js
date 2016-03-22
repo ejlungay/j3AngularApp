@@ -25,14 +25,14 @@ angular.module('app')
             if (username[1] != '') {
               userFactory.isLoggedIn(username[1]).then(function(response) {
                 if (response.data.returnValue == 'FALSE') {
-                  document.cookie = "previous_url=" + $location.path();
+                  document.cookie = "previous_url=" + $location.path() + "; path=/";
                   event.preventDefault();
                   window.location.href="index.php";
                 }
               });
             }
             else {
-              document.cookie = "previous_url=" + $location.path();
+              document.cookie = "previous_url=" + $location.path() + + "; path=/";
               window.location.href="index.php";
             }
           }
@@ -156,7 +156,7 @@ angular.module('app')
 		  .state('app.error', {
              url: '/404',
              templateUrl: 'assets/app/views/404/pageErrorView.html',
-             data : { title: 'Users' }
+             data : { title: 'Page Error' }
       });
 
 

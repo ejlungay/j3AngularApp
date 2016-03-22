@@ -393,5 +393,20 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 		}
 	}
+
+	public function upcoming_trainings() {
+        $result = $this->trainings_model->upcoming_events();
+        if ($result) {
+            $this->output->set_content_type('application/json')->set_output(json_encode($result)); 
+        }
+        else {
+            $json_response = array('returnMessage'=>'No available trainings',
+                                  'returnValue'=>'SUCCESS');    
+
+            $this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+
+            return false;
+        } // end else
+    }
   } // end class
 ?>

@@ -1,5 +1,5 @@
 
-	angular.module('app').controller('contentController', function($scope, $http, contentFactory, moment, toastr) {
+	angular.module('app').controller('contentController', function($scope, $http, userFactory, contentFactory, moment, toastr) {
 		$scope.trainingCounts = '';
 		/*************  DATABASE QUERY ****************/
 		contentFactory.todaysTrainings().then(function(response) {
@@ -15,8 +15,20 @@
 		});
 		
 		$scope.exit = function() {
-			document.cookie = 'username=';
-			document.cookie = 'previous_url=';
-			window.location="index.php";
+			var temp = document.cookie.split(';');
+			var username = '';
+			var userid = '';
+			if (temp != null) {
+				for (var i = 0; i < temp.length; i++) {
+					if (temp[i].indexOf("username") > -1) {
+						username = temp[i].split('=');
+					}
+				}
+			}
+
+			userFactory.logout(username[1]).then(function(response) {
+				document.cookie = 'previous_url=';
+				window.location = 'index.php';
+			});
 		}
 	});

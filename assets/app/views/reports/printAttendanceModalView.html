@@ -11,9 +11,9 @@
 			<table class="table table-bordered table-hover bg-white">
 				<thead>
 					<tr>
+						<th style="width: 5%;"></th>
 						<th></th>
-						<th></th>
-						<th colspan="2"><center>Signature</center></th>
+						<th colspan="2" style="width: 50%;"><center>Signature</center></th>
 					</tr>
 					<tr>
 						<th><center>#</center></th>
@@ -24,7 +24,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="delegate in delegateList track by $index">
-						<td>{{$index + 1}}</td>
+						<td><center>{{$index + 1}}</center></td>
 						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
 						<td></td>
 						<td></td>

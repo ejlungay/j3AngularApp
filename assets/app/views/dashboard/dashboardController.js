@@ -9,7 +9,6 @@
 		/*************  DATABASE QUERY ****************/
 		$scope.trainings = [];
 		trainingFactory.getTrainings().then(function(response) {
-			console.log(response.data);
 			if (response.data.length > 0) {
 				$scope.trainings = response.data;
 				var trainingID_values = [];
@@ -37,7 +36,7 @@
 						title: trainingTitles_values[i] + ' @' + locations[i],
 						type: 'info',
 						startsAt: new Date(fromDate_values[i]),
-						endsAt: new Date(toDate_values[i]),
+						endsAt: new Date(fromDate_values[i]),
 						draggable: true,
 						resizable: true
 					  });

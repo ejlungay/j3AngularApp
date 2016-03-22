@@ -26,6 +26,9 @@
   <link rel="stylesheet" href="assets/libs/angular/ng-camera/app/style.css"/>
 
   <link rel="stylesheet" href="assets/app/styles/myfont.css">
+
+  <!-- FLOATING BUTTON -->
+  <link href="assets/libs/angular/ng-material-floating-button/mfb/dist/mfb.css" rel="stylesheet"/>
 </head>
 <body ng-app="app">
   <div class="app" ui-view></div>
@@ -105,6 +108,7 @@
   <script src="assets/app/views/participants/participantsController.js"></script>
   <script src="assets/app/views/participants/addParticipantModalController.js"></script>
   <script src="assets/app/views/participants/delegateProfileModalController.js"></script>
+  <script src="assets/app/views/participants/printParticipantFormController.js"></script>
   
   <script src="assets/app/views/trainings/trainingsController.js"></script>
   <script src="assets/app/views/trainings/addTrainingModalController.js"></script>
@@ -132,6 +136,10 @@
    <script src="assets/app/views/user-management/userProfileController.js"></script>
    <script src="assets/app/views/asideController.js"></script>
    <script src="assets/app/views/partials/sidebarContoller.js"></script>
+
+   <!-- OTHERS -->
+   <script src="assets/app/views/others/setOrNoController.js"></script>
+   <script src="assets/app/views/others/addAmountController.js"></script>
   <!-- Pages Services Scripts -->
   <script src="assets/app/scripts/services/course.js"></script>
   <script src="assets/app/scripts/services/training.js"></script>
@@ -143,6 +151,12 @@
   <script src="assets/app/scripts/services/speaker.js"></script>
   <script src="assets/app/scripts/services/signatory.js"></script>
   <script src="assets/app/scripts/services/report.js"></script>
+
+  <!--floating -->
+  <script src="assets/libs/angular/ng-material-floating-button/src/mfb-directive.js"></script>
+
+  <!-- Event listener -->
+  <!--<script src="assets/app/scripts/controllers/eventListener.js"></script>-->
 </body>
 </html>
 

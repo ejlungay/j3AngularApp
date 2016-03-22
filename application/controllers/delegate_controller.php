@@ -245,8 +245,8 @@ class Delegate_controller extends CI_Controller {
 			$this->output->set_content_type('application/json')->set_output(json_encode($result));
 		}
 		else {
-			$json_response = array('returnMessage'=>'No available delegates from '.$delegate_id.' delegate id',
-								  'returnValue'=>'SUCCESS');    
+			$json_response = array('returnMessage' => 'No available delegates',
+								  'returnValue' => 'FAILURE');    
 
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
 			return false;
@@ -402,6 +402,53 @@ class Delegate_controller extends CI_Controller {
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
 		}
 	}	
+
+	public function get_delegate_payments() {
+		$delegate_id = $this->input->get('delegate_id');
+		$training_id = $this->input->get('training_id');
+		
+		if ($delegate_id != null && $training_id != null) {
+			$result = $this->delegate_model->get_delegate_payment($delegate_id, $training_id);
+			if ($result) {
+				foreach ($result as $row) 
+				$data = array(
+					'amount_paid' => $row->amount_paid,
+					'or_no' => $row->or_no,
+					'date_paid' => $row->date_paid
+				);	
+				$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'No records found.',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+		}
+		else {
+			$json_response = array('returnMessage' => 'Invalid request parameters',
+								   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+		}
+	}
+
+	public function get_max_or_no() {
+			$result = $this->delegate_model->get_max_or_no();
+			if ($result) {
+				foreach ($result as $row) 
+				$data = array(
+					'max_or' => $row->or_no
+				);	
+				$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
+			}
+			else {
+				$json_response = array('returnMessage' => 'No Max OR No Found!',
+									   'returnValue' => 'FAILURE');
+				
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+			}
+	}
 
 
   }

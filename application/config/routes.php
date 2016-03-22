@@ -84,6 +84,7 @@
 	//training routes
 	$route['add_training']['post'] = 'trainings_controller/add_training'; //route for adding new training 
 	$route['training_id']['get'] = 'trainings_controller/get_training_id_by_course_id'; //route for getting a specific training using a course_id 
+	$route['upcoming_trainings']['get'] = 'trainings_controller/upcoming_trainings'; //route for getting a specific training using a course_id 
 	$route['training_detail']['get'] = 'trainings_controller/get_training_by_training_id'; //route getting the training detail such as venue, date, etc. using a training id
 	$route['trainings']['get'] = 'trainings_controller/get_trainings_list'; //route for getting all trainings
 	$route['training_delegates']['get'] = 'trainings_controller/get_training_delegates'; //route for getting all training delegates for a specific training using training id
@@ -114,6 +115,8 @@
 	$route['payment_detail']['get'] = 'delegate_controller/get_delegate_payment_details';
 	$route['delegate_transactions']['get'] = 'delegate_controller/load_delegate_transaction';
 	$route['check_delegate_number']['get'] = 'delegate_controller/check_delegate_number';
+	$route['delegate_payments']['get'] = 'delegate_controller/get_delegate_payments';
+	$route['get_max_or_no']['get'] = 'delegate_controller/get_max_or_no';
 
 	//routing categories
 	$route['add_category']['post'] = 'category_controller/add_category';

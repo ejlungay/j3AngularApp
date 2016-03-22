@@ -48,7 +48,7 @@
         <li ui-sref-active="active">
           <a md-ink-ripple ui-sref="app.directory">Directory</a>
         </li>
-		      <li ui-sref-active="active">
+		      <li ui-sref-active="active" ng-hide="item.user_type == 'Standard User'">
           <a md-ink-ripple ui-sref="app.financial"> Financial</a>
         </li>
       </ul>

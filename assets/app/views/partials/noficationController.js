@@ -33,4 +33,8 @@
 				return false;
 			}
 		}
+
+		$scope.showTodaysTraining = function(trainingId) {
+			window.location = 'home#/app/training/todays-training?hellofromtheoutside=' + trainingId;
+		}
 	});

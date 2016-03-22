@@ -19,24 +19,24 @@ class training_attended_controller extends CI_Controller {
      
     public function add_delegate_to_training() {
 		$delegate_id = $this->input->post('delegate_id');
-		$training_id = $this->input->post('training_id');
+    $training_id = $this->input->post('training_id');
+    $amount_paid = $this->input->post('amount_paid');
+		$or_no = $this->input->post('or_no');
 		
         if ($training_id != null && $delegate_id != null) {   
-            $result = $this->training_attended_model->add_training_attended($delegate_id, $training_id);
+            $result = $this->training_attended_model->add_training_attended($delegate_id, $training_id, $amount_paid, $or_no);
             if ($result) {
                 $json_response = array(
                                       'returnMessage'=>'Successfully added',
                                       'returnValue'=>'SUCCESS');    
 
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+				        $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
             }
             else {
                 $json_response = array('returnMessage'=>'Unable to add training speaker',
                                       'returnValue'=>'FAILURE');    
 
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-
-                return false;
+				        $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
             }
         }
         else {
@@ -44,13 +44,12 @@ class training_attended_controller extends CI_Controller {
                                    'returnValue' => 'FAILURE');    
 
             $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-            return false;
         }
      }
 
-     public function check_delegate() {
-		$delegate_id = $this->input->get('delegate_id');
-		$training_id = $this->input->get('training_id');
+    public function check_delegate() {
+  		$delegate_id = $this->input->get('delegate_id');
+  		$training_id = $this->input->get('training_id');
 		
         if ($training_id != null && $delegate_id != null) {   
             $result = $this->training_attended_model->checkDelegate($delegate_id, $training_id);
@@ -62,15 +61,13 @@ class training_attended_controller extends CI_Controller {
             		);
             	}
 
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_encode)); 
+				      $this->output->set_content_type('application/json')->set_output(json_encode($json_encode)); 
             }
             else {
                 $json_response = array('returnMessage'=>'Participant already exist in this training.',
                                       'returnValue'=>'FAILURE');    
 
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-
-                return false;
+				        $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
             }
         }
         else {
@@ -78,7 +75,6 @@ class training_attended_controller extends CI_Controller {
                                    'returnValue' => 'FAILURE');    
 
             $this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-            return false;
         }
      }
   }

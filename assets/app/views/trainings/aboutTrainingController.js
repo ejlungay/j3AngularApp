@@ -77,49 +77,57 @@
 
 		function formatTime(time) {
 			// 0 = 12am; 23 = 11pm
-			var temp = time.split(' ');
-			var temp1 = temp[4].split(':'); // 0 - 1 index
-			var hour = parseInt(temp1[0]);
-			var minute = temp1[1];
+			if (time != undefined && time != null && time.length > 0) {
+				alert(time);
+				var temp = time.split(' ');
+				var temp1 = temp[4].split(':'); // 0 - 1 index
+				var hour = parseInt(temp1[0]);
+				var minute = temp1[1];
 
-			for (var i = 0; i <= 23; i++) {
-				if (minute.length == 1) minute += '0';
+				for (var i = 0; i <= 23; i++) {
+					if (minute.length == 1) minute += '0';
 
-				if (hour <= 11) {
-					if (hour == 0) hour = 12;
+					if (hour <= 11) {
+						if (hour == 0) hour = 12;
 
-					time = hour.toString() + ':' + minute +' am';
-				}
-				else {
-					if (hour > 12) 
+						time = hour.toString() + ':' + minute +' am';
+					}
+					else {
+						if (hour > 12) 
 
-					time = (hour - 12).toString() + ':' + minute +' pm';
+						time = (hour - 12).toString() + ':' + minute +' pm';
+					}
 				}
 			}
+
 			return time;
 		}
 
 		function formatDate(date) {
-			var monthsInText = [
-				'January',
-				'February',
-				'March',
-				'April',
-				'May',
-				'June',
-				'July',
-				'August',
-				'September',
-				'October',
-				'November',
-				'December'
-			];
-			var temp = date.split('-');
-			var year = temp[0];
-			var month = parseInt(temp[1]);
-			var day = temp[2];
+			if (date != undefined && date != null && date.length > 0) {
+				var monthsInText = [
+					'January',
+					'February',
+					'March',
+					'April',
+					'May',
+					'June',
+					'July',
+					'August',
+					'September',
+					'October',
+					'November',
+					'December'
+				];
+				var temp = date.split('-');
+				var year = temp[0];
+				var month = parseInt(temp[1]);
+				var day = temp[2];
 
-			return monthsInText[month - 1] + ' ' + day + ', ' + year;
+				return monthsInText[month - 1] + ' ' + day + ', ' + year;
+			}
+
+			return '';
 		}
 
 	}); 

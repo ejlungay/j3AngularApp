@@ -1,25 +1,47 @@
 <?php
   Class User extends CI_Model
   {
-       function login($username, $password) { 
-         $this -> db -> select('*');
-         $this -> db -> from('users');
-         $this -> db -> where('username', $username);
-         $this -> db -> where('password', md5($password));
-         $this -> db -> where('status', 'ACTIVE');
-         $this -> db -> limit(1);
+
+      private function get_password($username) {
+        $this->db->select('password');
+        $this->db->from('users');
+        $this->db->where('username', $username);
+        $this->db->limit(1);
+
+        $query = $this -> db -> get();
        
-         $query = $this -> db -> get();
+        if($query -> num_rows() == 1) {
+          foreach ($query->result() as $value) 
+          return $value->password;
+        }
+        else {
+          return false;
+        }
+      }
+
+      function login($username, $password) { 
+       //encrypting password
+        $cost = 10;
+        $salt = base64_encode('authentication');
+        $salt = "$2a$%02d$".$cost.$salt;
+        $hash = crypt($password, $salt);
+
+        $this -> db -> select('*');
+        $this -> db -> from('users as a');
+        $this -> db -> where("UPPER(a.username) = UPPER('$username') and
+                              a.password = '$hash' and
+                              a.status = 'ACTIVE'");
+        $this -> db -> limit(1);
        
-         if($query -> num_rows() == 1)
-         {
-           return $query->result();
-         }
-         else
-         {
-           return false;
-         }
-       }
+        $query = $this -> db -> get();
+       
+        if($query -> num_rows() == 1) {
+          return $query->result();
+        }
+        else {
+          return false;
+        }
+      }
 
        function checkStatus($username) {
         $this->db->select('status');
@@ -154,9 +176,15 @@
      }
 
      public function signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image) {
+        //encrypting password
+        $cost = 10;
+        $salt = base64_encode('authentication');
+        $salt = "$2a$%02d$".$cost.$salt;
+        $hash = crypt($password, $salt);
+
         $data = array (
           'username' => $username,
-          'password' => md5($password),
+          'password' => $hash,
           'firstname' => $firstname,
           'middlename' => $middlename,
           'lastname' => $lastname,

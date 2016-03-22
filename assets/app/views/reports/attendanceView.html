@@ -55,13 +55,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="delegate in delegateList | orderBy: 'firstname' track by $index">
+					<tr ng-repeat="delegate in delegateList | orderBy: 'firstname'">
 						<td>{{$index + 1}}</td>
 						<td>{{delegate.firstname}} {{delegate.middlename}}. {{delegate.lastname}}</td>
 						<td></td>
 						<td></td>
 						<td id="extras">
-							<a href ng-click="removeRow($index)">
+							<a href ng-click="removeRow(delegate.delegate_id)">
 								<i popover="Remove participant from the attendance list?" popover-trigger="mouseenter" class="fa fa-remove"></i>
 							</a>
 						</td>

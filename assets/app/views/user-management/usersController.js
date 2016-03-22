@@ -1,6 +1,39 @@
 	
 	angular.module('app').controller('usersController', function($scope, userFactory, $modal) {
 		
+		$scope.verifyUser = function() {
+			$scope.user_detail = [];
+			//get the current logged on user
+			var temp = document.cookie.split(';');
+			var username = '';
+			var userid = '';
+			if (temp != null) {
+				for (var i = 0; i < temp.length; i++) {
+					if (temp[i].indexOf("username") > -1) {
+						username = temp[i].split('=');
+					}
+				}
+			}
+			//get user detail from db
+			userFactory.getUserDetail(username[1]).then(function(response) {
+				console.log('-----', response.data);
+				$scope.user_detail = response.data;
+
+				for(var i=0;i<response.data.length;i++){
+				var obj = response.data[i];
+				for(var key in obj){
+					var attrName = key;
+					var attrValue = obj[key];
+					
+					if (attrName === 'user_type') {
+						if (attrValue === 'Standard User' || attrValue === 'Admin') window.location = 'home#/app/404';
+					}
+				}
+			}
+			});
+		}
+		$scope.verifyUser();
+
 		$scope.users = [];
 		$scope.data = {};
 

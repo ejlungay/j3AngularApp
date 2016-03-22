@@ -1,103 +1,93 @@
- 
-<style>
-	@media print {
-		body {
-			visibility: hidden;
-		}
-		#print {
-			visibility: visible;;
-		}
-	}
-	p.small {
-		line-height: 70%;
-	}
-</style>
 
-<div ng-controller="financialController"> 
-	 <div class="row">
-	   <div class="col-xs-6 col-sm-4" style="width: 200px;">
-	     <select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()" ng-disabled="!isEditable">
-		   <option ng-repeat="item in trainingList" value="{{item.training_id}}">{{item.course_name}}</option>
-		  </select>
-	    </div>
-		<div class="pull-right" ng-repeat="item in user_detail track by $index">
-		   <button class="btn btn-danger" ng-click="edit()" ng-hide="item.user_type === 'Standard User'"><i class="fa fa-edit"></i></button>
-		   <button class="btn btn-success" ng-click="print()"><i class="fa fa-print"></i></button>
+	<div ng-controller="financialController" class="panel panel-default"> 
+		<div class="panel-heading">
+		   	<div class="pull-left" style="width: 200px;">
+		    	<select class="form-control" ng-model="training_id" ng-change="loadTrainingDelegates()" ng-disabled="!isEditable">
+			   		<option ng-repeat="item in trainingList" value="{{item.training_id}}">{{item.course_name}}</option>
+			  	</select>
+		    </div>
+			<div class="pull-right" ng-repeat="item in user_detail track by $index">
+				<button class="btn btn-danger" ng-click="edit()" ng-hide="item.user_type === 'Standard User'"><i class="fa fa-edit"></i></button>
+			   	<button class="btn btn-success" ng-click="print()"><i class="fa fa-print"></i></button>
+			</div>
+			<br>
+		  	<br>
 		</div>
-	  </div>
-	  </br>
-	 <div class="row" style="border: solid 2px #043E91;" id="printMe">
-	    <div class="col-md-6">
-		  <h5><b>Registration detail</b></h5>
-		  <small>Below is the list of participants who fully paid the training fee.</small>
-		  <table class="table table-bordered table-hover bg-white">
-			<thead>
-			  <tr>
-			  	<th>#</th>
-				<th><center>Participant Name</center></th>
-				<th>Amount Paid (₱)</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr ng-repeat="item in delegateList">
-			  	<td>{{$index + 1}}</td>
-				<td>{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
-				<td>{{item.amount_paid}}</td>
-			  </tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan="3">Total (₱): <strong class="pull-right">{{formatPeso(delegateAmountPaidTotal)}}</strong></th>
-				</tr>
-			</tfoot>
-		  </table>
-
+		<div class="table-responsive" style="border: solid 2px #043E91;" id="printMe">
+		    <div class="col-md-6">
+				<h5><b>Registration detail</b></h5>
+				<small>Below is the list of participants who fully paid the training fee.</small>
+				<table class="table table-bordered table-hover bg-white">
+					<thead>
+					  	<tr>
+						  	<th>#</th>
+							<th><center>Participant Name</center></th>
+							<th>Amount Paid (₱)</th>
+					  	</tr>
+					</thead>
+					<tbody>
+					  	<tr ng-repeat="item in delegateList">
+						  	<td>{{$index + 1}}</td>
+							<td>{{item.firstname}} {{item.middlename}}. {{item.lastname}}</td>
+							<td>{{item.amount_paid}}</td>
+					  	</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="3">Total (₱): <strong class="pull-right">{{formatPeso(delegateAmountPaidTotal)}}</strong>
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		    <div class="col-md-6">
+			  	<h5><b>Expenses detail</b></h5>
+			  	<small>List of expenses for the selected training.</small>
+			  	<table class="table table-bordered table-hover bg-white">
+					<thead>
+					  	<tr>
+						  	<th>#</th>
+							<th><center>Expenses</center></th>
+							<th><center>Amount Paid (₱)</center></th>
+							<th><center>Date</center></th>
+							<th><center>O.R. No</center></th>
+					  	</tr>
+					</thead>
+					<tbody>
+					  	<tr ng-repeat="item in expenses track by $index">
+							<td>{{$index + 1}}</td>
+							<td>{{item.expense_name}}</td>
+							<td>{{item.amount_paid}}</td>
+							<td>{{item.date_time}}</td>
+							<td>{{item.or_no}}</td>
+					  	</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="5">Total (₱): <strong class="pull-right">{{formatPeso(expensesTotal)}}</strong></th>
+						</tr>
+					</tfoot>
+			  	</table>
+			  <!-- SUMMARY -->
+			  	<div class="panel" ng-show="delegateAmountPaidTotal > 0">
+				  	<div class="panel-header">
+				  		<strong>SUMMARY</strong>
+				  	</div>
+				  	<div class="panel-body text-center small">
+				  		<p><strong>{{formatPeso(delegateAmountPaidTotal)}}</strong></p>
+				  		<p><strong>-</strong></p>
+				  		<p><strong>{{formatPeso(expensesTotal)}}</strong></p>
+				  		<center>
+				  			<div style="width: 150px;">
+				  				<legend></legend>
+				  			</div>
+				  		</center>
+				  		<p><strong>₱ {{formatPeso(delegateAmountPaidTotal - expensesTotal)}}</strong></p>
+				  		<p>
+				  			* Expected profit for this training is ₱ {{formatPeso(delegateAmountPaidTotal - expensesTotal)}}
+				  		</p>
+				  	</div>
+			  	</div>
+			</div>
 		</div>
-	    <div class="col-md-6">
-		  <h5><b>Expenses detail</b></h5>
-		  <table class="table table-bordered table-hover bg-white">
-			<thead>
-			  <tr>
-			  	<th>#</th>
-				<th><center>Expenses</center></th>
-				<th><center>Amount Paid (₱)</center></th>
-				<th><center>Date</center></th>
-				<th><center>O.R. No</center></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr ng-repeat="item in expenses track by $index">
-				<td>{{$index + 1}}</td>
-				<td>{{item.expense_name}}</td>
-				<td>{{item.amount_paid}}</td>
-				<td>{{item.date_time}}</td>
-				<td>{{item.or_no}}</td>
-			  </tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan="5">Total (₱): <strong class="pull-right">{{formatPeso(expensesTotal)}}</strong></th>
-				</tr>
-			</tfoot>
-		  </table>
-		  <!-- SUMMARY -->
-		  <div class="panel" ng-show="delegateAmountPaidTotal > 0">
-		  	<div class="panel-header">
-		  		<strong>SUMMARY</strong>
-		  	</div>
-		  	<div class="panel-body text-center small">
-		  		<p><strong>{{formatPeso(delegateAmountPaidTotal)}}</strong></p>
-		  		<p><strong>-</strong></p>
-		  		<p><strong>{{formatPeso(expensesTotal)}}</strong></p>
-		  		<center>
-		  			<div style="width: 150px;">
-		  				<legend></legend>
-		  			</div>
-		  		</center>
-		  		<p><strong>₱ {{formatPeso(delegateAmountPaidTotal - expensesTotal)}}</strong></p>
-		  	</div>
-		  </div>
-
-		</div>
-	  </div>
-</div>
+	</div>

@@ -64,8 +64,25 @@
 			});
 		}
 		
-		$scope.removeRow = function(index) {
-			$scope.delegateList.splice(index, 1);	
+		$scope.removeRow = function(id) {
+			var ids = [];
+			//$scope.delegateList.splice(index, 1);	
+			for(var i = 0; i < $scope.delegateList.length;i++){
+				var obj = $scope.delegateList[i];
+				for(var key in obj){
+					var attrName = key;
+					var attrValue = obj[key];
+					 
+					 if (attrName === 'delegate_id') {
+					 	ids[i] = attrValue;
+					 }
+				}
+			}
+			for (var i = 0; i < ids.length; i++) {
+				if (parseInt(id) == parseInt(ids[i])) {
+					$scope.delegateList.splice(i, 1);
+				}
+			}
 		}
 
 		$scope.print = function(){

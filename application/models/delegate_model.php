@@ -275,5 +275,36 @@
 			}
 		}
 
+		public function get_delegate_payment($delegate_id, $training_id) {
+			$this->db->select('a.*');
+			$this->db->from('delegate_accounts as a, training_attended as b');
+			$this->db->where("a.delegate_id = $delegate_id and 
+							  b.training_id = $training_id and
+							  a.training_attended_id = b.ta_id");
+ 
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
+		public function get_max_or_no() {
+			$this->db->select('MAX(a.or_no) as or_no');
+			$this->db->from('delegate_accounts as a');
+ 
+			$query = $this->db->get();
+			
+			if ($query->num_rows() >= 1) {
+				return $query->result();
+			}
+			else {
+				return false;
+			}
+		}
+
   }
 ?>

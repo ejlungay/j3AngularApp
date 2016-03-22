@@ -118,7 +118,7 @@ class Users extends CI_Controller {
 						 echo 'Unable to write the file';
 						 die();
 					}
-			
+					
 					$json_response = array('userid' => $row->uid,
 										   'username' => $row->username,
 										   'firstname' => $row->firstname,
@@ -240,40 +240,48 @@ class Users extends CI_Controller {
 
         $isDuplicated = $this->user->checkDuplicates($this->input->post('username'));
         if ($isDuplicated) {
-			$json_response = array('returnMessage'=>'Username is already in used',
+			$json_response = array('returnMessage'=>'Username is already in used => is duplicated: '.$isDuplicated,
                                 'returnValue'=>'FAILURE');    
 			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));							
         }
         else {
         	$username = $this->input->post('username');
-        	$password = $this->input->post('password');
-        	$firstname = $this->input->post('firstname');
-        	$middlename = $this->input->post('middlename');
-        	$lastname = $this->input->post('lastname');
-        	$user_type = $this->input->post('user_type');
+	        $password = $this->input->post('password');
+	        $firstname = $this->input->post('firstname');
+	        $middlename = $this->input->post('middlename');
+	        $lastname = $this->input->post('lastname');
+	        $user_type = $this->input->post('user_type');
 
-        	$image_url = 'uploads/users/';
+	        $image_url = 'uploads/users/';
+        	if ($username != null && $password != null && $user_type != null) {
 
-			$config['upload_path']  = './uploads/users/';
-			$config['allowed_types'] = '*';
-	 
-			$this->load->library('upload', $config);
-		
-			if ($this->upload->do_upload('file')) {
-				$temp = $this->upload->data();
-				$image_url = $image_url.$temp['file_name'];
-			}
+				$config['upload_path']  = './uploads/users/';
+				$config['allowed_types'] = '*';
+		 
+				$this->load->library('upload', $config);
+			
+				if ($this->upload->do_upload('file')) {
+					$temp = $this->upload->data();
+					$image_url = $image_url.$temp['file_name'];
+				}
 
-			$result = $this->user->signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image_url);
-			if ($result) {
-				$json_response = array( 'returnMessage'=>'User account successfully created',
-							   			'returnValue'=>'SUCCESS');   
-					
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+				$result = $this->user->signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image_url);
+				if ($result) {
+					$json_response = array( 'returnMessage'=>'User account successfully created',
+								   			'returnValue'=>'SUCCESS');   
+						
+					$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
+				}
+				else {
+					$json_response = array('returnMessage'=>'Unable to add user',
+										   'returnValue'=>'FAILURE');    
+
+					$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+				}
 			}
 			else {
-				$json_response = array('returnMessage'=>'Unable to add user',
-									   'returnValue'=>'FAILURE');    
+				$json_response = array('returnMessage' => 'Invalid request parameters',
+									   'returnValue' => 'FAILURE');    
 
 				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
 			}

@@ -109,12 +109,10 @@
 	    } 
 		
 		public function countTodays_trainings() {
-			$day = date('d');
-			$month = date('m');
-			$year = date('Y');
+			$today = date('Y-m-d');
 			$this->db->select("count(*) as trainings_count");
 			$this->db->from("trainings as a");
-			$this->db->where("EXTRACT(YEAR FROM a.to_date) = $year and EXTRACT(MONTH FROM a.to_date) = $month and EXTRACT(DAY FROM a.to_date) = $day");
+			$this->db->where("a.from_date = '$today'");
 			$this->db->limit(0);
 			$query = $this->db->get();
 		   
@@ -266,6 +264,22 @@
 		}
 
 		//*********************************************
+		public function upcoming_events() {
+			$today = date('Y-m-d');
+			$this->db->select('a.*, b.course_name');
+			$this->db->from('trainings as a, course as b');
+			$this->db->where("a.from_date = '$today' and
+							  a.course_id = b.course_id");
+
+			$query = $this->db->get();
+		   
+		    if ($query->num_rows() >= 1) {
+			    return $query->result();
+		    }
+		    else {
+			    return false;
+		    }
+		}
   	}
 ?>
 

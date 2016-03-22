@@ -71,6 +71,7 @@
 							if (response.data.returnValue == 'SUCCESS') {
 								toastr.success(response.data.returnMessage);
 								$scope.load();
+								angular.element(document.getElementById('aide')).scope();
 							}
 							else {
 								toastr.error(response.data.returnMessage);

@@ -37,8 +37,10 @@
 					});
 				}
 				else {
+					$scope.data.delegate_id = 0;
+					$scope.data.training_id = 0;
 					toastr.error('Participant is existing to this training. No need to add.');
-					$scope.delegateList.splice(index, 1);
+					//$scope.delegateList.splice(index, 1);
 				}
 			});
 		}
