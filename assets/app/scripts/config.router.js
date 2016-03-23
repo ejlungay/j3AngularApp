@@ -22,8 +22,8 @@ angular.module('app')
                 }
             });
             /*var temp = document.cookie.split(';');
-            var username = '';
-            if (temp != null) {
+              var username = '';
+              if (temp != null) {
                 for (var i = 0; i < temp.length; i++) {
                     if (temp[i].indexOf("username") > -1) {
                         username = temp[i].split('=');
