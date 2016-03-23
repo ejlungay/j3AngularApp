@@ -26,9 +26,8 @@
 				}
 			}
 
-			userFactory.logout(username[1]).then(function(response) {
-				document.cookie = 'previous_url=';
-				window.location = 'index.php';
+			userFactory.logout().then(function(response) {
+				window.location.reload();
 			});
 		}
 	});

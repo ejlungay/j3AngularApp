@@ -20,23 +20,28 @@
       }
 
       function login($username, $password) { 
-       //encrypting password
-        $cost = 10;
-        $salt = base64_encode('authentication');
-        $salt = "$2a$%02d$".$cost.$salt;
-        $hash = crypt($password, $salt);
-
-        $this -> db -> select('*');
-        $this -> db -> from('users as a');
-        $this -> db -> where("UPPER(a.username) = UPPER('$username') and
-                              a.password = '$hash' and
-                              a.status = 'ACTIVE'");
-        $this -> db -> limit(1);
-       
-        $query = $this -> db -> get();
-       
-        if($query -> num_rows() == 1) {
-          return $query->result();
+        $password_from_db = $this->get_password($username);
+        if ($password_from_db != null) {
+          if (hash_equals($password_from_db, crypt($password, $password_from_db)) ) {
+            // Ok!
+            $this -> db -> select('*');
+            $this -> db -> from('users as a');
+            $this -> db -> where("UPPER(a.username) = UPPER('$username') and
+                                  a.status = 'ACTIVE'");
+            $this -> db -> limit(1);
+           
+            $query = $this -> db -> get();
+           
+            if($query -> num_rows() == 1) {
+              return $query->result();
+            }
+            else {
+              return false;
+            }
+          }
+          else {  
+            return false;
+          }
         }
         else {
           return false;
@@ -178,8 +183,8 @@
      public function signup($username, $password, $firstname, $lastname, $middlename, $user_type, $image) {
         //encrypting password
         $cost = 10;
-        $salt = base64_encode('authentication');
-        $salt = "$2a$%02d$".$cost.$salt;
+        $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+        $salt = sprintf("$2a$%02d$", $cost) . $salt;
         $hash = crypt($password, $salt);
 
         $data = array (

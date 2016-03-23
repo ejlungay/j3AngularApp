@@ -51,6 +51,7 @@
 	*/
 	$route['default_controller'] = 'users';
 	$route['home'] = 'main/home';
+	$route['login'] = 'main/index';
 	$route['404_override'] = '';
 
 	//routing user
@@ -68,8 +69,13 @@
 	$route['filter_users']['get'] = 'users/filterUsers';
 	//----------------------- 
 	$route['current_user'] = 'users/retrieve_user';
-	$route['destroy_user'] = 'users/destroy_session';
-	$route['isLoggedIn'] = 'users/isLoggedIn';
+	$route['destroy_user']['delete'] = 'users/destroy_session';
+	$route['isLoggedIn']['get'] = 'users/isLoggedIn';
+
+	//login methold 2
+	$route['login_2']['post'] = 'users/login_method_2';
+	$route['user'] = 'users/retrieve_session';
+
 
 	//course routes
 	$route['add_course']['post'] = 'course_controller/add_course';

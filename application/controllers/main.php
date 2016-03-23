@@ -18,13 +18,27 @@ class Main extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	function __construct() {
+		parent::__construct();
+
+		$this->load->helper('url');
+		$this->load->library('session');
+		$this->load->library('form_validation');
+    }
+
 	public function index()
 	{
 		$this->load->view('login');
 	}
 
 	public function home()
-	{
-		$this->load->view('home');
+	{	
+		if($this->session->userdata('authentication')) {
+			$this->load->helper('url');
+			$this->load->view('home');
+		}else{
+			redirect('login', 'refresh');
+		}
 	}
 }

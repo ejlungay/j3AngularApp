@@ -5,6 +5,7 @@ class Users extends CI_Controller {
 		parent::__construct();
 		$this->load->model('user','',TRUE);
 		$this->load->helper('url');
+		$this->load->library('form_validation');
 		//enabling CORS
 		header('Access-Control-Allow-Origin: *');
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
@@ -50,30 +51,8 @@ class Users extends CI_Controller {
 	}
 	//function to destroy user session
 	function destroy_session() {
-		$this->load->helper('file');
-		$username = $this->input->get('username');
-		if ($username != null) {
-			$file = './21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt';
-			if (file_exists($file)) {
-				unlink($file);
-				$json_response = array('returnMessage' => 'Sucessfully logged out',
-									   'returnValue' => 'SUCCESS');    
-
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
-			}
-			else {
-				$json_response = array('returnMessage' => 'User data does not exist',
-									   'returnValue' => 'FAILURE');    
-
-				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
-			}
-		}
-		else {
-			$json_response = array('returnMessage' => 'Invalid request parameters',
-									   'returnValue' => 'FAILURE');    
-
-			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
-		}
+		$this->session->unset_userdata('authentication');
+		redirect('login', 'refresh');
 	}
 	
     function signin() {
@@ -151,86 +130,10 @@ class Users extends CI_Controller {
 	
 	//function to check if user is logged in
 	function isLoggedIn() {
-		$this->load->helper('file');
-		//get the username
-		$username = $this->input->get('username');
-		if ($username != null) {
-			//set the timezone as asia/manila or utc+8
-			date_default_timezone_set('Asia/Manila');
-			//check if there is a file having username as the filename
-			if (file_exists('./21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt')) {
-				//read the text file containing user info.
-				$user_data = read_file('./21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt');
-				if ($user_data != null) {
-					$temp = explode(";", $user_data);
-					//get the clients IP address and compare it to the last IP he/she used
-					$current_ip = '';
-					if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-						$current_ip = $_SERVER['HTTP_CLIENT_IP'];
-					} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-						$current_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-					} else {
-						$current_ip = $_SERVER['REMOTE_ADDR'];
-					}
-					//get the previous IP address from the text file
-					$prev_ip = $temp[1];
-					//now compare the two IPs
-					if ($prev_ip == $current_ip) {
-						//get current date and time
-						$now = date('Y-m-d H:i:s', time());
-						//subtract date ******************************
-						//load the external library
-						$this->load->library('dateoperations');
-						//define the limit time; 5 minutes is the allowed allowance
-						$limit = $this->dateoperations->subtract($now,'minute', 30); // 5 minutes expiry
-						if ($temp[2] < $limit) { 
-							//check if theres a file having username as the filename
-							unlink('./21232f297a57a5a743894a0e4a801fc3/'.$username.'.txt');
-							// the user session has expired for 5 minutes, return false
-							$json_response = array('uid' => $temp[0],
-												   'returnMessage'=>'You are not logged in anymore',
-												   'returnValue'=>'FALSE');   
-									
-							$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-						}
-						else {
-							//user is still logged in
-							$json_response = array('uid' => $temp[0],
-												   'returnMessage'=>'User still logged in',
-												   'expiry' => $this->dateoperations->sum($temp[2],'minute',5),
-												   'returnValue'=>'TRUE');   
-									
-							$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-						}
-					}
-					else {
-						//It seems that ip addresses are different, make the user log in again
-						$json_response = array('returnMessage'=>'Please login to continue',
-											   'returnValue'=>'FALSE');   
-								
-						$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-					}
-				}
-				else {	
-					// no logged in data
-					$json_response = array('returnMessage'=>'Please login to continue',
-										   'returnValue'=>'FALSE');   
-							
-					$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-				}
-			}
-			else {
-				// no logged in data
-					$json_response = array('returnMessage'=>'Please login to continue',
-										   'returnValue'=>'FALSE');   
-							
-					$this->output->set_content_type('application/json')->set_output(json_encode($json_response)); 
-			}
-		}
-		else {
-			$json_response = array('returnMessage' => 'Invalid request parameters',
-								   'returnValue' => 'FAILURE');
-			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+		if($this->session->userdata('authentication')) {
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->session->userdata('authentication'))); 
+		}else{
+			redirect('login', 'refresh');
 		}
 	}
 	
@@ -654,5 +557,119 @@ class Users extends CI_Controller {
     		}
     	}
     }
+
+    function login_method_2() {
+    	$this->load->library('session');
+
+    	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+
+		if ($this->form_validation->run() == FALSE) {
+			if($this->session->has_userdata($this->input->post('username'))) {
+				//$this->load->view('home');
+				redirect('home', 'refresh');
+			}
+			else{
+				$this->load->view('login');
+			}
+		} 
+		else {
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+
+			$result = $this->user->login($username, $password);
+			if ($result) {
+				date_default_timezone_set('Asia/Manila');
+
+	    		foreach ($result as $row)
+	    		$data = array(
+	    			'username' => $row->username,
+	    			'uid' => $row->uid,
+	    			'time' => date('Y-m-d H:i:s', time())
+	     		);
+
+	    		$this->session->set_userdata('authentication', $data);
+
+				redirect('home', 'refresh');
+				// $this->load->view('home');
+			} 
+			else {
+				$data = array(
+				'error_message' => 'Invalid Username or Password'
+				);
+				$this->load->view('login', $data);
+			}
+		}
+
+    	/*
+    	$this->load->library('form_validation');
+    	$this->load->library('session');
+
+    	$username = $this->input->post('username');
+    	$password = $this->input->post('password');
+
+    	if ($username != null && $password != null) {
+    		$result = $this->user->login($username, $password);
+
+    		if ($result) {
+    			date_default_timezone_set('Asia/Manila');
+
+    			foreach ($result as $row)
+    			$data = array(
+    				'username' => $row->username,
+    				'uid' => $row->uid,
+    				'time' => date('Y-m-d H:i:s', time())
+     			);
+
+    			$this->session->set_userdata($username, $data);
+
+    			$json_response = array(
+    					'data' => $result,
+						'returnMessage' => 'Successfully logged in.',
+						'returnValue' => 'SUCCESS'
+				);    
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+    		}
+    		else {
+    			$json_response = array(
+						'returnMessage' => 'Invalid username or password',
+						'returnValue' => 'FAILURE'
+				);    
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+    		}
+    	}
+    	else {
+    		$json_response = array(
+						'returnMessage' => 'Invalid request parameters',
+						'returnValue' => 'FAILURE'
+			);    
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+    	}*/
+    }
+
+    function retrieve_session() {
+    	$username = $this->input->get('username');
+    	if ($username != null) {
+	    	if ($this->session->has_userdata($username)) {
+				$this->output->set_content_type('application/json')->set_output(json_encode($this->session->userdata($username)));
+	    	}
+	    	else {
+	    		$json_response = array(
+							'returnMessage' => 'No user data  found',
+							'returnValue' => 'FAILURE'
+				);    
+				$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+	    	}
+	    }
+	    else {
+    		$json_response = array(
+						'returnMessage' => 'Invalid request parameters',
+						'returnValue' => 'FAILURE'
+			);    
+			$this->output->set_content_type('application/json')->set_output(json_encode($json_response));
+    	}
+    	
+    }
+
  }
 ?>

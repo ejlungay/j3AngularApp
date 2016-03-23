@@ -31,5 +31,4 @@ angular.module('app', [
 	'mwl.calendar',
 	'camera',
 	'ngFileUpload',
-    'ng-mfb'
   ]);

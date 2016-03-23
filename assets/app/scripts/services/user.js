@@ -27,7 +27,7 @@ angular.module('app')
 
             isLoggedIn: function(username) {
                 return $http({
-                    url: 'isLoggedIn?username=' + username,
+                    url: 'isLoggedIn',
                     method: 'GET'
                 }).success(function(response) {
                     return response.data;
@@ -114,10 +114,10 @@ angular.module('app')
                 });
             },
             
-            logout: function(username) {
+            logout: function() {
                 return $http({
-                    url: 'destroy_user?username=' + username,
-                    method: 'GET'
+                    url: 'destroy_user',
+                    method: 'DELETE'
                 }).success(function(response) {
                     document.cookie = 'username=';
                     return response.data;
